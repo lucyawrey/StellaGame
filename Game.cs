@@ -1,7 +1,7 @@
 using Godot;
 using GodotInk;
 
-public partial class Story : VBoxContainer
+public partial class Game : VBoxContainer
 {
 	[Export]
 	private InkStory story;
