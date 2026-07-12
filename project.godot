@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="stella_game"
-run/main_scene="uid://yte158na6adk"
+run/main_scene="uid://bbdm60akwvchh"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

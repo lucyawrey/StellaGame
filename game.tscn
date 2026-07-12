@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://yte158na6adk"]
+[gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
-[node name="Game" type="Node2D" unique_id=1838535148]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://Story.cs" id="1_e2o6t"]
+[ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
+
+[node name="Game" type="VBoxContainer" unique_id=566728507]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_e2o6t")
+story = ExtResource("2_feb5d")
