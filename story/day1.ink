@@ -60,7 +60,7 @@ Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room t
 ~ play_sound("click")
 ~ delay(0.3)
 ~ play_music("morning")
-Stella.Narrator: I take a breath while running my fingers through blonde hair.
+Stella.Narrator: I take a breath while running my fingers through my hair.
 Stella.Narrator: It's damp from sweat and, somehow, even messier than normal.
 Stella.Narrator: I need to check where I'm supposed to be today. And get out of these sweaty pajamas and into the shower.
 -> act
@@ -102,7 +102,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
     ++ ->
         There's nothing left to do here.
 + [Talk]
-    Stella: There's nobody here but me, right?
+    Stella: There's one here but me, right?
 + [Move]
     ++ [Bathroom]
         ~ play_sound("move")
@@ -122,12 +122,23 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
 {day_1_bathroom > 1: -> act | -> enter}
 
 = enter
-Enter bathroom.
+Stella.Narrator: I open the bathroom door and step inside.
+Stella.Narrator: It's clean enough, but small and very cluttered.
+Stella.Narrator: I should have taken a bath last night, but now I don't have time for much more than a quick shower.
 -> act
 
 = act
 + [Act]
+    ** (investigate_bathroom) [Investigate bathroom]
+    ** (mirror) [Look in the mirror]
+    ** (take_shower) [Take a shower]
+    ** (brush_teeth) [Brush teeth]
+    ** (fix_hair) {take_shower} [Fix hair]
+    ** (do_makeup) {fix_hair} [Do makeup]
+        Stella.Narrator: No time.
+    ++ {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !do_makeup} [Do nothing]
 + [Talk]
+    Theres no one here.
 + [Move]
     ++ [Bedroom]
         ~ play_sound("move")
@@ -155,7 +166,7 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
         +++ [Do not] -> act
     ++ [Do nothing]
 + [Talk]
-    Stella: Nobody to talk to. Actually makes me kinda want to leave home.
+    Stella: Nobody to talk to. Makes me want to actually leave home.
 + [Move]
     ++ [Bedroom]
         ~ play_sound("move")
