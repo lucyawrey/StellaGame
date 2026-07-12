@@ -1,10 +1,13 @@
 using Godot;
 using GodotInk;
 
-public partial class Game : VBoxContainer
+public partial class Story : VBoxContainer
 {
 	[Export]
 	private InkStory story;
+
+	[Export]
+	private MusicPlayer musicPlayer;
 
 	public override void _Ready()
 	{
@@ -53,51 +56,51 @@ public partial class Game : VBoxContainer
 		AddChild(grid);
 	}
 
-	public static void Clear()
-	{
-		GD.Print("Clear");
-	}
-	public static void Background(string imageName)
-	{
-		GD.Print("Background: " + imageName);
-	}
-	public static void PlayMusic(string songName)
+	private void Clear()
 	{
 
 	}
-	public static void PauseMusic()
+	private void Background(string imageName)
 	{
 
 	}
-	public static void PlaySound(string soundName)
+	private void PlayMusic(string songName)
+	{
+		musicPlayer.PlaySongByName(songName);
+	}
+	private void PauseMusic()
 	{
 
 	}
-	public static void Auto()
+	private void PlaySound(string soundName)
 	{
 
 	}
-	public static void Delay(float timeInSeconds)
+	private void Auto()
 	{
 
 	}
-	public static string GetDate(int gameDay)
+	private void Delay(float timeInSeconds)
+	{
+
+	}
+	private string GetDate(int gameDay)
 	{
 		return "October 4th, 2097";
 	}
-	public static bool GetDebugMode(bool isDebugMode)
+	private bool GetDebugMode(bool isDebugMode)
 	{
 		return isDebugMode;
 	}
-	public static void AddItem(string itemName, int quantity)
+	private void AddItem(string itemName, int quantity)
 	{
 
 	}
-	public static bool CheckItem(string itemName, int quantity)
+	private bool CheckItem(string itemName, int quantity)
 	{
 		return true;
 	}
-	public static void RemoveItem(string itemName, int quantity)
+	private void RemoveItem(string itemName, int quantity)
 	{
 
 	}

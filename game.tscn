@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
-[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://Game.cs" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/Story.cs" id="1_e2o6t"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/MusicPlayer.cs" id="3_feb5d"]
 
-[node name="Game" type="VBoxContainer" unique_id=566728507]
+[node name="Game" type="Node" unique_id=104418161]
+
+[node name="Story" type="VBoxContainer" parent="." unique_id=566728507 node_paths=PackedStringArray("musicPlayer")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
+musicPlayer = NodePath("../MusicPlayer")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
+script = ExtResource("3_feb5d")
