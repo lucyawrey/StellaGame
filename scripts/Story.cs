@@ -1,10 +1,13 @@
 using Godot;
 using GodotInk;
 
-public partial class Story : VBoxContainer
+public partial class Story : Node
 {
 	[Export]
 	private InkStory story;
+
+	[Export]
+	private VBoxContainer ui;
 
 	[Export]
 	private AudioPlayer audioPlayer;
@@ -29,7 +32,7 @@ public partial class Story : VBoxContainer
 
 	private void FreeChildren()
 	{
-		foreach (Node child in GetChildren())
+		foreach (Node child in ui.GetChildren())
 		{
 			child.QueueFree();
 		}
@@ -54,10 +57,10 @@ public partial class Story : VBoxContainer
 			}
 
 			Label text = new() { Text = content };
-			AddChild(text);
+			ui.AddChild(text);
 			Button button = new() { Text = "Continue" };
 			button.Pressed += Continue;
-			AddChild(button);
+			ui.AddChild(button);
 			audioPlayer.PlaySound("click");
 		}
 		else if (story.CurrentChoices.Count > 0)
@@ -70,14 +73,14 @@ public partial class Story : VBoxContainer
 					story.ChooseChoiceIndex(choice.Index);
 					Continue();
 				};
-				AddChild(button);
+				ui.AddChild(button);
 				audioPlayer.PlaySound("click");
 			}
 		}
 		else
 		{
 			Label text = new() { Text = "THE END" };
-			AddChild(text);
+			ui.AddChild(text);
 		}
 	}
 

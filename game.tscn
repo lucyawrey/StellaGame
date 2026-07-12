@@ -9,9 +9,12 @@
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="Story" type="VBoxContainer" parent="." unique_id=566728507 node_paths=PackedStringArray("audioPlayer")]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
+ui = NodePath("../UI")
 audioPlayer = NodePath("../AudioPlayer")
+
+[node name="UI" type="VBoxContainer" parent="." unique_id=1684265426]
+offset_right = 40.0
+offset_bottom = 40.0
