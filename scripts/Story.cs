@@ -38,6 +38,8 @@ public partial class Story : VBoxContainer
 	private void Continue()
 	{
 		FreeChildren();
+		audioPlayer.PlaySound("click");
+
 		if (story.GetCanContinue())
 		{
 			string content = story.Continue();
@@ -99,7 +101,7 @@ public partial class Story : VBoxContainer
 	}
 	private void PlaySound(string soundName)
 	{
-
+		audioPlayer.PlaySound(soundName);
 	}
 	private void Auto()
 	{

@@ -15,6 +15,11 @@ public partial class AudioPlayer : AudioStreamPlayer
         { "typhoon_parade", GD.Load<AudioStream>("res://assets/music/typhoon_parade.mp3") },
     };
 
+    private Dictionary<string, AudioStream> soundEffectLibrary = new()
+    {
+        { "click", GD.Load<AudioStream>("res://assets/sound_effects/click.wav") },
+    };
+
     public override void _Ready()
     {
         Stream = new AudioStreamPolyphonic();
@@ -43,5 +48,17 @@ public partial class AudioPlayer : AudioStreamPlayer
     public void StopMusic()
     {
         playback.Stop();
+    }
+
+    public void PlaySound(string soundName)
+    {
+        if (soundEffectLibrary.TryGetValue(soundName, out AudioStream sound))
+        {
+            currentSongId = playback.PlayStream(sound);
+        }
+        else
+        {
+            GD.Print($"Sound not found: {soundName}");
+        }
     }
 }
