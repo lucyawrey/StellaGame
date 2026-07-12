@@ -4,7 +4,7 @@ INCLUDE day1.ink
 INCLUDE external.ink
 
 // Constants
-VAR none = -1
+VAR none = "none"
 //Variables
 VAR day = 1
 

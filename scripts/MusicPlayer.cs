@@ -16,6 +16,7 @@ public partial class MusicPlayer : AudioStreamPlayer
             {
                 return;
             }
+            Stop();
             Stream = songStream;
             Play();
         }

@@ -62,7 +62,10 @@ public partial class Story : VBoxContainer
 	}
 	private void Background(string imageName)
 	{
-
+		if (imageName == "none")
+		{
+			return;
+		}
 	}
 	private void PlayMusic(string songName)
 	{
@@ -70,7 +73,7 @@ public partial class Story : VBoxContainer
 	}
 	private void PauseMusic()
 	{
-
+		musicPlayer.Stop();
 	}
 	private void PlaySound(string soundName)
 	{
