@@ -7,14 +7,14 @@ public partial class Story : VBoxContainer
 	private InkStory story;
 
 	[Export]
-	private MusicPlayer musicPlayer;
+	private AudioPlayer audioPlayer;
 
 	public override void _Ready()
 	{
 		story.BindExternalFunction("clear", new Callable(this, "Clear"));
 		story.BindExternalFunction("background", new Callable(this, "Background"));
 		story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
-		story.BindExternalFunction("pause_music", new Callable(this, "PauseMusic"));
+		story.BindExternalFunction("stop_music", new Callable(this, "StopMusic"));
 		story.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
 		story.BindExternalFunction("auto", new Callable(this, "Auto"));
 		story.BindExternalFunction("delay", new Callable(this, "Delay"));
@@ -24,18 +24,23 @@ public partial class Story : VBoxContainer
 		story.BindExternalFunction("check_item", new Callable(this, "CheckItem"));
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
-		ContinueStory();
+		Callable.From(ContinueStory).CallDeferred();
 	}
 
-	private void ContinueStory()
+	private void FreeChildren()
 	{
-		GridContainer grid = new() { Columns = 2 };
-
-		GridContainer left = new();
 		foreach (Node child in GetChildren())
 		{
 			child.QueueFree();
 		}
+	}
+
+	private void ContinueStory()
+	{
+		FreeChildren();
+		GridContainer grid = new() { Columns = 2 };
+		GridContainer left = new();
+
 		Label content = new() { Text = story.ContinueMaximally() };
 		left.AddChild(content);
 
@@ -69,11 +74,11 @@ public partial class Story : VBoxContainer
 	}
 	private void PlayMusic(string songName)
 	{
-		musicPlayer.PlaySongByName(songName);
+		audioPlayer.PlayMusic(songName);
 	}
-	private void PauseMusic()
+	private void StopMusic()
 	{
-		musicPlayer.Stop();
+		audioPlayer.StopMusic();
 	}
 	private void PlaySound(string soundName)
 	{

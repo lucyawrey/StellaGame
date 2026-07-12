@@ -1,7 +1,7 @@
 EXTERNAL clear()
 EXTERNAL background(image)
 EXTERNAL play_music(song)
-EXTERNAL pause_music()
+EXTERNAL stop_music()
 EXTERNAL play_sound(sound)
 EXTERNAL auto()
 EXTERNAL delay(time)
@@ -20,7 +20,7 @@ EXTERNAL remove_item(item, quantity)
 === function play_music(song)
 ~ return
 
-=== function pause_music()
+=== function stop_music()
 ~ return
 
 === function play_sound(sound)

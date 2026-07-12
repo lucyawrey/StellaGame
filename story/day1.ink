@@ -56,7 +56,7 @@ Stella.Narrator: But eventually, I resolve myself to fate.
 Stella.Narrator: I could use a cold shower anyway. Might help with the nausea.
 Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room to turn off that cursed alarm clock.
 ~ delay(0.3)
-~ pause_music()
+// ~ stop_music()
 ~ play_sound("click_2")
 ~ delay(0.3)
 ~ play_music("morning")
