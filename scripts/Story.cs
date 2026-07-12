@@ -24,7 +24,7 @@ public partial class Story : VBoxContainer
 		story.BindExternalFunction("check_item", new Callable(this, "CheckItem"));
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
-		Callable.From(ContinueStory).CallDeferred();
+		Callable.From(Continue).CallDeferred();
 	}
 
 	private void FreeChildren()
@@ -35,30 +35,47 @@ public partial class Story : VBoxContainer
 		}
 	}
 
-	private void ContinueStory()
+	private void Continue()
 	{
 		FreeChildren();
-		GridContainer grid = new() { Columns = 2 };
-		GridContainer left = new();
-
-		Label content = new() { Text = story.ContinueMaximally() };
-		left.AddChild(content);
-
-		GridContainer right = new();
-		foreach (InkChoice choice in story.CurrentChoices)
+		if (story.GetCanContinue())
 		{
-			Button button = new() { Text = choice.Text };
-			button.Pressed += delegate
-			{
-				story.ChooseChoiceIndex(choice.Index);
-				ContinueStory();
-			};
-			right.AddChild(button);
-		}
+			string content = story.Continue();
 
-		grid.AddChild(left);
-		grid.AddChild(right);
-		AddChild(grid);
+			if (string.IsNullOrWhiteSpace(content))
+			{
+				Continue();
+				return;
+			}
+			if (content == "_")
+			{
+				content = string.Empty;
+			}
+
+			Label text = new() { Text = content };
+			AddChild(text);
+			Button button = new() { Text = "Continue" };
+			button.Pressed += Continue;
+			AddChild(button);
+		}
+		else if (story.CurrentChoices.Count > 0)
+		{
+			foreach (InkChoice choice in story.CurrentChoices)
+			{
+				Button button = new() { Text = choice.Text };
+				button.Pressed += delegate
+				{
+					story.ChooseChoiceIndex(choice.Index);
+					Continue();
+				};
+				AddChild(button);
+			}
+		}
+		else
+		{
+			Label text = new() { Text = "THE END" };
+			AddChild(text);
+		}
 	}
 
 	private void Clear()

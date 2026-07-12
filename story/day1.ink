@@ -23,7 +23,7 @@ Dream: Yet, you know it is coming for you all the same.
 // Show aborted slashing animation
 // Play sound effect
 Stella.Dream: Not like this.
-~ show_date()
+-> date ->
 -> day_1_bedroom
 
 === day_1_bedroom

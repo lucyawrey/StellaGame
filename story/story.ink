@@ -17,7 +17,7 @@ VAR debug_mode = false
 === start
 -> day_1_dream
 
-=== function show_date
+=== date
 Card: Day {day}
 Card: {get_date(day)}
-~ return
+->->
