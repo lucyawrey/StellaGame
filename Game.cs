@@ -8,6 +8,19 @@ public partial class Game : VBoxContainer
 
 	public override void _Ready()
 	{
+		story.BindExternalFunction("clear", new Callable(this, "Clear"));
+		story.BindExternalFunction("background", new Callable(this, "Background"));
+		story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
+		story.BindExternalFunction("pause_music", new Callable(this, "PauseMusic"));
+		story.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
+		story.BindExternalFunction("auto", new Callable(this, "Auto"));
+		story.BindExternalFunction("delay", new Callable(this, "Delay"));
+		story.BindExternalFunction("get_date", new Callable(this, "GetDate"));
+		story.BindExternalFunction("get_debug_mode", new Callable(this, "GetDebugMode"));
+		story.BindExternalFunction("add_item", new Callable(this, "AddItem"));
+		story.BindExternalFunction("check_item", new Callable(this, "CheckItem"));
+		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
+
 		ContinueStory();
 	}
 
@@ -38,5 +51,54 @@ public partial class Game : VBoxContainer
 		grid.AddChild(left);
 		grid.AddChild(right);
 		AddChild(grid);
+	}
+
+	public static void Clear()
+	{
+		GD.Print("Clear");
+	}
+	public static void Background(string imageName)
+	{
+		GD.Print("Background: " + imageName);
+	}
+	public static void PlayMusic(string songName)
+	{
+
+	}
+	public static void PauseMusic()
+	{
+
+	}
+	public static void PlaySound(string soundName)
+	{
+
+	}
+	public static void Auto()
+	{
+
+	}
+	public static void Delay(float timeInSeconds)
+	{
+
+	}
+	public static string GetDate(int gameDay)
+	{
+		return "October 4th, 2097";
+	}
+	public static bool GetDebugMode(bool isDebugMode)
+	{
+		return isDebugMode;
+	}
+	public static void AddItem(string itemName, int quantity)
+	{
+
+	}
+	public static bool CheckItem(string itemName, int quantity)
+	{
+		return true;
+	}
+	public static void RemoveItem(string itemName, int quantity)
+	{
+
 	}
 }
