@@ -73,7 +73,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         Stella.Narrator: I think this is everything I own.
         *** (pick_up_clothes) [Pick up clothes]
             ~ add_item("clothes_pile", 1)
-            Stella put all of the clothes in her "pocket".
+            Stella put all of the clothes in her pocket.
         *** [Do not]
             This is where they belong.
             Stella.Narrator: I might put them away properly later.
