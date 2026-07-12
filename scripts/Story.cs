@@ -38,11 +38,10 @@ public partial class Story : VBoxContainer
 	private void Continue()
 	{
 		FreeChildren();
-		audioPlayer.PlaySound("click");
 
 		if (story.GetCanContinue())
 		{
-			string content = story.Continue();
+			string content = story.Continue().Trim();
 
 			if (string.IsNullOrWhiteSpace(content))
 			{
@@ -59,6 +58,7 @@ public partial class Story : VBoxContainer
 			Button button = new() { Text = "Continue" };
 			button.Pressed += Continue;
 			AddChild(button);
+			audioPlayer.PlaySound("click");
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
@@ -71,6 +71,7 @@ public partial class Story : VBoxContainer
 					Continue();
 				};
 				AddChild(button);
+				audioPlayer.PlaySound("click");
 			}
 		}
 		else

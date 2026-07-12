@@ -1,7 +1,7 @@
 === day_1_dream
 ~ clear()
 ~ background(none)
-~ play_music("dream")
+~ play_music("relaxing_piano_music")
 Dream: You float formless in the space between.
 Dream: It is quiet. It is comfortable. It is vast beyond comprehension.
 Dream: And it is so, so empty.
@@ -56,8 +56,8 @@ Stella.Narrator: But eventually, I resolve myself to fate.
 Stella.Narrator: I could use a cold shower anyway. Might help with the nausea.
 Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room to turn off that cursed alarm clock.
 ~ delay(0.3)
-// ~ stop_music()
-~ play_sound("click_2")
+~ stop_music()
+~ play_sound("click")
 ~ delay(0.3)
 ~ play_music("morning")
 Stella.Narrator: I take a breath while running my fingers through blonde hair.

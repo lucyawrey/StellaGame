@@ -5,19 +5,24 @@ public partial class AudioPlayer : AudioStreamPlayer
 {
     private AudioStreamPlaybackPolyphonic playback;
 
-    private long currentSongId;
+    private long currentSongStreamId;
 
     private string currentSongName;
 
     private Dictionary<string, AudioStream> musicLibrary = new()
     {
-        { "dream", GD.Load<AudioStream>("res://assets/music/dream.mp3") },
+        { "morning", GD.Load<AudioStream>("res://assets/music/morning.mp3") },
+        { "nostalgia", GD.Load<AudioStream>("res://assets/music/nostalgia.mp3") },
+        { "power_of_the_wind", GD.Load<AudioStream>("res://assets/music/power_of_the_wind.mp3") },
+        { "relaxing_piano_music", GD.Load<AudioStream>("res://assets/music/relaxing_piano_music.mp3") },
         { "typhoon_parade", GD.Load<AudioStream>("res://assets/music/typhoon_parade.mp3") },
+        { "woosh", GD.Load<AudioStream>("res://assets/music/woosh.mp3") },
     };
 
     private Dictionary<string, AudioStream> soundEffectLibrary = new()
     {
         { "click", GD.Load<AudioStream>("res://assets/sound_effects/click.wav") },
+        { "land", GD.Load<AudioStream>("res://assets/sound_effects/land.mp3") },
     };
 
     public override void _Ready()
@@ -35,8 +40,8 @@ public partial class AudioPlayer : AudioStreamPlayer
         }
         if (musicLibrary.TryGetValue(songName, out AudioStream song))
         {
-            playback.StopStream(currentSongId);
-            currentSongId = playback.PlayStream(song);
+            StopMusic();
+            currentSongStreamId = playback.PlayStream(song);
             currentSongName = songName;
         }
         else
@@ -47,14 +52,17 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void StopMusic()
     {
-        playback.Stop();
+        if (playback.IsStreamPlaying(currentSongStreamId))
+        {
+            playback.StopStream(currentSongStreamId);
+        }
     }
 
     public void PlaySound(string soundName)
     {
         if (soundEffectLibrary.TryGetValue(soundName, out AudioStream sound))
         {
-            currentSongId = playback.PlayStream(sound);
+            playback.PlayStream(sound);
         }
         else
         {
