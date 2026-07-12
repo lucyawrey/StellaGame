@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bdw05khvh4r1g"
+path="res://.godot/imported/debug.ink-3b19a9324688b90200556b7748c48126.res"
+
+[deps]
+
+source_file="res://story/debug.ink"
+dest_files=["res://.godot/imported/debug.ink-3b19a9324688b90200556b7748c48126.res"]
+
+[params]
+
+is_main_file=false
+compress=true

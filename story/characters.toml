@@ -1,0 +1,62 @@
+[Base]
+name = "Base Character"
+name_color= "#999999"
+text_color = "#ffffff"
+text_speed = 1
+prefix = ""
+suffix = ""
+sound = "click"
+sound_pitch = 1
+sound_spacing = 4
+background = "box"
+background_alt = "box_alt"
+fullscreen = false
+font = "dialogue"
+
+[Narrator]
+name = ""
+
+[Dream]
+name = ""
+background = ""
+
+[Card]
+name = ""
+background = ""
+text_speed = 0.05
+sound_spacing = 1
+sound_pitch = 1.2
+fullscreen = true
+font = "dialogue_large"
+
+[Stella]
+name_color = "#e3e06f"
+sound_pitch = 1.3
+
+[Stella.forms.Dream]
+name = ""
+background = ""
+text_color = "#e3e06f"
+
+[Stella.forms.Narrator]
+name = ""
+text_color = "#e3e06f"
+prefix = "("
+suffix = ")"
+
+[Azalea]
+name_color = "#1fad46"
+sound_pitch = 1.8
+
+[Giovanni]
+name_color = "#8a3812"
+
+[Olivia]
+name_color = "#c46e1d"
+
+[Evelyn]
+name_color = "#0a940a"
+
+[Slow]
+text_speed = 0.05
+sound_spacing = 1
