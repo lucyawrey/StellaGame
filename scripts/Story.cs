@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Godot;
+using Godot.Collections;
 using GodotInk;
 
 public partial class Story : Node
@@ -20,13 +21,15 @@ public partial class Story : Node
 	private RichTextLabel nameLabel;
 
 	[Export]
-	private Button[] choiceButtons;
+	private Array<Button> choiceButtons;
 
 	[Export]
 	private BoxContainer choicesBox;
 
 	[Export]
 	private BackgroundImage backgroundImage;
+
+	private CharacterManager characterManager = new();
 
 	private bool continueIsLocked = false;
 
@@ -49,7 +52,7 @@ public partial class Story : Node
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
 		// Choice button callback set up
-		for (var i = 0; i < choiceButtons.Length; i++)
+		for (var i = 0; i < choiceButtons.Count; i++)
 		{
 			var choice = i;
 			choiceButtons[i].Pressed += delegate

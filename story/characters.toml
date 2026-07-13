@@ -1,62 +1,62 @@
 [Base]
-name = "Base Character"
-name_color= "#999999"
-text_color = "#ffffff"
-text_speed = 1
-prefix = ""
-suffix = ""
-sound = "click"
-sound_pitch = 1
-sound_spacing = 4
-background = "box"
-background_alt = "box_alt"
-fullscreen = false
-font = "dialogue"
+Name = "Base"
+NameColor = "#999999"
+TextColor = "#ffffff"
+Font = "base"
+FontSize = 30
+TextSpeed = 1
+Prefix = ""
+Suffix = ""
+TextSound = "click"
+TextSoundPitch = 1
+TextSoundSpacing = 4
+Fullscreen = false
+Theme = "base"
 
 [Narrator]
-name = ""
+Name = ""
 
 [Dream]
-name = ""
-background = ""
+Name = ""
+Theme = "none"
 
 [Card]
-name = ""
-background = ""
-text_speed = 0.05
-sound_spacing = 1
-sound_pitch = 1.2
-fullscreen = true
-font = "dialogue_large"
+Name = ""
+FontSize = 40
+TextSpeed = 0.1
+TextSoundPitch = 1.2
+TextSoundSpacing = 1
+Fullscreen = true
+Theme = "none"
 
 [Stella]
-name_color = "#e3e06f"
-sound_pitch = 1.3
+NameColor = "#e3e06f"
+TextSoundPitch = 1.3
 
-[Stella.forms.Dream]
-name = ""
-background = ""
-text_color = "#e3e06f"
+[Stella.Forms.Dream]
+Name = ""
+TextColor = "#e3e06f"
+Theme = "none"
 
-[Stella.forms.Narrator]
-name = ""
-text_color = "#e3e06f"
-prefix = "("
-suffix = ")"
+[Stella.Forms.Narrator]
+Name = ""
+TextColor = "#e3e06f"
+Prefix = "("
+Suffix = ")"
 
 [Azalea]
-name_color = "#1fad46"
-sound_pitch = 1.8
+NameColor = "#1fad46"
+TextSoundPitch = 1.8
 
 [Giovanni]
-name_color = "#8a3812"
+NameColor = "#8a3812"
 
 [Olivia]
-name_color = "#c46e1d"
+NameColor = "#c46e1d"
 
 [Evelyn]
-name_color = "#0a940a"
+NameColor = "#0a940a"
 
 [Slow]
-text_speed = 0.05
-sound_spacing = 1
+TextSpeed = 0.1
+TextSoundSpacing = 1
