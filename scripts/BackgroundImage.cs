@@ -6,6 +6,7 @@ public partial class BackgroundImage : TextureRect
     private Dictionary<string, Texture2D> backgroundLibrary = new()
     {
         { "cafe", GD.Load<Texture2D>("res://assets/backgrounds/cafe.png") },
+        { "bedroom", GD.Load<Texture2D>("res://assets/backgrounds/bedroom.png") },
     };
 
     public void Set(string imageName)
