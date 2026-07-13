@@ -8,6 +8,18 @@
 [sub_resource type="Theme" id="Theme_lo6c8"]
 default_font_size = 32
 
+[sub_resource type="Theme" id="Theme_fc0e3"]
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_7jktm"]
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_ryrav"]
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_eow3j"]
+default_font_size = 30
+
 [node name="Game" type="Node" unique_id=104418161]
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
@@ -18,7 +30,7 @@ script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
 ui = NodePath("../DynamicInterface")
 audioPlayer = NodePath("../AudioPlayer")
-dialogueLabel = NodePath("../Interface/DialogueBox/Dialogue")
+dialogueLabel = NodePath("../Interface/DialogueBox/DialogueMargin/Dialogue")
 nameBox = NodePath("../Interface/NameBox")
 nameLabel = NodePath("../Interface/NameBox/MarginContainer/Name")
 
@@ -54,6 +66,13 @@ axis_stretch_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/GameBox" unique_id=2012400901]
 layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="BackgroundImage" type="TextureRect" parent="Interface/GameBox/MarginContainer" unique_id=1904857836]
+layout_mode = 2
 
 [node name="DialogueBox" type="PanelContainer" parent="Interface" unique_id=1619528995]
 offset_left = 20.0
@@ -73,11 +92,53 @@ patch_margin_bottom = 7
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Dialogue" type="RichTextLabel" parent="Interface/DialogueBox" unique_id=1108400314]
+[node name="DialogueMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=1718936795]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Dialogue" type="RichTextLabel" parent="Interface/DialogueBox/DialogueMargin" unique_id=1108400314]
 layout_mode = 2
 theme = SubResource("Theme_lo6c8")
 bbcode_enabled = true
 scroll_active = false
+
+[node name="ChoiceMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=518268424]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 24
+
+[node name="Choices" type="VBoxContainer" parent="Interface/DialogueBox/ChoiceMargin" unique_id=483701720]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Choice0" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_fc0e3")
+text = "Choice"
+
+[node name="Choice1" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_7jktm")
+text = "Choice"
+
+[node name="Choice2" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_ryrav")
+text = "Choice"
+
+[node name="Choice3" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_eow3j")
+text = "Choice"
 
 [node name="NameBox" type="PanelContainer" parent="Interface" unique_id=2111548589]
 offset_left = 50.0
