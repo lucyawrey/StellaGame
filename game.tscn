@@ -25,10 +25,9 @@ default_font_size = 30
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
-ui = NodePath("")
 audioPlayer = NodePath("../AudioPlayer")
 dialogueLabel = NodePath("../Interface/DialogueBox/DialogueMargin/Dialogue")
 nameBox = NodePath("../Interface/NameBox")

@@ -1,7 +1,7 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
+using Ink.Parsed;
 
 public partial class Story : Node
 {
@@ -49,9 +49,10 @@ public partial class Story : Node
 		// Choice button callback set up
 		for (var i = 0; i < choiceButtons.Length; i++)
 		{
+			var choice = i;
 			choiceButtons[i].Pressed += delegate
 			{
-				story.ChooseChoiceIndex(i);
+				story.ChooseChoiceIndex(choice);
 				Continue();
 			};
 		}
@@ -75,6 +76,20 @@ public partial class Story : Node
 	{
 		dialogueLabel.Visible = !choiceMode;
 		choicesBox.Visible = choiceMode;
+	}
+
+	private void hideControl(bool hide, Control control)
+	{
+		if (hide)
+		{
+			control.Modulate = new Color(1, 1, 1, 0);
+			control.MouseFilter = Control.MouseFilterEnum.Ignore;
+		}
+		else
+		{
+			control.Modulate = new Color(1, 1, 1, 1);
+			control.MouseFilter = Control.MouseFilterEnum.Stop;
+		}
 	}
 
 	private void Continue()
@@ -109,16 +124,17 @@ public partial class Story : Node
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
+			nameBox.Visible = false;
 			foreach (var button in choiceButtons)
 			{
-				button.Visible = false;
+				hideControl(true, button);
 			}
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
 				setChoiceMode(true);
 				if (choice.Index < 4)
 				{
-					choiceButtons[choice.Index].Visible = true;
+					hideControl(false, choiceButtons[choice.Index]);
 					choiceButtons[choice.Index].Text = choice.Text;
 				}
 			}
