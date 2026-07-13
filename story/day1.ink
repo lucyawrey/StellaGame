@@ -132,11 +132,13 @@ Stella.Narrator: I should have taken a bath last night, but now I don't have tim
     ** (investigate_bathroom) [Investigate bathroom]
     ** (mirror) [Look in the mirror]
     ** (take_shower) [Take a shower]
-    ** (brush_teeth) [Brush teeth]
-    ** (fix_hair) {take_shower} [Fix hair]
-    ** (do_makeup) {fix_hair} [Do makeup]
+    ** (brush_teeth) {take_shower} [Brush teeth]
+    ** (fix_hair) {brush_teeth} [Fix hair]
+    ** (makeup) {fix_hair} [Makeup]
         Stella.Narrator: No time.
-    ++ {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !do_makeup} [Do nothing]
+    ++ {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !makeup} [Do nothing]
+    ++ ->
+        There's nothing left to do here.
 + [Talk]
     Theres no one here.
 + [Move]
@@ -165,6 +167,8 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
         +++ [Sit anyway] -> sitting_on_balcony
         +++ [Do not] -> act
     ++ [Do nothing]
+    ++ ->
+        There's nothing left to do here.
 + [Talk]
     Stella: Nobody to talk to. Makes me want to actually leave home.
 + [Move]
