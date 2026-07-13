@@ -47,14 +47,12 @@ public partial class Story : Node
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
 		// Choice button callback set up
-		var i = 0;
-		foreach (var button in choiceButtons)
+		for (var i = 0; i < choiceButtons.Length; i++)
 		{
-			button.Pressed += delegate
+			choiceButtons[i].Pressed += delegate
 			{
 				story.ChooseChoiceIndex(i);
 				Continue();
-				i++;
 			};
 		}
 
@@ -107,27 +105,28 @@ public partial class Story : Node
 
 			dialogueLabel.Text = content;
 			nameLabel.Text = name;
+			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
+			foreach (var button in choiceButtons)
+			{
+				button.Visible = false;
+			}
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
 				setChoiceMode(true);
 				if (choice.Index < 4)
 				{
+					choiceButtons[choice.Index].Visible = true;
 					choiceButtons[choice.Index].Text = choice.Text;
-				}
-				else
-				{
-					GD.Print($"Too many choices: {choice.Text}");
 				}
 			}
 		}
 		else
 		{
-			// TODO End
+			continueIsLocked = false;
 		}
-		continueIsLocked = false;
 	}
 
 	private void Clear()
