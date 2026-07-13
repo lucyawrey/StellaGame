@@ -3,18 +3,111 @@
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/Story.cs" id="1_e2o6t"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
+[ext_resource type="Texture2D" uid="uid://0nrh2xj3ne77" path="res://assets/ui/box.png" id="4_fc0e3"]
+
+[sub_resource type="Theme" id="Theme_lo6c8"]
+default_font_size = 32
 
 [node name="Game" type="Node" unique_id=104418161]
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
-ui = NodePath("../UI")
+ui = NodePath("../DynamicInterface")
 audioPlayer = NodePath("../AudioPlayer")
+dialogueLabel = NodePath("../Interface/DialogueBox/Dialogue")
+nameBox = NodePath("../Interface/NameBox")
+nameLabel = NodePath("../Interface/NameBox/MarginContainer/Name")
 
-[node name="UI" type="VBoxContainer" parent="." unique_id=1684265426]
+[node name="DynamicInterface" type="VBoxContainer" parent="." unique_id=1684265426]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Interface" type="Node2D" parent="." unique_id=1202810869]
+
+[node name="Background" type="ColorRect" parent="Interface" unique_id=269220503]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="GameBox" type="PanelContainer" parent="Interface" unique_id=885437159]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 420.0
+
+[node name="NineTexture" type="NinePatchRect" parent="Interface/GameBox" unique_id=553157322]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_fc0e3")
+draw_center = false
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/GameBox" unique_id=2012400901]
+layout_mode = 2
+
+[node name="DialogueBox" type="PanelContainer" parent="Interface" unique_id=1619528995]
+offset_left = 20.0
+offset_top = 440.0
+offset_right = 1260.0
+offset_bottom = 700.0
+
+[node name="NineTexture" type="NinePatchRect" parent="Interface/DialogueBox" unique_id=287874153]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_fc0e3")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Dialogue" type="RichTextLabel" parent="Interface/DialogueBox" unique_id=1108400314]
+layout_mode = 2
+theme = SubResource("Theme_lo6c8")
+bbcode_enabled = true
+scroll_active = false
+
+[node name="NameBox" type="PanelContainer" parent="Interface" unique_id=2111548589]
+offset_left = 50.0
+offset_top = 400.0
+offset_right = 150.0
+offset_bottom = 460.0
+
+[node name="NineTexture" type="NinePatchRect" parent="Interface/NameBox" unique_id=665474554]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_fc0e3")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/NameBox" unique_id=898370655]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 0
+
+[node name="Name" type="RichTextLabel" parent="Interface/NameBox/MarginContainer" unique_id=1209673003]
+layout_mode = 2
+theme = SubResource("Theme_lo6c8")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

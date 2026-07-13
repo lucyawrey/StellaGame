@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
 
@@ -11,6 +12,19 @@ public partial class Story : Node
 
 	[Export]
 	private AudioPlayer audioPlayer;
+
+	[Export]
+	private RichTextLabel dialogueLabel;
+
+	[Export]
+	private PanelContainer nameBox;
+
+	[Export]
+	private RichTextLabel nameLabel;
+
+	private bool inputIsLocked = false;
+
+	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
 
 	public override void _Ready()
 	{
@@ -30,6 +44,18 @@ public partial class Story : Node
 		Callable.From(Continue).CallDeferred();
 	}
 
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseEvent)
+		{
+			if (!inputIsLocked && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+			{
+				audioPlayer.PlaySound("click");
+				Continue();
+			}
+		}
+	}
+
 	private void FreeChildren()
 	{
 		foreach (Node child in ui.GetChildren())
@@ -40,28 +66,31 @@ public partial class Story : Node
 
 	private void Continue()
 	{
-		FreeChildren();
+		inputIsLocked = true;
 
 		if (story.GetCanContinue())
 		{
 			string content = story.Continue().Trim();
-
 			if (string.IsNullOrWhiteSpace(content))
 			{
 				Continue();
 				return;
 			}
+			string name = "";
+			var match = characterRegex.Match(content);
+			if (match.Success)
+			{
+				name = match.Groups[1].Value;
+				content = match.Groups[2].Value;
+			}
 			if (content == "_")
 			{
 				content = string.Empty;
 			}
+			nameBox.Visible = !string.IsNullOrWhiteSpace(name);
 
-			Label text = new() { Text = content };
-			ui.AddChild(text);
-			Button button = new() { Text = "Continue" };
-			button.Pressed += Continue;
-			ui.AddChild(button);
-			audioPlayer.PlaySound("click");
+			dialogueLabel.Text = content;
+			nameLabel.Text = name;
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
@@ -82,6 +111,7 @@ public partial class Story : Node
 			Label text = new() { Text = "THE END" };
 			ui.AddChild(text);
 		}
+		inputIsLocked = false;
 	}
 
 	private void Clear()
