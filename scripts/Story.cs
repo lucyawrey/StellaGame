@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
-using Ink.Parsed;
 
 public partial class Story : Node
 {
@@ -25,6 +24,9 @@ public partial class Story : Node
 
 	[Export]
 	private BoxContainer choicesBox;
+
+	[Export]
+	private BackgroundImage backgroundImage;
 
 	private bool continueIsLocked = false;
 
@@ -72,13 +74,13 @@ public partial class Story : Node
 		}
 	}
 
-	private void setChoiceMode(bool choiceMode)
+	private void SetChoiceMode(bool choiceMode)
 	{
 		dialogueLabel.Visible = !choiceMode;
 		choicesBox.Visible = choiceMode;
 	}
 
-	private void hideControl(bool hide, Control control)
+	private void HideControl(bool hide, Control control)
 	{
 		if (hide)
 		{
@@ -104,7 +106,7 @@ public partial class Story : Node
 				Continue();
 				return;
 			}
-			setChoiceMode(false);
+			SetChoiceMode(false);
 			string name = "";
 			var match = characterRegex.Match(content);
 			if (match.Success)
@@ -127,14 +129,14 @@ public partial class Story : Node
 			nameBox.Visible = false;
 			foreach (var button in choiceButtons)
 			{
-				hideControl(true, button);
+				HideControl(true, button);
 			}
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
-				setChoiceMode(true);
+				SetChoiceMode(true);
 				if (choice.Index < 4)
 				{
-					hideControl(false, choiceButtons[choice.Index]);
+					HideControl(false, choiceButtons[choice.Index]);
 					choiceButtons[choice.Index].Text = choice.Text;
 				}
 			}
@@ -151,10 +153,7 @@ public partial class Story : Node
 	}
 	private void Background(string imageName)
 	{
-		if (imageName == "none")
-		{
-			return;
-		}
+		backgroundImage.Set(imageName);
 	}
 	private void PlayMusic(string songName)
 	{

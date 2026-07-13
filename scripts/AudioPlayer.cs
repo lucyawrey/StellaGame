@@ -38,7 +38,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         {
             return;
         }
-        if (musicLibrary.TryGetValue(songName, out AudioStream song))
+        if (musicLibrary.TryGetValue(songName, out var song))
         {
             StopMusic();
             currentSongStreamId = playback.PlayStream(song);
@@ -60,7 +60,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void PlaySound(string soundName)
     {
-        if (soundEffectLibrary.TryGetValue(soundName, out AudioStream sound))
+        if (soundEffectLibrary.TryGetValue(soundName, out var sound))
         {
             playback.PlayStream(sound);
         }
