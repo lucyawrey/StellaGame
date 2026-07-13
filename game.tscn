@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0nrh2xj3ne77" path="res://assets/ui/box.png" id="4_fc0e3"]
 
 [sub_resource type="Theme" id="Theme_lo6c8"]
-default_font_size = 32
+default_font_size = 30
 
 [sub_resource type="Theme" id="Theme_fc0e3"]
 default_font_size = 30
@@ -25,18 +25,16 @@ default_font_size = 30
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("ui", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
-ui = NodePath("../DynamicInterface")
+ui = NodePath("")
 audioPlayer = NodePath("../AudioPlayer")
 dialogueLabel = NodePath("../Interface/DialogueBox/DialogueMargin/Dialogue")
 nameBox = NodePath("../Interface/NameBox")
 nameLabel = NodePath("../Interface/NameBox/MarginContainer/Name")
-
-[node name="DynamicInterface" type="VBoxContainer" parent="." unique_id=1684265426]
-offset_right = 40.0
-offset_bottom = 40.0
+choiceButtons = [NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice3")]
+choicesBox = NodePath("../Interface/DialogueBox/ChoiceMargin/Choices")
 
 [node name="Interface" type="Node2D" parent="." unique_id=1202810869]
 
@@ -120,25 +118,21 @@ theme_override_constants/separation = 4
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_fc0e3")
-text = "Choice"
 
 [node name="Choice1" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_7jktm")
-text = "Choice"
 
 [node name="Choice2" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_ryrav")
-text = "Choice"
 
 [node name="Choice3" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_eow3j")
-text = "Choice"
 
 [node name="NameBox" type="PanelContainer" parent="Interface" unique_id=2111548589]
 offset_left = 50.0
@@ -161,7 +155,7 @@ axis_stretch_vertical = 1
 [node name="MarginContainer" type="MarginContainer" parent="Interface/NameBox" unique_id=898370655]
 layout_mode = 2
 theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 0
 

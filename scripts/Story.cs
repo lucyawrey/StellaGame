@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
@@ -6,9 +7,6 @@ public partial class Story : Node
 {
 	[Export]
 	private InkStory story;
-
-	[Export]
-	private VBoxContainer ui;
 
 	[Export]
 	private AudioPlayer audioPlayer;
@@ -22,12 +20,19 @@ public partial class Story : Node
 	[Export]
 	private RichTextLabel nameLabel;
 
-	private bool inputIsLocked = false;
+	[Export]
+	private Button[] choiceButtons;
+
+	[Export]
+	private BoxContainer choicesBox;
+
+	private bool continueIsLocked = false;
 
 	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
 
 	public override void _Ready()
 	{
+		// Ink external function setup
 		story.BindExternalFunction("clear", new Callable(this, "Clear"));
 		story.BindExternalFunction("background", new Callable(this, "Background"));
 		story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
@@ -41,6 +46,18 @@ public partial class Story : Node
 		story.BindExternalFunction("check_item", new Callable(this, "CheckItem"));
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
+		// Choice button callback set up
+		var i = 0;
+		foreach (var button in choiceButtons)
+		{
+			button.Pressed += delegate
+			{
+				story.ChooseChoiceIndex(i);
+				Continue();
+				i++;
+			};
+		}
+
 		Callable.From(Continue).CallDeferred();
 	}
 
@@ -48,7 +65,7 @@ public partial class Story : Node
 	{
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (!inputIsLocked && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+			if (!continueIsLocked && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
 				audioPlayer.PlaySound("click");
 				Continue();
@@ -56,17 +73,15 @@ public partial class Story : Node
 		}
 	}
 
-	private void FreeChildren()
+	private void setChoiceMode(bool choiceMode)
 	{
-		foreach (Node child in ui.GetChildren())
-		{
-			child.QueueFree();
-		}
+		dialogueLabel.Visible = !choiceMode;
+		choicesBox.Visible = choiceMode;
 	}
 
 	private void Continue()
 	{
-		inputIsLocked = true;
+		continueIsLocked = true;
 
 		if (story.GetCanContinue())
 		{
@@ -76,6 +91,7 @@ public partial class Story : Node
 				Continue();
 				return;
 			}
+			setChoiceMode(false);
 			string name = "";
 			var match = characterRegex.Match(content);
 			if (match.Success)
@@ -96,22 +112,22 @@ public partial class Story : Node
 		{
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
-				Button button = new() { Text = choice.Text };
-				button.Pressed += delegate
+				setChoiceMode(true);
+				if (choice.Index < 4)
 				{
-					story.ChooseChoiceIndex(choice.Index);
-					Continue();
-				};
-				ui.AddChild(button);
-				audioPlayer.PlaySound("click");
+					choiceButtons[choice.Index].Text = choice.Text;
+				}
+				else
+				{
+					GD.Print($"Too many choices: {choice.Text}");
+				}
 			}
 		}
 		else
 		{
-			Label text = new() { Text = "THE END" };
-			ui.AddChild(text);
+			// TODO End
 		}
-		inputIsLocked = false;
+		continueIsLocked = false;
 	}
 
 	private void Clear()
