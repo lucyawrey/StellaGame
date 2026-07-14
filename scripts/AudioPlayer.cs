@@ -9,32 +9,6 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     private string currentSongName;
 
-    private static Dictionary<string, AudioStream> musicLibrary = new()
-    {
-        { "morning", GD.Load<AudioStream>("res://assets/music/morning.mp3") },
-        { "nostalgia", GD.Load<AudioStream>("res://assets/music/nostalgia.mp3") },
-        { "power_of_the_wind", GD.Load<AudioStream>("res://assets/music/power_of_the_wind.mp3") },
-        { "relaxing_piano_music", GD.Load<AudioStream>("res://assets/music/relaxing_piano_music.mp3") },
-        { "typhoon_parade", GD.Load<AudioStream>("res://assets/music/typhoon_parade.mp3") },
-        { "woosh", GD.Load<AudioStream>("res://assets/music/woosh.mp3") },
-    };
-
-    public static bool GetMusic(string songName, out AudioStream song)
-    {
-        return musicLibrary.TryGetValue(songName, out song);
-    }
-
-    private static Dictionary<string, AudioStream> soundEffectLibrary = new()
-    {
-        { "click", GD.Load<AudioStream>("res://assets/sound_effects/click.wav") },
-        { "land", GD.Load<AudioStream>("res://assets/sound_effects/land.mp3") },
-    };
-
-    public static bool GetSound(string soundName, out AudioStream sound)
-    {
-        return soundEffectLibrary.TryGetValue(soundName, out sound);
-    }
-
     public override void _Ready()
     {
         Stream = new AudioStreamPolyphonic();
@@ -48,7 +22,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         {
             return;
         }
-        if (GetMusic(songName, out var song))
+        if (AssetManager.GetMusic(songName, out var song))
         {
             StopMusic();
             currentSongStreamId = playback.PlayStream(song);
@@ -70,7 +44,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void PlaySound(string soundName)
     {
-        if (GetSound(soundName, out var sound))
+        if (AssetManager.GetSound(soundName, out var sound))
         {
             playback.PlayStream(sound);
         }

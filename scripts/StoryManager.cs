@@ -9,6 +9,9 @@ public partial class StoryManager : Node
 	private InkStory story;
 
 	[Export]
+	private CharacterManager characterManager;
+
+	[Export]
 	private AudioPlayer audioPlayer;
 
 	[Export]
@@ -28,8 +31,6 @@ public partial class StoryManager : Node
 
 	[Export]
 	private BackgroundImage backgroundImage;
-
-	private CharacterManager characterManager = new();
 
 	private bool continueIsLocked = false;
 

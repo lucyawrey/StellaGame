@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/StoryManager.cs" id="1_e2o6t"]
-[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://theme/base.tres" id="1_ryrav"]
+[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://assets/themes/base.tres" id="1_ryrav"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://scripts/CharacterManager.cs" id="4_eow3j"]
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
@@ -28,9 +29,10 @@ anchors_preset = 0
 mouse_filter = 2
 theme = ExtResource("1_ryrav")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
+characterManager = NodePath("../CharacterManager")
 audioPlayer = NodePath("../AudioPlayer")
 dialogueLabel = NodePath("../DialogueBox/DialogueMargin/Dialogue")
 nameBox = NodePath("../NameBox")
@@ -38,6 +40,9 @@ nameLabel = NodePath("../NameBox/MarginContainer/Name")
 choiceButtons = [NodePath("../DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice3")]
 choicesBox = NodePath("../DialogueBox/ChoiceMargin/Choices")
 backgroundImage = NodePath("../GameBox/MarginContainer/BackgroundImage")
+
+[node name="CharacterManager" type="Node" parent="." unique_id=155487932]
+script = ExtResource("4_eow3j")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")

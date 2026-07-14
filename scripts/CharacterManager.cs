@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Godot;
 using Tomlyn;
 
-public partial class CharacterManager : RefCounted
+public partial class CharacterManager : Node
 {
     private readonly string charactersPath = "res://story/characters.toml";
 
     private Dictionary<string, ImportCharacter> importCharacters;
 
-    private Dictionary<string, Character> characters = new Dictionary<string, Character>();
+    private Dictionary<string, Character> characterCache = new Dictionary<string, Character>();
 
     public class ImportCharacter
     {
@@ -30,22 +30,22 @@ public partial class CharacterManager : RefCounted
 
     public class Character
     {
-        public required string Name { get; set; }
-        public required Color NameColor { get; set; }
-        public required Color TextColor { get; set; }
-        public required FontFile Font { get; set; }
-        public required int FontSize { get; set; }
-        public required float TextSpeed { get; set; }
-        public required string Prefix { get; set; }
-        public required string Suffix { get; set; }
-        public required AudioStream TextSound { get; set; }
-        public required float TextSoundPitch { get; set; }
-        public required int TextSoundSpacing { get; set; }
-        public required bool Fullscreen { get; set; }
-        public required Theme Theme { get; set; }
+        public string Name { get; set; }
+        public Color NameColor { get; set; }
+        public Color TextColor { get; set; }
+        public FontFile Font { get; set; }
+        public int FontSize { get; set; }
+        public float TextSpeed { get; set; }
+        public string Prefix { get; set; }
+        public string Suffix { get; set; }
+        public AudioStream TextSound { get; set; }
+        public float TextSoundPitch { get; set; }
+        public int TextSoundSpacing { get; set; }
+        public bool Fullscreen { get; set; }
+        public Theme Theme { get; set; }
     }
 
-    public CharacterManager()
+    public override void _Ready()
     {
         if (!FileAccess.FileExists(charactersPath))
         {
@@ -65,35 +65,34 @@ public partial class CharacterManager : RefCounted
             Name = importCharacter.Name ?? characterId,
             NameColor = new Color(importCharacter.NameColor),
             TextColor = new Color(importCharacter.TextColor),
-            Font = GD.Load<FontFile>(importCharacter.Font),
+            Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,
             Prefix = importCharacter.Prefix,
             Suffix = importCharacter.Suffix,
-            TextSound = GD.Load<AudioStream>(importCharacter.TextSound),
+            TextSound = AssetManager.GetSound(importCharacter.TextSound, out var sound) ? sound : null,
             TextSoundPitch = importCharacter.TextSoundPitch,
             TextSoundSpacing = importCharacter.TextSoundSpacing,
             Fullscreen = importCharacter.Fullscreen,
-            Theme = GD.Load<Theme>(importCharacter.Theme)
+            Theme = AssetManager.GetTheme(importCharacter.Theme, out var theme) ? theme : null
         };
         return character;
     }
 
     public Character GetCharacter(string characterId)
     {
-        if (characters.TryGetValue(characterId, out var character))
+        if (characterCache.TryGetValue(characterId, out var character))
         {
             return character;
         }
         var splitId = characterId.Split('.');
         if (splitId.Length > 1)
         {
-            GD.Print(splitId);
+            return ConvertToGameCharacter(importCharacters[splitId[0]], splitId[0]);
         }
         else
         {
-            GD.Print(characterId);
+            return ConvertToGameCharacter(importCharacters[characterId], characterId);
         }
-        return null;
     }
 }
