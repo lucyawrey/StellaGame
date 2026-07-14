@@ -38,26 +38,51 @@ public static class AssetManager
 
     public static bool GetMusic(string songName, out AudioStream song)
     {
+        if (songName == null)
+        {
+            song = null;
+            return false;
+        }
         return musicLibrary.TryGetValue(songName, out song);
     }
 
     public static bool GetSound(string soundName, out AudioStream sound)
     {
+        if (soundName == null)
+        {
+            sound = null;
+            return false;
+        }
         return soundLibrary.TryGetValue(soundName, out sound);
     }
 
     public static bool GetBackground(string imageName, out Texture2D image)
     {
+        if (imageName == null)
+        {
+            image = null;
+            return false;
+        }
         return backgroundLibrary.TryGetValue(imageName, out image);
     }
 
     public static bool GetFont(string fontName, out FontFile font)
     {
+        if (fontName == null)
+        {
+            font = null;
+            return false;
+        }
         return fontLibrary.TryGetValue(fontName, out font);
     }
 
     public static bool GetTheme(string themeName, out Theme theme)
     {
+        if (themeName == null)
+        {
+            theme = null;
+            return false;
+        }
         return themeLibrary.TryGetValue(themeName, out theme);
     }
 }

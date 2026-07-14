@@ -63,8 +63,8 @@ public partial class CharacterManager : Node
         var character = new Character
         {
             Name = importCharacter.Name ?? characterId,
-            NameColor = new Color(importCharacter.NameColor),
-            TextColor = new Color(importCharacter.TextColor),
+            NameColor = importCharacter.NameColor != null ? new Color(importCharacter.NameColor) : Color.Color8(255, 255, 255),
+            TextColor = importCharacter.TextColor != null ? new Color(importCharacter.TextColor) : Color.Color8(255, 255, 255),
             Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,
