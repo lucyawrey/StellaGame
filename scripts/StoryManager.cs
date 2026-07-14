@@ -3,7 +3,7 @@ using Godot;
 using Godot.Collections;
 using GodotInk;
 
-public partial class Story : Node
+public partial class StoryManager : Node
 {
 	[Export]
 	private InkStory story;

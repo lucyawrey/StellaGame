@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
-[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/Story.cs" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/StoryManager.cs" id="1_e2o6t"]
 [ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://theme/base.tres" id="1_ryrav"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
@@ -28,7 +28,7 @@ anchors_preset = 0
 mouse_filter = 2
 theme = ExtResource("1_ryrav")
 
-[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
 audioPlayer = NodePath("../AudioPlayer")
