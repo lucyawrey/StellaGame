@@ -9,7 +9,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     private string currentSongName;
 
-    private Dictionary<string, AudioStream> musicLibrary = new()
+    private static Dictionary<string, AudioStream> musicLibrary = new()
     {
         { "morning", GD.Load<AudioStream>("res://assets/music/morning.mp3") },
         { "nostalgia", GD.Load<AudioStream>("res://assets/music/nostalgia.mp3") },
@@ -19,11 +19,21 @@ public partial class AudioPlayer : AudioStreamPlayer
         { "woosh", GD.Load<AudioStream>("res://assets/music/woosh.mp3") },
     };
 
-    private Dictionary<string, AudioStream> soundEffectLibrary = new()
+    public static bool GetMusic(string songName, out AudioStream song)
+    {
+        return musicLibrary.TryGetValue(songName, out song);
+    }
+
+    private static Dictionary<string, AudioStream> soundEffectLibrary = new()
     {
         { "click", GD.Load<AudioStream>("res://assets/sound_effects/click.wav") },
         { "land", GD.Load<AudioStream>("res://assets/sound_effects/land.mp3") },
     };
+
+    public static bool GetSound(string soundName, out AudioStream sound)
+    {
+        return soundEffectLibrary.TryGetValue(soundName, out sound);
+    }
 
     public override void _Ready()
     {
@@ -38,7 +48,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         {
             return;
         }
-        if (musicLibrary.TryGetValue(songName, out var song))
+        if (GetMusic(songName, out var song))
         {
             StopMusic();
             currentSongStreamId = playback.PlayStream(song);
@@ -60,7 +70,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void PlaySound(string soundName)
     {
-        if (soundEffectLibrary.TryGetValue(soundName, out var sound))
+        if (GetSound(soundName, out var sound))
         {
             playback.PlayStream(sound);
         }

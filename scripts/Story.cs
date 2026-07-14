@@ -117,14 +117,23 @@ public partial class Story : Node
 				name = match.Groups[1].Value;
 				content = match.Groups[2].Value;
 			}
+
 			if (content == "_")
 			{
 				content = string.Empty;
 			}
-			nameBox.Visible = !string.IsNullOrWhiteSpace(name);
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				nameBox.Visible = false;
+			}
+			else
+			{
+				var character = characterManager.GetCharacter(name);
+				nameLabel.Text = name;
+			}
 
 			dialogueLabel.Text = content;
-			nameLabel.Text = name;
 			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)
