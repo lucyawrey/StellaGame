@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/Story.cs" id="1_e2o6t"]
-[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://themes/base.tres" id="1_ryrav"]
+[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://theme/base.tres" id="1_ryrav"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
+[ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
 [sub_resource type="Theme" id="Theme_lo6c8"]
@@ -41,12 +42,19 @@ backgroundImage = NodePath("../GameBox/MarginContainer/BackgroundImage")
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="Background" type="ColorRect" parent="." unique_id=269220503]
+[node name="VoidBackground" type="ColorRect" parent="." unique_id=269220503]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="VoidParticles" type="GPUParticles2D" parent="." unique_id=1808307230]
+position = Vector2(640, -40)
+amount = 100
+lifetime = 20.0
+preprocess = 16.0
+process_material = ExtResource("5_ryrav")
 
 [node name="GameBox" type="PanelContainer" parent="." unique_id=885437159]
 layout_mode = 0

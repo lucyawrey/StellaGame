@@ -1,0 +1,14 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://cvpy2yyg8vmc8"]
+
+[resource]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(740, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = 1.0728835e-05
+angle_max = 20.000011
+gravity = Vector3(0, 5, 0)
+radial_accel_min = -1.0000023
+radial_accel_max = -1.0000023
+scale_min = 2.0
+scale_max = 5.0
