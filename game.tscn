@@ -24,6 +24,7 @@ default_font_size = 30
 [node name="Game" type="Control" unique_id=1422957986]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 theme = ExtResource("1_ryrav")
 
 [node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
