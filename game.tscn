@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/Story.cs" id="1_e2o6t"]
+[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://themes/base.tres" id="1_ryrav"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
-[ext_resource type="Texture2D" uid="uid://0nrh2xj3ne77" path="res://assets/ui/box.png" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
 [sub_resource type="Theme" id="Theme_lo6c8"]
@@ -21,152 +21,120 @@ default_font_size = 30
 [sub_resource type="Theme" id="Theme_eow3j"]
 default_font_size = 30
 
-[node name="Game" type="Node" unique_id=104418161]
-
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
-script = ExtResource("3_feb5d")
+[node name="Game" type="Control" unique_id=1422957986]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_ryrav")
 
 [node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
 audioPlayer = NodePath("../AudioPlayer")
-dialogueLabel = NodePath("../Interface/DialogueBox/DialogueMargin/Dialogue")
-nameBox = NodePath("../Interface/NameBox")
-nameLabel = NodePath("../Interface/NameBox/MarginContainer/Name")
-choiceButtons = [NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice3")]
-choicesBox = NodePath("../Interface/DialogueBox/ChoiceMargin/Choices")
-backgroundImage = NodePath("../Interface/GameBox/MarginContainer/BackgroundImage")
+dialogueLabel = NodePath("../DialogueBox/DialogueMargin/Dialogue")
+nameBox = NodePath("../NameBox")
+nameLabel = NodePath("../NameBox/MarginContainer/Name")
+choiceButtons = [NodePath("../DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice3")]
+choicesBox = NodePath("../DialogueBox/ChoiceMargin/Choices")
+backgroundImage = NodePath("../GameBox/MarginContainer/BackgroundImage")
 
-[node name="Interface" type="Node2D" parent="." unique_id=1202810869]
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
+script = ExtResource("3_feb5d")
 
-[node name="Background" type="ColorRect" parent="Interface" unique_id=269220503]
+[node name="Background" type="ColorRect" parent="." unique_id=269220503]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="GameBox" type="PanelContainer" parent="Interface" unique_id=885437159]
-offset_left = 20.0
+[node name="GameBox" type="PanelContainer" parent="." unique_id=885437159]
+layout_mode = 0
+offset_left = 40.0
 offset_top = 20.0
-offset_right = 1260.0
-offset_bottom = 420.0
+offset_right = 1240.0
+offset_bottom = 440.0
 mouse_filter = 2
 
-[node name="NineTexture" type="NinePatchRect" parent="Interface/GameBox" unique_id=553157322]
+[node name="MarginContainer" type="MarginContainer" parent="GameBox" unique_id=2012400901]
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("4_fc0e3")
-draw_center = false
-region_rect = Rect2(0, 0, 24, 24)
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = -1
+theme_override_constants/margin_bottom = -1
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/GameBox" unique_id=2012400901]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="BackgroundImage" type="TextureRect" parent="Interface/GameBox/MarginContainer" unique_id=1904857836]
+[node name="BackgroundImage" type="TextureRect" parent="GameBox/MarginContainer" unique_id=1904857836]
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("6_ryrav")
 
-[node name="DialogueBox" type="PanelContainer" parent="Interface" unique_id=1619528995]
-offset_left = 20.0
-offset_top = 440.0
-offset_right = 1260.0
+[node name="DialogueBox" type="PanelContainer" parent="." unique_id=1619528995]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 460.0
+offset_right = 1240.0
 offset_bottom = 700.0
 mouse_filter = 2
 
-[node name="NineTexture" type="NinePatchRect" parent="Interface/DialogueBox" unique_id=287874153]
+[node name="DialogueMargin" type="MarginContainer" parent="DialogueBox" unique_id=1718936795]
 layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("4_fc0e3")
-region_rect = Rect2(0, 0, 24, 24)
-patch_margin_left = 7
-patch_margin_top = 7
-patch_margin_right = 7
-patch_margin_bottom = 7
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="DialogueMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=1718936795]
-layout_mode = 2
-theme_override_constants/margin_left = 30
+theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 30
 
-[node name="Dialogue" type="RichTextLabel" parent="Interface/DialogueBox/DialogueMargin" unique_id=1108400314]
+[node name="Dialogue" type="RichTextLabel" parent="DialogueBox/DialogueMargin" unique_id=1108400314]
 layout_mode = 2
 theme = SubResource("Theme_lo6c8")
 bbcode_enabled = true
 scroll_active = false
 
-[node name="ChoiceMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=518268424]
+[node name="ChoiceMargin" type="MarginContainer" parent="DialogueBox" unique_id=518268424]
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="Choices" type="VBoxContainer" parent="Interface/DialogueBox/ChoiceMargin" unique_id=483701720]
+[node name="Choices" type="VBoxContainer" parent="DialogueBox/ChoiceMargin" unique_id=483701720]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 0
 
-[node name="Choice0" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
+[node name="Choice0" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_fc0e3")
 
-[node name="Choice1" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
+[node name="Choice1" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_7jktm")
 
-[node name="Choice2" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
+[node name="Choice2" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_ryrav")
 
-[node name="Choice3" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
+[node name="Choice3" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_eow3j")
 
-[node name="NameBox" type="PanelContainer" parent="Interface" unique_id=2111548589]
-offset_left = 50.0
-offset_top = 400.0
-offset_right = 150.0
-offset_bottom = 460.0
+[node name="NameBox" type="PanelContainer" parent="." unique_id=2111548589]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 420.0
+offset_right = 170.0
+offset_bottom = 480.0
 mouse_filter = 2
 
-[node name="NineTexture" type="NinePatchRect" parent="Interface/NameBox" unique_id=665474554]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("4_fc0e3")
-region_rect = Rect2(0, 0, 24, 24)
-patch_margin_left = 7
-patch_margin_top = 7
-patch_margin_right = 7
-patch_margin_bottom = 7
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Interface/NameBox" unique_id=898370655]
+[node name="MarginContainer" type="MarginContainer" parent="NameBox" unique_id=898370655]
 layout_mode = 2
 theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 7
+theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 0
 
-[node name="Name" type="RichTextLabel" parent="Interface/NameBox/MarginContainer" unique_id=1209673003]
+[node name="Name" type="RichTextLabel" parent="NameBox/MarginContainer" unique_id=1209673003]
 layout_mode = 2
 mouse_filter = 2
 theme = SubResource("Theme_lo6c8")
