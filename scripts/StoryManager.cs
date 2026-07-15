@@ -163,7 +163,7 @@ public partial class StoryManager : Node
 				nameLabel.Text = $"[color={character.NameColor}]{character.Name}[/color]";
 			}
 
-			dialogueLabel.Text = content;
+			dialogueLabel.Text = $"[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}[/color]";
 			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)

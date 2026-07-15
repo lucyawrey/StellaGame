@@ -10,8 +10,6 @@ public partial class CharacterManager : Node
 
     private Dictionary<string, Character> characterCache = new Dictionary<string, Character>();
 
-    private readonly string defaultColor = "#FFFFFF";
-
     private readonly string baseCharacterId = "Base";
 
     private readonly string narratorCharacterId = "Narrator";
@@ -68,9 +66,9 @@ public partial class CharacterManager : Node
     {
         var character = new Character
         {
-            Name = importCharacter.Name ?? nameFallback ?? "",
-            NameColor = importCharacter.NameColor ?? defaultColor,
-            TextColor = importCharacter.TextColor ?? defaultColor,
+            Name = importCharacter.Name ?? nameFallback,
+            NameColor = importCharacter.NameColor,
+            TextColor = importCharacter.TextColor,
             Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,

@@ -39,22 +39,23 @@ Stella.Narrator: At least the bright morning sun coming through the window helps
 Stella: I don't wanna get up.
 ~ delay(0.2)
 ~ play_music("typhoon_parade")
-Stella.Narrator: An alarm clock starts blaring mid 2010's J-pop as if in direct rejection of my plea.
+Stella.Narrator: My phone's alarm starts blaring mid 2010's J-pop as if in direct rejection of my plea.
 Stella: Ughhhh.
-Stella.Narrator: I only set it to go off on days I have to work, which means...
+Stella.Narrator: I only set it to go off on days I have work. Which means I actually have to get up.
+Stella.Narrator: I can't even remember where I'm supposed to be working today?
+Stella.Narrator: Is it the cafe or the hospital?
 Stella: I could just call in sick.
 Stella: What're they going to do, fire me?
 Stella.Slow: ...
-Stella.Narrator: I can't remember if I'm working at the hospital or the cafe today.
 Stella: Whoever they are.
 Stella.Narrator: The alarm continues to go off.
-Stella.Narrator: I can't even shut it off from here because it's all the way across the room, exactly where I left it.
-Stella.Narrator: Specifically to ensure I had to actually get out of bed in the morning.
-Stella.Narrator: It's getting louder.
+Stella.Narrator: I can't even shut it off from here because my phone is all the way across the room, exactly where I left it.
+Stella.Narrator: Specifically to ensure I had to actually get out of bed.
+Stella.Narrator: It just keeps going.
 Stella.Narrator: I breifly concider blowing it up.
 Stella.Narrator: But eventually, I resolve myself to fate.
 Stella.Narrator: I could use a cold shower anyway. Might help with the nausea.
-Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room to turn off that cursed alarm clock.
+Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room to turn off the cursed thing off.
 ~ delay(0.3)
 ~ stop_music()
 ~ play_sound("click")
@@ -90,10 +91,11 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         ~ play_music("morning")
         ~ background("bedroom")
         Stella.Narrator: I better get up.
-    ** (check_wall_calendar) [Check wall calendar]
-        The dessert themed wall calendar has a tasty-yet-incriminating ice cream cone drawn next to the month name: July.
+    ** (check_wall_calendar) [Check calendar]
+        The dessert themed wall calendar on the wall has a tasty-yet-incriminating ice cream cone drawn next to the month name: July.
         It hasn't been changed in three months.
         Stella.Slow: ...
+        Stella.Narrator: I should just check my phone.
     ** (check_phone) {check_wall_calendar} [Check phone calendar]
         Ignoring several unread messages, Stella checks the calendar app on her phone.
         It thankfully auto-updates when schedules are posted.
