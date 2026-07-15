@@ -30,7 +30,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         }
         else
         {
-            GD.Print($"Song not found: {songName}");
+            GD.Print($"Song '{songName}' not found.");
         }
     }
 
@@ -50,7 +50,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         }
         else
         {
-            GD.Print($"Sound not found: {soundName}");
+            GD.Print($"Sound '{soundName}' not found.");
         }
     }
 }

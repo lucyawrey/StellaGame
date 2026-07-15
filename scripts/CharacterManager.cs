@@ -10,6 +10,8 @@ public partial class CharacterManager : Node
 
     private Dictionary<string, Character> characterCache = new Dictionary<string, Character>();
 
+    private readonly Color defaultColor = new Color("#FFFFFF");
+
     public class ImportCharacter
     {
         public string Name { get; set; }
@@ -58,13 +60,13 @@ public partial class CharacterManager : Node
         importCharacters = TomlSerializer.Deserialize<Dictionary<string, ImportCharacter>>(toml);
     }
 
-    private Character ConvertToGameCharacter(ImportCharacter importCharacter, string characterId)
+    private Character ConvertToCharacter(ImportCharacter importCharacter, string characterId)
     {
         var character = new Character
         {
             Name = importCharacter.Name ?? characterId,
-            NameColor = importCharacter.NameColor != null ? new Color(importCharacter.NameColor) : Color.Color8(255, 255, 255),
-            TextColor = importCharacter.TextColor != null ? new Color(importCharacter.TextColor) : Color.Color8(255, 255, 255),
+            NameColor = importCharacter.NameColor != null ? new Color(importCharacter.NameColor) : defaultColor,
+            TextColor = importCharacter.TextColor != null ? new Color(importCharacter.TextColor) : defaultColor,
             Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,
@@ -79,20 +81,60 @@ public partial class CharacterManager : Node
         return character;
     }
 
+    private Character MergeCharacters(List<Character> characters)
+    {
+        var mergedCharacter = new Character();
+        foreach (var character in characters)
+        {
+            if (character == null) continue;
+            mergedCharacter.Name = character.Name ?? mergedCharacter.Name;
+            mergedCharacter.NameColor = character.NameColor != defaultColor ? character.NameColor : mergedCharacter.NameColor;
+            mergedCharacter.TextColor = character.TextColor != defaultColor ? character.TextColor : mergedCharacter.TextColor;
+            mergedCharacter.Font = character.Font ?? mergedCharacter.Font;
+            mergedCharacter.FontSize = character.FontSize != 0 ? character.FontSize : mergedCharacter.FontSize;
+            mergedCharacter.TextSpeed = character.TextSpeed != 0 ? character.TextSpeed : mergedCharacter.TextSpeed;
+            mergedCharacter.Prefix = character.Prefix ?? mergedCharacter.Prefix;
+            mergedCharacter.Suffix = character.Suffix ?? mergedCharacter.Suffix;
+            mergedCharacter.TextSound = character.TextSound ?? mergedCharacter.TextSound;
+            mergedCharacter.TextSoundPitch = character.TextSoundPitch != 0 ? character.TextSoundPitch : mergedCharacter.TextSoundPitch;
+            mergedCharacter.TextSoundSpacing = character.TextSoundSpacing != 0 ? character.TextSoundSpacing : mergedCharacter.TextSoundSpacing;
+            mergedCharacter.Fullscreen = character.Fullscreen || mergedCharacter.Fullscreen;
+            mergedCharacter.Theme = character.Theme ?? mergedCharacter.Theme;
+        }
+        return mergedCharacter;
+    }
+
     public Character GetCharacter(string characterId)
     {
-        if (characterCache.TryGetValue(characterId, out var character))
+        Character character;
+        if (string.IsNullOrWhiteSpace(characterId))
+        {
+            return null;
+        }
+        if (characterCache.TryGetValue(characterId, out character))
         {
             return character;
         }
+        characterId = "Base." + characterId;
         var splitId = characterId.Split('.');
-        if (splitId.Length > 1)
+        var characters = new List<Character>();
+        ImportCharacter lastImportCharacter = null;
+        foreach (var subId in splitId)
         {
-            return ConvertToGameCharacter(importCharacters[splitId[0]], splitId[0]);
+            GD.Print($"Loading character: {subId}");
+            ImportCharacter importCharacter = null;
+            if (lastImportCharacter?.Forms.TryGetValue(subId, out importCharacter) ?? false || importCharacters.TryGetValue(subId, out importCharacter))
+            {
+                characters.Add(ConvertToCharacter(importCharacter, subId));
+                lastImportCharacter = importCharacter;
+            }
+            else
+            {
+                GD.PrintErr($"Character not found: {subId}");
+            }
         }
-        else
-        {
-            return ConvertToGameCharacter(importCharacters[characterId], characterId);
-        }
+        character = MergeCharacters(characters);
+        characterCache[characterId] = character;
+        return character;
     }
 }

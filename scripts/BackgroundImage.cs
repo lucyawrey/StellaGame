@@ -14,7 +14,7 @@ public partial class BackgroundImage : TextureRect
         }
         else
         {
-            GD.Print($"Image not found: {imageName}");
+            GD.Print($"Image '{imageName}' not found.");
         }
     }
 }

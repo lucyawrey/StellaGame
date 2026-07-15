@@ -131,7 +131,7 @@ public partial class StoryManager : Node
 			else
 			{
 				var character = characterManager.GetCharacter(name);
-				nameLabel.Text = name;
+				nameLabel.Text = character.Name;
 			}
 
 			dialogueLabel.Text = content;
