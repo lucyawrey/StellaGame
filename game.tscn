@@ -10,15 +10,18 @@
 
 [node name="Game" type="Node" unique_id=1005478206]
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "nameBox", "choiceButtons", "choicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
 characterManager = NodePath("../CharacterManager")
 userInterface = NodePath("../UserInterface")
 audioPlayer = NodePath("../AudioPlayer")
+fullscreenDialogueLabel = NodePath("../UserInterface/FullscreenBox/DialogueMargin/Dialogue")
 dialogueLabel = NodePath("../UserInterface/DialogueBox/DialogueMargin/Dialogue")
-nameBox = NodePath("../UserInterface/NameBox")
 nameLabel = NodePath("../UserInterface/NameBox/MarginContainer/Name")
+fullscreenBox = NodePath("../UserInterface/FullscreenBox")
+dialogueBox = NodePath("../UserInterface/DialogueBox")
+nameBox = NodePath("../UserInterface/NameBox")
 choiceButtons = [NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice3")]
 choicesBox = NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices")
 backgroundImage = NodePath("../UserInterface/GameBox/MarginContainer/BackgroundImage")
@@ -87,11 +90,13 @@ theme_override_constants/margin_bottom = -1
 
 [node name="BackgroundImage" type="TextureRect" parent="UserInterface/FullscreenBox/BackgroundMargin" unique_id=1023635288]
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 1
 script = ExtResource("6_ryrav")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/FullscreenBox" unique_id=700704297]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 40
@@ -99,6 +104,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="Dialogue" type="RichTextLabel" parent="UserInterface/FullscreenBox/DialogueMargin" unique_id=277244469]
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 

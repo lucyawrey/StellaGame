@@ -18,13 +18,22 @@ public partial class StoryManager : Node
 	private AudioPlayer audioPlayer;
 
 	[Export]
+	private RichTextLabel fullscreenDialogueLabel;
+
+	[Export]
 	private RichTextLabel dialogueLabel;
 
 	[Export]
-	private PanelContainer nameBox;
+	private RichTextLabel nameLabel;
 
 	[Export]
-	private RichTextLabel nameLabel;
+	private PanelContainer fullscreenBox;
+
+	[Export]
+	private PanelContainer dialogueBox;
+
+	[Export]
+	private PanelContainer nameBox;
 
 	[Export]
 	private Array<Button> choiceButtons;
@@ -156,19 +165,30 @@ public partial class StoryManager : Node
 
 			var character = characterManager.GetCharacter(characterId);
 
-			if (character.Name == "")
+			var nameText = string.IsNullOrWhiteSpace(character.Name) ? "" : $"[color={character.NameColor}]{character.Name}[/color]";
+
+			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
+			var fontSize = character.FontSize != AssetManager.GetBaseFontSize() ? $"[font_size={character.FontSize}]" : "";
+			var fullscreenNameText = character.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
+			var dialogueText = $"{font}{fontSize}[color={character.TextColor}]{fullscreenNameText}{character.Prefix}{content}{character.Suffix}";
+
+			if (character.Fullscreen)
 			{
+				fullscreenBox.Visible = true;
+				dialogueBox.Visible = false;
 				nameBox.Visible = false;
+
+				fullscreenDialogueLabel.Text = $"{fullscreenDialogueLabel.Text}\n{dialogueText}";
 			}
 			else
 			{
-				nameBox.Visible = true;
-				nameLabel.Text = $"[color={character.NameColor}]{character.Name}";
-			}
+				fullscreenBox.Visible = false;
+				dialogueBox.Visible = true;
+				nameBox.Visible = !string.IsNullOrWhiteSpace(nameText);
 
-			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
-			var fontSize = character.FontSize != AssetManager.GetBaseFontSize() ? $"[size={character.FontSize}]" : "";
-			dialogueLabel.Text = $"{font}{fontSize}[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}";
+				nameLabel.Text = nameText;
+				dialogueLabel.Text = dialogueText;
+			}
 
 			// Set theme for character
 			if (character.Theme != null && userInterface.Theme != character.Theme)

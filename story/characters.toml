@@ -22,7 +22,7 @@ Theme = "void"
 
 [Card]
 Name = ""
-FontSize = 40
+FontSize = 48
 TextSpeed = 0.1
 TextSoundPitch = 1.2
 TextSoundSpacing = 1
