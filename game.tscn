@@ -8,21 +8,6 @@
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
-[sub_resource type="Theme" id="Theme_lo6c8"]
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_fc0e3"]
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_7jktm"]
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_ryrav"]
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_eow3j"]
-default_font_size = 30
-
 [node name="Game" type="Control" unique_id=1422957986]
 layout_mode = 3
 anchors_preset = 0
@@ -98,7 +83,6 @@ theme_override_constants/margin_bottom = 30
 
 [node name="Dialogue" type="RichTextLabel" parent="DialogueBox/DialogueMargin" unique_id=1108400314]
 layout_mode = 2
-theme = SubResource("Theme_lo6c8")
 bbcode_enabled = true
 scroll_active = false
 
@@ -116,22 +100,18 @@ theme_override_constants/separation = 0
 [node name="Choice0" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_fc0e3")
 
 [node name="Choice1" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_7jktm")
 
 [node name="Choice2" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_ryrav")
 
 [node name="Choice3" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_eow3j")
 
 [node name="NameBox" type="PanelContainer" parent="." unique_id=2111548589]
 layout_mode = 0
@@ -151,7 +131,6 @@ theme_override_constants/margin_bottom = 0
 [node name="Name" type="RichTextLabel" parent="NameBox/MarginContainer" unique_id=1209673003]
 layout_mode = 2
 mouse_filter = 2
-theme = SubResource("Theme_lo6c8")
 bbcode_enabled = true
 fit_content = true
 scroll_active = false

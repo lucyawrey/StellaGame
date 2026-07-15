@@ -25,9 +25,9 @@ public static class AssetManager
         { "bedroom", GD.Load<Texture2D>("res://assets/backgrounds/bedroom.png") },
     };
 
-    private static Dictionary<string, FontFile> fontLibrary = new()
+    private static Dictionary<string, string> fontLibrary = new()
     {
-        { "base", GD.Load<FontFile>("res://assets/fonts/PoppinsSemiBold.ttf") }
+        { "base", "res://assets/fonts/PoppinsSemiBold.ttf" }
     };
 
     //theme
@@ -66,7 +66,7 @@ public static class AssetManager
         return backgroundLibrary.TryGetValue(imageName, out image);
     }
 
-    public static bool GetFont(string fontName, out FontFile font)
+    public static bool GetFont(string fontName, out string font)
     {
         if (fontName == null)
         {

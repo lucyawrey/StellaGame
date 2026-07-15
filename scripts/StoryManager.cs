@@ -160,7 +160,7 @@ public partial class StoryManager : Node
 			else
 			{
 				nameBox.Visible = true;
-				nameLabel.Text = character.Name;
+				nameLabel.Text = $"[color={character.NameColor}]{character.Name}[/color]";
 			}
 
 			dialogueLabel.Text = content;

@@ -10,7 +10,7 @@ public partial class CharacterManager : Node
 
     private Dictionary<string, Character> characterCache = new Dictionary<string, Character>();
 
-    private readonly Color defaultColor = new Color("#FFFFFF");
+    private readonly string defaultColor = "#FFFFFF";
 
     private readonly string baseCharacterId = "Base";
 
@@ -37,9 +37,9 @@ public partial class CharacterManager : Node
     public class Character
     {
         public string Name { get; set; }
-        public Color NameColor { get; set; }
-        public Color TextColor { get; set; }
-        public FontFile Font { get; set; }
+        public string NameColor { get; set; }
+        public string TextColor { get; set; }
+        public string Font { get; set; }
         public int FontSize { get; set; }
         public float TextSpeed { get; set; }
         public string Prefix { get; set; }
@@ -69,8 +69,8 @@ public partial class CharacterManager : Node
         var character = new Character
         {
             Name = importCharacter.Name ?? nameFallback ?? "",
-            NameColor = importCharacter.NameColor != null ? new Color(importCharacter.NameColor) : defaultColor,
-            TextColor = importCharacter.TextColor != null ? new Color(importCharacter.TextColor) : defaultColor,
+            NameColor = importCharacter.NameColor ?? defaultColor,
+            TextColor = importCharacter.TextColor ?? defaultColor,
             Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,
@@ -92,8 +92,8 @@ public partial class CharacterManager : Node
         {
             if (character == null) continue;
             mergedCharacter.Name = character.Name ?? mergedCharacter.Name;
-            mergedCharacter.NameColor = character.NameColor != defaultColor ? character.NameColor : mergedCharacter.NameColor;
-            mergedCharacter.TextColor = character.TextColor != defaultColor ? character.TextColor : mergedCharacter.TextColor;
+            mergedCharacter.NameColor = character.NameColor ?? mergedCharacter.NameColor;
+            mergedCharacter.TextColor = character.TextColor ?? mergedCharacter.TextColor;
             mergedCharacter.Font = character.Font ?? mergedCharacter.Font;
             mergedCharacter.FontSize = character.FontSize != 0 ? character.FontSize : mergedCharacter.FontSize;
             mergedCharacter.TextSpeed = character.TextSpeed != 0 ? character.TextSpeed : mergedCharacter.TextSpeed;
@@ -130,7 +130,7 @@ public partial class CharacterManager : Node
         foreach (var id in splitId)
         {
             ImportCharacter importCharacter = null;
-            if (lastImportCharacter?.Forms?.TryGetValue(id, out importCharacter) ?? false || importCharacters.TryGetValue(id, out importCharacter))
+            if ((lastImportCharacter?.Forms != null && lastImportCharacter.Forms.TryGetValue(id, out importCharacter)) || importCharacters.TryGetValue(id, out importCharacter))
             {
                 characters.Add(ConvertToCharacter(importCharacter, i == 1 ? id : null));
                 lastImportCharacter = importCharacter;
