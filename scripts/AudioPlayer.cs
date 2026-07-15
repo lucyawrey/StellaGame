@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public partial class AudioPlayer : AudioStreamPlayer
 {
-    private AudioStreamPlaybackPolyphonic playback;
+    public AudioStreamPlaybackPolyphonic Playback { get; set; }
 
     private long currentSongStreamId;
 
@@ -13,7 +13,7 @@ public partial class AudioPlayer : AudioStreamPlayer
     {
         Stream = new AudioStreamPolyphonic();
         Play();
-        playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+        Playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
     }
 
     public void PlayMusic(string songName)
@@ -25,7 +25,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         if (AssetManager.GetMusic(songName, out var song))
         {
             StopMusic();
-            currentSongStreamId = playback.PlayStream(song);
+            currentSongStreamId = Playback.PlayStream(song);
             currentSongName = songName;
         }
         else
@@ -36,9 +36,9 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void StopMusic()
     {
-        if (playback.IsStreamPlaying(currentSongStreamId))
+        if (Playback.IsStreamPlaying(currentSongStreamId))
         {
-            playback.StopStream(currentSongStreamId);
+            Playback.StopStream(currentSongStreamId);
         }
     }
 
@@ -46,7 +46,7 @@ public partial class AudioPlayer : AudioStreamPlayer
     {
         if (AssetManager.GetSound(soundName, out var sound))
         {
-            playback.PlayStream(sound);
+            Playback.PlayStream(sound);
         }
         else
         {

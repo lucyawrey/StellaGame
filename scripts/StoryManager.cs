@@ -44,11 +44,17 @@ public partial class StoryManager : Node
 	[Export]
 	private BackgroundImage backgroundImage;
 
+	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
+
 	private bool isAutoMode = false;
 
 	private bool continueIsLocked = false;
 
-	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
+	private CharacterManager.Character currentCharacter = null;
+
+	private double visibleCharactersTimer = 0.0;
+
+	private long textSoundStreamId = 0;
 
 	public override void _Ready()
 	{
@@ -86,7 +92,6 @@ public partial class StoryManager : Node
 		{
 			if (!continueIsLocked && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
-				audioPlayer.PlaySound("click");
 				Continue();
 			}
 		}
@@ -94,7 +99,6 @@ public partial class StoryManager : Node
 		{
 			if (!continueIsLocked && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
 			{
-				audioPlayer.PlaySound("click");
 				Continue();
 			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
@@ -110,6 +114,24 @@ public partial class StoryManager : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (dialogueLabel.VisibleCharacters != -1 && visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
+		{
+			if (dialogueLabel.VisibleCharacters % currentCharacter.TextSoundSpacing == 0)
+			{
+				audioPlayer.Playback.StopStream(textSoundStreamId);
+				textSoundStreamId = audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -1.0f, currentCharacter.TextSoundPitch);
+			}
+
+			dialogueLabel.VisibleCharacters += 1;
+		}
+		if (dialogueLabel.VisibleCharacters >= dialogueLabel.Text.Length)
+		{
+			audioPlayer.Playback.StopStream(textSoundStreamId);
+			dialogueLabel.VisibleCharacters = -1;
+		}
+
+		visibleCharactersTimer += delta;
+
 		if (!continueIsLocked && isAutoMode)
 		{
 			Continue();
@@ -140,6 +162,8 @@ public partial class StoryManager : Node
 	{
 		continueIsLocked = true;
 
+		dialogueLabel.VisibleCharacters = 0;
+
 		if (story.GetCanContinue())
 		{
 			string content = story.Continue().Trim();
@@ -163,22 +187,22 @@ public partial class StoryManager : Node
 				content = "";
 			}
 
-			var character = characterManager.GetCharacter(characterId);
+			currentCharacter = characterManager.GetCharacter(characterId);
 
-			var nameText = string.IsNullOrWhiteSpace(character.Name) ? "" : $"[color={character.NameColor}]{character.Name}[/color]";
+			var nameText = string.IsNullOrWhiteSpace(currentCharacter.Name) ? "" : $"[color={currentCharacter.NameColor}]{currentCharacter.Name}[/color]";
 
-			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
-			var fontSize = character.FontSize != AssetManager.GetBaseFontSize() ? $"[font_size={character.FontSize}]" : "";
-			var fullscreenNameText = character.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
-			var dialogueText = $"{font}{fontSize}[color={character.TextColor}]{fullscreenNameText}{character.Prefix}{content}{character.Suffix}";
+			var font = currentCharacter.Font != AssetManager.GetBaseFont() ? $"[font={currentCharacter.Font}]" : "";
+			var fontSize = currentCharacter.FontSize != AssetManager.GetBaseFontSize() ? $"[font_size={currentCharacter.FontSize}]" : "";
+			var fullscreenNameText = currentCharacter.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
+			var dialogueText = $"{font}{fontSize}[color={currentCharacter.TextColor}]{fullscreenNameText}{currentCharacter.Prefix}{content}{currentCharacter.Suffix}";
 
-			if (character.Fullscreen)
+			if (currentCharacter.Fullscreen)
 			{
 				fullscreenBox.Visible = true;
 				dialogueBox.Visible = false;
 				nameBox.Visible = false;
 
-				fullscreenDialogueLabel.Text = $"{fullscreenDialogueLabel.Text}\n{dialogueText}";
+				fullscreenDialogueLabel.AppendText($"\n{dialogueText}");
 			}
 			else
 			{
@@ -191,9 +215,9 @@ public partial class StoryManager : Node
 			}
 
 			// Set theme for character
-			if (character.Theme != null && userInterface.Theme != character.Theme)
+			if (currentCharacter.Theme != null && userInterface.Theme != currentCharacter.Theme)
 			{
-				userInterface.Theme = character.Theme;
+				userInterface.Theme = currentCharacter.Theme;
 			}
 
 			continueIsLocked = false;

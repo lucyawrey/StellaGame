@@ -127,6 +127,7 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 bbcode_enabled = true
 scroll_active = false
+visible_characters_behavior = 1
 
 [node name="ChoiceMargin" type="MarginContainer" parent="UserInterface/DialogueBox" unique_id=518268424]
 layout_mode = 2
