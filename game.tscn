@@ -46,7 +46,7 @@ color = Color(0, 0, 0, 1)
 position = Vector2(640, -40)
 amount = 100
 lifetime = 20.0
-preprocess = 16.0
+preprocess = 2.0
 process_material = ExtResource("5_ryrav")
 
 [node name="GameBox" type="PanelContainer" parent="UserInterface" unique_id=885437159]

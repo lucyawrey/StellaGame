@@ -34,6 +34,7 @@ public static class AssetManager
     private static Dictionary<string, Theme> themeLibrary = new()
     {
         { "base", GD.Load<Theme>("res://assets/themes/base.tres") },
+        { "void", GD.Load<Theme>("res://assets/themes/void.tres") },
     };
 
     public static bool GetMusic(string songName, out AudioStream song)
@@ -79,6 +80,11 @@ public static class AssetManager
     public static string GetBaseFont()
     {
         return fontLibrary["base"];
+    }
+
+    public static int GetBaseFontSize()
+    {
+        return 30;
     }
 
     public static bool GetTheme(string themeName, out Theme theme)

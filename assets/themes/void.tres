@@ -1,0 +1,28 @@
+[gd_resource type="Theme" format=3 uid="uid://cvja6cqeel77y"]
+
+[ext_resource type="FontFile" uid="uid://cl1gvftbqx5ji" path="res://assets/fonts/PoppinsSemiBold.ttf" id="1_1tkvs"]
+[ext_resource type="StyleBox" uid="uid://kvoy6u5vi1to" path="res://assets/themes/box_blue.tres" id="2_k7p7q"]
+[ext_resource type="StyleBox" uid="uid://cuylga6a0efqw" path="res://assets/themes/box_light.tres" id="3_64f78"]
+[ext_resource type="StyleBox" uid="uid://bm30cv5568rgo" path="res://assets/themes/box_blue_dark.tres" id="4_rgn82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8g3k"]
+
+[resource]
+default_font_size = 30
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_1tkvs")
+Button/styles/focus = ExtResource("2_k7p7q")
+Button/styles/hover = ExtResource("2_k7p7q")
+Button/styles/normal = ExtResource("3_64f78")
+Button/styles/pressed = ExtResource("4_rgn82")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_g8g3k")
+RichTextLabel/font_sizes/bold_font_size = 30
+RichTextLabel/font_sizes/bold_italics_font_size = 30
+RichTextLabel/font_sizes/italics_font_size = 30
+RichTextLabel/font_sizes/mono_font_size = 30
+RichTextLabel/font_sizes/normal_font_size = 30
+RichTextLabel/fonts/bold_font = ExtResource("1_1tkvs")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_1tkvs")
+RichTextLabel/fonts/italics_font = ExtResource("1_1tkvs")
+RichTextLabel/fonts/mono_font = ExtResource("1_1tkvs")
+RichTextLabel/fonts/normal_font = ExtResource("1_1tkvs")

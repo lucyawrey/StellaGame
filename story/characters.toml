@@ -18,7 +18,7 @@ Name = ""
 
 [Dream]
 Name = ""
-Theme = "none"
+Theme = "void"
 
 [Card]
 Name = ""
@@ -27,7 +27,7 @@ TextSpeed = 0.1
 TextSoundPitch = 1.2
 TextSoundSpacing = 1
 Fullscreen = true
-Theme = "none"
+Theme = "void"
 
 [Stella]
 NameColor = "#e3e06f"
@@ -36,7 +36,7 @@ TextSoundPitch = 1.3
 [Stella.Forms.Dream]
 Name = ""
 TextColor = "#e3e06f"
-Theme = "none"
+Theme = "void"
 
 [Stella.Forms.Narrator]
 Name = ""
