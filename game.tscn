@@ -8,23 +8,19 @@
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
-[node name="Game" type="Control" unique_id=1422957986]
-layout_mode = 3
-anchors_preset = 0
-mouse_filter = 2
-theme = ExtResource("1_ryrav")
+[node name="Game" type="Node" unique_id=1005478206]
 
 [node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "audioPlayer", "dialogueLabel", "nameBox", "nameLabel", "choiceButtons", "choicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
 story = ExtResource("2_feb5d")
 characterManager = NodePath("../CharacterManager")
 audioPlayer = NodePath("../AudioPlayer")
-dialogueLabel = NodePath("../DialogueBox/DialogueMargin/Dialogue")
-nameBox = NodePath("../NameBox")
-nameLabel = NodePath("../NameBox/MarginContainer/Name")
-choiceButtons = [NodePath("../DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../DialogueBox/ChoiceMargin/Choices/Choice3")]
-choicesBox = NodePath("../DialogueBox/ChoiceMargin/Choices")
-backgroundImage = NodePath("../GameBox/MarginContainer/BackgroundImage")
+dialogueLabel = NodePath("../Interface/DialogueBox/DialogueMargin/Dialogue")
+nameBox = NodePath("../Interface/NameBox")
+nameLabel = NodePath("../Interface/NameBox/MarginContainer/Name")
+choiceButtons = [NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../Interface/DialogueBox/ChoiceMargin/Choices/Choice3")]
+choicesBox = NodePath("../Interface/DialogueBox/ChoiceMargin/Choices")
+backgroundImage = NodePath("../Interface/GameBox/MarginContainer/BackgroundImage")
 
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
 script = ExtResource("4_eow3j")
@@ -32,21 +28,27 @@ script = ExtResource("4_eow3j")
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
 script = ExtResource("3_feb5d")
 
-[node name="VoidBackground" type="ColorRect" parent="." unique_id=269220503]
+[node name="Interface" type="Control" parent="." unique_id=1422957986]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = ExtResource("1_ryrav")
+
+[node name="VoidBackground" type="ColorRect" parent="Interface" unique_id=269220503]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="VoidParticles" type="GPUParticles2D" parent="." unique_id=1808307230]
+[node name="VoidParticles" type="GPUParticles2D" parent="Interface" unique_id=1808307230]
 position = Vector2(640, -40)
 amount = 100
 lifetime = 20.0
 preprocess = 16.0
 process_material = ExtResource("5_ryrav")
 
-[node name="GameBox" type="PanelContainer" parent="." unique_id=885437159]
+[node name="GameBox" type="PanelContainer" parent="Interface" unique_id=885437159]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 20.0
@@ -54,19 +56,19 @@ offset_right = 1240.0
 offset_bottom = 440.0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="GameBox" unique_id=2012400901]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/GameBox" unique_id=2012400901]
 layout_mode = 2
 theme_override_constants/margin_left = -1
 theme_override_constants/margin_top = -1
 theme_override_constants/margin_right = -1
 theme_override_constants/margin_bottom = -1
 
-[node name="BackgroundImage" type="TextureRect" parent="GameBox/MarginContainer" unique_id=1904857836]
+[node name="BackgroundImage" type="TextureRect" parent="Interface/GameBox/MarginContainer" unique_id=1904857836]
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("6_ryrav")
 
-[node name="DialogueBox" type="PanelContainer" parent="." unique_id=1619528995]
+[node name="DialogueBox" type="PanelContainer" parent="Interface" unique_id=1619528995]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 460.0
@@ -74,46 +76,46 @@ offset_right = 1240.0
 offset_bottom = 700.0
 mouse_filter = 2
 
-[node name="DialogueMargin" type="MarginContainer" parent="DialogueBox" unique_id=1718936795]
+[node name="DialogueMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=1718936795]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 30
 
-[node name="Dialogue" type="RichTextLabel" parent="DialogueBox/DialogueMargin" unique_id=1108400314]
+[node name="Dialogue" type="RichTextLabel" parent="Interface/DialogueBox/DialogueMargin" unique_id=1108400314]
 layout_mode = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="ChoiceMargin" type="MarginContainer" parent="DialogueBox" unique_id=518268424]
+[node name="ChoiceMargin" type="MarginContainer" parent="Interface/DialogueBox" unique_id=518268424]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Choices" type="VBoxContainer" parent="DialogueBox/ChoiceMargin" unique_id=483701720]
+[node name="Choices" type="VBoxContainer" parent="Interface/DialogueBox/ChoiceMargin" unique_id=483701720]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Choice0" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
+[node name="Choice0" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice1" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
+[node name="Choice1" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice2" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
+[node name="Choice2" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice3" type="Button" parent="DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
+[node name="Choice3" type="Button" parent="Interface/DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NameBox" type="PanelContainer" parent="." unique_id=2111548589]
+[node name="NameBox" type="PanelContainer" parent="Interface" unique_id=2111548589]
 layout_mode = 0
 offset_left = 70.0
 offset_top = 420.0
@@ -121,14 +123,14 @@ offset_right = 170.0
 offset_bottom = 480.0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="NameBox" unique_id=898370655]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/NameBox" unique_id=898370655]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 0
 
-[node name="Name" type="RichTextLabel" parent="NameBox/MarginContainer" unique_id=1209673003]
+[node name="Name" type="RichTextLabel" parent="Interface/NameBox/MarginContainer" unique_id=1209673003]
 layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
