@@ -12,6 +12,9 @@ public partial class StoryManager : Node
 	private CharacterManager characterManager;
 
 	[Export]
+	private Control userInterface;
+
+	[Export]
 	private AudioPlayer audioPlayer;
 
 	[Export]
@@ -166,6 +169,12 @@ public partial class StoryManager : Node
 			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
 			dialogueLabel.Text = $"{font}[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}";
 			continueIsLocked = false;
+
+			// Set theme from character
+			if (character.Theme != null && userInterface.Theme != character.Theme)
+			{
+				userInterface.Theme = character.Theme;
+			}
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
