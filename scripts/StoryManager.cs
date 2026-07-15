@@ -32,6 +32,8 @@ public partial class StoryManager : Node
 	[Export]
 	private BackgroundImage backgroundImage;
 
+	private bool isAutoMode = false;
+
 	private bool continueIsLocked = false;
 
 	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
@@ -75,6 +77,30 @@ public partial class StoryManager : Node
 				audioPlayer.PlaySound("click");
 				Continue();
 			}
+		}
+		else if (@event is InputEventKey keyEvent)
+		{
+			if (!continueIsLocked && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+			{
+				audioPlayer.PlaySound("click");
+				Continue();
+			}
+			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			{
+				isAutoMode = true;
+			}
+			else if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			{
+				isAutoMode = false;
+			}
+		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (!continueIsLocked && isAutoMode)
+		{
+			Continue();
 		}
 	}
 
@@ -159,7 +185,7 @@ public partial class StoryManager : Node
 		}
 		else
 		{
-			continueIsLocked = false;
+			GetTree().Quit();
 		}
 	}
 
