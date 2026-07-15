@@ -36,7 +36,7 @@ Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
 Stella.Narrator: Somehow, every one of my blankets are discarded on the floor on the other side of the room.
 Stella.Narrator: The first thing I notice about my body is that I feel sweaty and unusually sick.
 Stella.Narrator: At least the bright morning sun coming through the window helps.
-Stella: I don't wanna to get up.
+Stella: I don't wanna get up.
 ~ delay(0.2)
 ~ play_music("typhoon_parade")
 Stella.Narrator: An alarm clock starts blaring mid 2010's J-pop as if in direct rejection of my plea.

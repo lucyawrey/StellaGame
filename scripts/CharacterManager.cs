@@ -119,18 +119,18 @@ public partial class CharacterManager : Node
         var splitId = characterId.Split('.');
         var characters = new List<Character>();
         ImportCharacter lastImportCharacter = null;
-        foreach (var subId in splitId)
+        foreach (var id in splitId)
         {
-            GD.Print($"Loading character: {subId}");
+            GD.Print($"Loading character: {id}");
             ImportCharacter importCharacter = null;
-            if (lastImportCharacter?.Forms.TryGetValue(subId, out importCharacter) ?? false || importCharacters.TryGetValue(subId, out importCharacter))
+            if (lastImportCharacter?.Forms?.TryGetValue(id, out importCharacter) ?? false || importCharacters.TryGetValue(id, out importCharacter))
             {
-                characters.Add(ConvertToCharacter(importCharacter, subId));
+                characters.Add(ConvertToCharacter(importCharacter, id));
                 lastImportCharacter = importCharacter;
             }
             else
             {
-                GD.PrintErr($"Character not found: {subId}");
+                GD.PrintErr($"Character not found: {id}");
             }
         }
         character = MergeCharacters(characters);
