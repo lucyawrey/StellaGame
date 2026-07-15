@@ -111,26 +111,29 @@ public partial class StoryManager : Node
 				return;
 			}
 			SetChoiceMode(false);
-			string name = "";
+
+			string characterId = "";
 			var match = characterRegex.Match(content);
 			if (match.Success)
 			{
-				name = match.Groups[1].Value;
+				characterId = match.Groups[1].Value;
 				content = match.Groups[2].Value;
 			}
 
 			if (content == "_")
 			{
-				content = string.Empty;
+				content = "";
 			}
 
-			if (string.IsNullOrWhiteSpace(name))
+			var character = characterManager.GetCharacter(characterId);
+
+			if (character.Name == "")
 			{
 				nameBox.Visible = false;
 			}
 			else
 			{
-				var character = characterManager.GetCharacter(name);
+				nameBox.Visible = true;
 				nameLabel.Text = character.Name;
 			}
 

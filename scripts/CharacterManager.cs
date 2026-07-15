@@ -12,6 +12,10 @@ public partial class CharacterManager : Node
 
     private readonly Color defaultColor = new Color("#FFFFFF");
 
+    private readonly string baseCharacterId = "Base";
+
+    private readonly string narratorCharacterId = "Narrator";
+
     public class ImportCharacter
     {
         public string Name { get; set; }
@@ -60,11 +64,11 @@ public partial class CharacterManager : Node
         importCharacters = TomlSerializer.Deserialize<Dictionary<string, ImportCharacter>>(toml);
     }
 
-    private Character ConvertToCharacter(ImportCharacter importCharacter, string characterId)
+    private Character ConvertToCharacter(ImportCharacter importCharacter, string nameFallback = null)
     {
         var character = new Character
         {
-            Name = importCharacter.Name ?? characterId,
+            Name = importCharacter.Name ?? nameFallback ?? "",
             NameColor = importCharacter.NameColor != null ? new Color(importCharacter.NameColor) : defaultColor,
             TextColor = importCharacter.TextColor != null ? new Color(importCharacter.TextColor) : defaultColor,
             Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
@@ -107,34 +111,38 @@ public partial class CharacterManager : Node
     public Character GetCharacter(string characterId)
     {
         Character character;
-        if (string.IsNullOrWhiteSpace(characterId))
-        {
-            return null;
-        }
-        if (characterCache.TryGetValue(characterId, out character))
+        var initialCharacterId = characterId ?? "";
+        if (characterCache.TryGetValue(initialCharacterId, out character))
         {
             return character;
         }
-        characterId = "Base." + characterId;
+
+        if (string.IsNullOrWhiteSpace(characterId))
+        {
+            characterId = narratorCharacterId;
+        }
+        characterId = $"{baseCharacterId}.{characterId}";
+
         var splitId = characterId.Split('.');
         var characters = new List<Character>();
         ImportCharacter lastImportCharacter = null;
+        var i = 0;
         foreach (var id in splitId)
         {
-            GD.Print($"Loading character: {id}");
             ImportCharacter importCharacter = null;
             if (lastImportCharacter?.Forms?.TryGetValue(id, out importCharacter) ?? false || importCharacters.TryGetValue(id, out importCharacter))
             {
-                characters.Add(ConvertToCharacter(importCharacter, id));
+                characters.Add(ConvertToCharacter(importCharacter, i == 1 ? id : null));
                 lastImportCharacter = importCharacter;
             }
             else
             {
                 GD.PrintErr($"Character not found: {id}");
             }
+            i++;
         }
         character = MergeCharacters(characters);
-        characterCache[characterId] = character;
+        characterCache[initialCharacterId] = character;
         return character;
     }
 }
