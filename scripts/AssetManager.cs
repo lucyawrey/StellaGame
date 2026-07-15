@@ -76,6 +76,11 @@ public static class AssetManager
         return fontLibrary.TryGetValue(fontName, out font);
     }
 
+    public static string GetBaseFont()
+    {
+        return fontLibrary["base"];
+    }
+
     public static bool GetTheme(string themeName, out Theme theme)
     {
         if (themeName == null)

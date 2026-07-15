@@ -160,10 +160,11 @@ public partial class StoryManager : Node
 			else
 			{
 				nameBox.Visible = true;
-				nameLabel.Text = $"[color={character.NameColor}]{character.Name}[/color]";
+				nameLabel.Text = $"[color={character.NameColor}]{character.Name}";
 			}
 
-			dialogueLabel.Text = $"[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}[/color]";
+			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
+			dialogueLabel.Text = $"{font}[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}";
 			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)
