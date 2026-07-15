@@ -167,14 +167,16 @@ public partial class StoryManager : Node
 			}
 
 			var font = character.Font != AssetManager.GetBaseFont() ? $"[font={character.Font}]" : "";
-			dialogueLabel.Text = $"{font}[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}";
-			continueIsLocked = false;
+			var fontSize = character.FontSize != AssetManager.GetBaseFontSize() ? $"[size={character.FontSize}]" : "";
+			dialogueLabel.Text = $"{font}{fontSize}[color={character.TextColor}]{character.Prefix}{content}{character.Suffix}";
 
-			// Set theme from character
+			// Set theme for character
 			if (character.Theme != null && userInterface.Theme != character.Theme)
 			{
 				userInterface.Theme = character.Theme;
 			}
+
+			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
