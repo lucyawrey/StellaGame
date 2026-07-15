@@ -1,6 +1,4 @@
 === day_1_dream
-~ clear()
-~ background(none)
 ~ play_music("relaxing_piano_music")
 Dream: You float formless in the space between.
 Dream: It is quiet. It is comfortable. It is vast beyond comprehension.

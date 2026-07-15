@@ -22,8 +22,9 @@ Theme = "void"
 
 [Card]
 Name = ""
-FontSize = 48
+FontSize = 42
 TextSpeed = 0.1
+Prefix = "[center]"
 TextSoundPitch = 1.2
 TextSoundSpacing = 1
 Fullscreen = true
