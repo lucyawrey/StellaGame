@@ -162,8 +162,6 @@ public partial class StoryManager : Node
 	{
 		continueIsLocked = true;
 
-		dialogueLabel.VisibleCharacters = 0;
-
 		if (story.GetCanContinue())
 		{
 			string content = story.Continue().Trim();
@@ -206,6 +204,7 @@ public partial class StoryManager : Node
 			}
 			else
 			{
+				dialogueLabel.VisibleCharacters = 0;
 				fullscreenBox.Visible = false;
 				dialogueBox.Visible = true;
 				nameBox.Visible = !string.IsNullOrWhiteSpace(nameText);
