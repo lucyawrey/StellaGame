@@ -60,6 +60,8 @@ public partial class StoryManager : Node
 
 	private double visibleCharactersTimer = 0.0;
 
+	private int textSoundCharacterCounter = 0;
+
 	private long textSoundStreamId = 0;
 
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
@@ -142,17 +144,26 @@ public partial class StoryManager : Node
 	{
 		if (dialogueLabel.VisibleCharacters != -1 && visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
 		{
-			if (dialogueLabel.VisibleCharacters % currentCharacter.TextSoundSpacing == 0)
+			var currentTextCharacter = dialogueLabel.Text[dialogueLabel.VisibleCharacters];
+			if (!char.IsWhiteSpace(currentTextCharacter))
 			{
-				audioPlayer.Playback.StopStream(textSoundStreamId);
-				textSoundStreamId = audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -1.0f, currentCharacter.TextSoundPitch);
+				if (textSoundCharacterCounter <= 0)
+				{
+					audioPlayer.Playback.StopStream(textSoundStreamId);
+					textSoundStreamId = audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+				}
+				textSoundCharacterCounter--;
 			}
 
-			dialogueLabel.VisibleCharacters += 1;
+			dialogueLabel.VisibleCharacters++;
+			visibleCharactersTimer = 0;
 		}
+
 		if (dialogueLabel.VisibleCharacters >= dialogueLabel.Text.Length)
 		{
 			audioPlayer.Playback.StopStream(textSoundStreamId);
+
 			dialogueLabel.VisibleCharacters = -1;
 		}
 
@@ -238,6 +249,7 @@ public partial class StoryManager : Node
 
 			if (currentCharacter.Fullscreen)
 			{
+				dialogueLabel.VisibleCharacters = -1;
 				fullscreenBox.Visible = true;
 				dialogueBox.Visible = false;
 				nameBox.Visible = false;
@@ -265,6 +277,7 @@ public partial class StoryManager : Node
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
+			dialogueLabel.VisibleCharacters = -1;
 			nameBox.Visible = false;
 
 			foreach (var button in actChoiceButtons)
