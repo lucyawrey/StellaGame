@@ -22,8 +22,8 @@ nameLabel = NodePath("../UserInterface/NameBox/MarginContainer/Name")
 fullscreenBox = NodePath("../UserInterface/FullscreenBox")
 dialogueBox = NodePath("../UserInterface/DialogueBox")
 nameBox = NodePath("../UserInterface/NameBox")
-choiceButtons = [NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice0"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice1"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice2"), NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices/Choice3")]
-choicesBox = NodePath("../UserInterface/DialogueBox/ChoiceMargin/Choices")
+choiceButtons = [NodePath("../UserInterface/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/DialogueBox/Choices/Choice3")]
+choicesBox = NodePath("../UserInterface/DialogueBox/Choices")
 backgroundImage = NodePath("../UserInterface/GameBox/MarginContainer/BackgroundImage")
 
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
@@ -136,23 +136,23 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Choices" type="VBoxContainer" parent="UserInterface/DialogueBox/ChoiceMargin" unique_id=483701720]
+[node name="Choices" type="VBoxContainer" parent="UserInterface/DialogueBox" unique_id=483701720]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Choice0" type="Button" parent="UserInterface/DialogueBox/ChoiceMargin/Choices" unique_id=1066695833]
+[node name="Choice0" type="Button" parent="UserInterface/DialogueBox/Choices" unique_id=1066695833]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice1" type="Button" parent="UserInterface/DialogueBox/ChoiceMargin/Choices" unique_id=392508234]
+[node name="Choice1" type="Button" parent="UserInterface/DialogueBox/Choices" unique_id=392508234]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice2" type="Button" parent="UserInterface/DialogueBox/ChoiceMargin/Choices" unique_id=989256251]
+[node name="Choice2" type="Button" parent="UserInterface/DialogueBox/Choices" unique_id=989256251]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Choice3" type="Button" parent="UserInterface/DialogueBox/ChoiceMargin/Choices" unique_id=2135712076]
+[node name="Choice3" type="Button" parent="UserInterface/DialogueBox/Choices" unique_id=2135712076]
 layout_mode = 2
 size_flags_vertical = 3
 

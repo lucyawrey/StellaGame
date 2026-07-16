@@ -42,6 +42,9 @@ public partial class StoryManager : Node
 	private BoxContainer choicesBox;
 
 	[Export]
+	private BoxContainer actChoicesBox;
+
+	[Export]
 	private BackgroundImage backgroundImage;
 
 	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
@@ -224,6 +227,12 @@ public partial class StoryManager : Node
 		else if (story.CurrentChoices.Count > 0)
 		{
 			nameBox.Visible = false;
+
+			if (story.CurrentChoices[0].Text == "Act")
+			{
+
+			}
+
 			foreach (var button in choiceButtons)
 			{
 				HideControl(true, button);
