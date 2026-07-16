@@ -57,9 +57,9 @@ process_material = ExtResource("5_ryrav")
 [node name="GameBox" type="PanelContainer" parent="UserInterface" unique_id=885437159]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 20.0
+offset_top = 18.0
 offset_right = 1240.0
-offset_bottom = 440.0
+offset_bottom = 438.0
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UserInterface/GameBox" unique_id=2012400901]
@@ -113,7 +113,7 @@ scroll_active = false
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface" unique_id=1619528995]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 460.0
+offset_top = 458.0
 offset_right = 1240.0
 offset_bottom = 700.0
 mouse_filter = 2
@@ -127,6 +127,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="Dialogue" type="RichTextLabel" parent="UserInterface/DialogueBox/DialogueMargin" unique_id=1108400314]
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 visible_characters_behavior = 1

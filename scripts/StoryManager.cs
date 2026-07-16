@@ -62,7 +62,9 @@ public partial class StoryManager : Node
 
 	private long textSoundStreamId = 0;
 
-	private Dictionary<string, int> actChoiceMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
+	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
+
+	private Dictionary<string, Button> actChoiceButtonMap = new();
 
 	public enum DialogueBoxMode
 	{
@@ -88,21 +90,21 @@ public partial class StoryManager : Node
 		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
 		// Choice button callback set up
+		foreach (var choiceButton in actChoiceButtons)
+		{
+			actChoiceButtonMap[choiceButton.Text] = choiceButton;
+			choiceButton.Pressed += delegate
+			{
+				story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
+				Continue();
+			};
+		}
 		for (var i = 0; i < choiceButtons.Count; i++)
 		{
 			var choice = i;
 			choiceButtons[i].Pressed += delegate
 			{
 				story.ChooseChoiceIndex(choice);
-				Continue();
-			};
-		}
-		foreach (var choiceButton in actChoiceButtons)
-		{
-
-			choiceButton.Pressed += delegate
-			{
-				story.ChooseChoiceIndex(actChoiceMap[choiceButton.Text]);
 				Continue();
 			};
 		}
@@ -264,16 +266,35 @@ public partial class StoryManager : Node
 		else if (story.CurrentChoices.Count > 0)
 		{
 			nameBox.Visible = false;
-			SetDialogueBoxMode(DialogueBoxMode.Choices);
 
+			foreach (var button in actChoiceButtons)
+			{
+				button.Disabled = true;
+			}
+			foreach (var key in actChoiceIndexMap.Keys)
+			{
+				actChoiceIndexMap[key] = -1;
+			}
 			foreach (var button in choiceButtons)
 			{
 				HideControl(true, button);
 			}
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
-				if (choice.Index < 4)
+				if (choice.Index >= 4)
 				{
+					GD.PrintErr("There are more than 4 choices, which is too many to be displayed.");
+					break;
+				}
+				if (actChoiceIndexMap.Keys.Contains(choice.Text))
+				{
+					SetDialogueBoxMode(DialogueBoxMode.ActChoices);
+					actChoiceIndexMap[choice.Text] = choice.Index;
+					actChoiceButtonMap[choice.Text].Disabled = false;
+				}
+				else
+				{
+					SetDialogueBoxMode(DialogueBoxMode.Choices);
 					HideControl(false, choiceButtons[choice.Index]);
 					choiceButtons[choice.Index].Text = choice.Text;
 				}
