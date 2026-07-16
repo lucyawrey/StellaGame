@@ -66,7 +66,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
 
 = act
 ~ play_music("morning")
-+ [Act]
++ {!investigate_bedroom or !sleep_in or !check_wall_calendar or !check_phone} [Act]
     ** (investigate_bedroom) [Investigate bedroom]
         The bedroom is well decorated and comfortable, but a massive pile of discarded clothes sits on the floor.
         Stella.Narrator: I think this is everything I own.
@@ -98,23 +98,20 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         Ignoring several unread messages, Stella checks the calendar app on her phone.
         It thankfully auto-updates when schedules are posted.
         Stella: Right, the cafe. {sleep_in: I'm already late... | I definately am going to be a bit late. }
-    ++ {!investigate_bedroom or !sleep_in or !check_wall_calendar or !check_phone} [Do nothing]
-    ++ ->
-        There's nothing left to do here.
-+ [Talk]
-    Stella: There's one here but me, right?
+    ++ [Do nothing]
+* [Talk]
+    Stella: There's no one here but me, right?
 + [Move]
     ++ [Bathroom]
         ~ play_sound("move")
         -> day_1_bathroom
     ++ [Balcony]
-        ~play_sound("move")
+        ~ play_sound("move")
         -> day_1_balcony
     ++ [Kitchen]
-        Unimplimented.
-    ** (nowhere) [Nowhere]
-        You're already there.
-    ++ {nowhere} [Nowhere]
+        ~ play_sound("move")
+        -> day_1_kitchen
+    ++ [Stay here]
 - -> act
 
 === day_1_bathroom
@@ -128,25 +125,49 @@ Stella.Narrator: I should have taken a bath last night, but now I don't have tim
 -> act
 
 = act
-+ [Act]
++ {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !apply_makeup} [Act]
     ** (investigate_bathroom) [Investigate bathroom]
     ** (mirror) [Look in the mirror]
     ** (take_shower) [Take a shower]
     ** (brush_teeth) {take_shower} [Brush teeth]
     ** (fix_hair) {brush_teeth} [Fix hair]
-    ** (makeup) {fix_hair} [Makeup]
+    ** (apply_makeup) {fix_hair} [Apply makeup]
         Stella.Narrator: No time.
-    ++ {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !makeup} [Do nothing]
-    ++ ->
-        There's nothing left to do here.
-+ [Talk]
-    Theres no one here.
+    ++ [Do nothing]
 + [Move]
     ++ [Bedroom]
         ~ play_sound("move")
         -> day_1_bedroom
-    ++ [Nowhere]
+    ++ [Stay here]
 - -> act
+
+=== day_1_kitchen
+~ background("kitchen")
+~ play_music("kitchen")
+{day_1_kitchen > 1: -> act | -> enter}
+
+= enter
+Stella.Narrator: I walk into the kitchen...
+-> act
+
+= act
++ {!aquire_toast or !toast_toast or !eat_toast} [Act]
+    ** (aquire_toast) [Aquire toast]
+    ** (toast_toast) {aquire_toast} [Toast toast]
+    ** (eat_toast) {toast_toast} [Eat toast]
+    ++ [Do nothing]
++ [Move]
+    ++ [Bedroom]
+        ~ play_sound("move")
+        -> day_1_bedroom
+    ** [Apartment Hallway]
+        Stella: I don't want to leave this way.
+    ++ [Stay here]
+- -> act
+
+= sitting_on_balcony
+Balconies r nice :D
+-> END
 
 === day_1_balcony
 ~ background("balcony")
@@ -167,15 +188,13 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
         +++ [Sit anyway] -> sitting_on_balcony
         +++ [Do not] -> act
     ++ [Do nothing]
-    ++ ->
-        There's nothing left to do here.
-+ [Talk]
+* [Talk]
     Stella: Nobody to talk to. Makes me want to actually leave home.
 + [Move]
     ++ [Bedroom]
         ~ play_sound("move")
         -> day_1_bedroom
-    ++ [Nowhere]
+    ++ [Stay here]
 - -> act
 
 = sitting_on_balcony
