@@ -76,7 +76,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         *** [Do not]
             This is where they belong.
             Stella.Narrator: I might put them away properly later.
-    ** (sleep_in) [Go back to bed]
+    ** (sleep_in) {!day_1_bathroom.act.take_shower} [Go back to bed]
         Stella: Maybe I can sleep for just for a bit longer.
         // Play music, background noise
         ~ clear()
@@ -89,6 +89,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         ~ play_music("morning")
         ~ background("bedroom")
         Stella.Narrator: I better get up.
+    ** (get_dressed) {day_1_bathroom.act.take_shower} [Get dressed]
     ** (check_wall_calendar) [Check calendar]
         The dessert themed wall calendar on the wall has a tasty-yet-incriminating ice cream cone drawn next to the month name: July.
         It hasn't been changed in three months.
@@ -143,7 +144,6 @@ Stella.Narrator: I should have taken a bath last night, but now I don't have tim
 
 === day_1_kitchen
 ~ background("kitchen")
-~ play_music("kitchen")
 {day_1_kitchen > 1: -> act | -> enter}
 
 = enter
@@ -183,7 +183,7 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
 = act
 + [Act]
     ++ [Sit on the railing]
-        {false: -> sitting_on_balcony}
+        {day_1_bedroom.act.get_dressed: -> sitting_on_balcony}
         Stella.Narrator: I should really shower and put some actual clothes on first.
         +++ [Sit anyway] -> sitting_on_balcony
         +++ [Do not] -> act
@@ -199,4 +199,5 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
 
 = sitting_on_balcony
 Balconies r nice :D
+Game is over, for now!
 -> END
