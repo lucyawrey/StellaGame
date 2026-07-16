@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using Godot;
 using Godot.Collections;
@@ -60,7 +61,7 @@ public partial class StoryManager : Node
 
 	private double visibleCharactersTimer = 0.0;
 
-	private int textSoundTickCounter = 0;
+	private int textSoundCharacterCounter = 0;
 
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
@@ -141,24 +142,20 @@ public partial class StoryManager : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		var text = dialogueLabel.GetParsedText();
-
-		var charactersPerTick = 1 + currentCharacter.TextSpeed / 60; // Tick rate is 60
-		var textSpeed = currentCharacter.TextSpeed / charactersPerTick;
-
-		if (dialogueLabel.VisibleCharacters != -1)
+		if (dialogueLabel.VisibleCharacters <= text.Length && dialogueBox.Visible && dialogueLabel.Visible && currentCharacter != null)
 		{
-			var currentTextCharacter = text[dialogueLabel.VisibleCharacters];
+			var charactersPerTick = 1 + currentCharacter.TextSpeed / 60; // Tick rate is 60
+			var textSpeed = currentCharacter.TextSpeed / charactersPerTick;
+
 			if (visibleCharactersTimer >= 1.0 / textSpeed)
 			{
-				if (!char.IsWhiteSpace(currentTextCharacter))
+				var spaces = text.Count(" ", dialogueLabel.VisibleCharacters, Math.Min(dialogueLabel.VisibleCharacters + charactersPerTick, text.Length));
+				if (textSoundCharacterCounter <= 0)
 				{
-					if (textSoundTickCounter <= 0)
-					{
-						audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
-						textSoundTickCounter = currentCharacter.TextSoundSpacing;
-					}
-					textSoundTickCounter--;
+					audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
 				}
+				textSoundCharacterCounter -= charactersPerTick - spaces;
 
 				dialogueLabel.VisibleCharacters += charactersPerTick;
 				visibleCharactersTimer = 0;
@@ -167,11 +164,6 @@ public partial class StoryManager : Node
 			{
 				visibleCharactersTimer += delta;
 			}
-		}
-
-		if (dialogueLabel.VisibleCharacters >= text.Length)
-		{
-			dialogueLabel.VisibleCharacters = -1;
 		}
 
 		if (!continueIsLocked && isAutoMode)
@@ -254,7 +246,6 @@ public partial class StoryManager : Node
 
 			if (currentCharacter.Fullscreen)
 			{
-				dialogueLabel.VisibleCharacters = -1;
 				fullscreenBox.Visible = true;
 				dialogueBox.Visible = false;
 				nameBox.Visible = false;
@@ -282,7 +273,6 @@ public partial class StoryManager : Node
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
-			dialogueLabel.VisibleCharacters = -1;
 			nameBox.Visible = false;
 
 			foreach (var button in actChoiceButtons)
