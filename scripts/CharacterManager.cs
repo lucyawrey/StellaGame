@@ -21,7 +21,7 @@ public partial class CharacterManager : Node
         public string TextColor { get; set; }
         public string Font { get; set; }
         public int FontSize { get; set; }
-        public float TextSpeed { get; set; }
+        public int TextSpeed { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public string TextSound { get; set; }
@@ -39,7 +39,7 @@ public partial class CharacterManager : Node
         public string TextColor { get; set; }
         public string Font { get; set; }
         public int FontSize { get; set; }
-        public float TextSpeed { get; set; }
+        public int TextSpeed { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public AudioStream TextSound { get; set; }

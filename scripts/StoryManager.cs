@@ -60,7 +60,7 @@ public partial class StoryManager : Node
 
 	private double visibleCharactersTimer = 0.0;
 
-	private int textSoundCharacterCounter = 0;
+	private int textSoundTickCounter = 0;
 
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
@@ -141,22 +141,26 @@ public partial class StoryManager : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		var text = dialogueLabel.GetParsedText();
+
+		var charactersPerTick = 1 + currentCharacter.TextSpeed / 60; // Tick rate is 60
+		var textSpeed = currentCharacter.TextSpeed / charactersPerTick;
+
 		if (dialogueLabel.VisibleCharacters != -1)
 		{
 			var currentTextCharacter = text[dialogueLabel.VisibleCharacters];
-			if (visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
+			if (visibleCharactersTimer >= 1.0 / textSpeed)
 			{
 				if (!char.IsWhiteSpace(currentTextCharacter))
 				{
-					if (textSoundCharacterCounter <= 0)
+					if (textSoundTickCounter <= 0)
 					{
 						audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
-						textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+						textSoundTickCounter = currentCharacter.TextSoundSpacing;
 					}
-					textSoundCharacterCounter--;
+					textSoundTickCounter--;
 				}
 
-				dialogueLabel.VisibleCharacters++;
+				dialogueLabel.VisibleCharacters += charactersPerTick;
 				visibleCharactersTimer = 0;
 			}
 			else
