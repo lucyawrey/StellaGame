@@ -162,7 +162,7 @@ Stella.Narrator: I walk into the kitchen...
     ++ [Bedroom]
         ~ play_sound("move")
         -> day_1_bedroom
-    ** [Apartment Hallway]
+    ++ [Apartment Hallway]
         Stella: I don't want to leave this way.
     ++ [Stay here]
 - -> act
@@ -200,6 +200,8 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
 - -> act
 
 = sitting_on_balcony
-Balconies r nice :D
++ [Jump]
++ [Do not]
+- Balconies r nice :D
 Game is over, for now!
 -> END

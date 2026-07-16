@@ -9,7 +9,7 @@ Prefix = ""
 Suffix = ""
 TextSound = "click"
 TextSoundPitch = 1
-TextSoundSpacing = 5
+TextSoundSpacing = 3
 Fullscreen = false
 Theme = "base"
 
