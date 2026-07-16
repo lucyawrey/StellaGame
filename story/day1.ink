@@ -77,7 +77,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
             This is where they belong.
             Stella.Narrator: I might put them away properly later.
     ** (sleep_in) {!day_1_bathroom.act.take_shower} [Go back to bed]
-        Stella: Maybe I can sleep for just for a bit longer.
+        Stella: Maybe I can sleep for just a bit longer.
         // Play music, background noise
         ~ clear()
         ~ auto()

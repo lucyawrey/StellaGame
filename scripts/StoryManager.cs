@@ -62,8 +62,6 @@ public partial class StoryManager : Node
 
 	private int textSoundCharacterCounter = 0;
 
-	private long textSoundStreamId = 0;
-
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
 	private Dictionary<string, Button> actChoiceButtonMap = new();
@@ -142,32 +140,34 @@ public partial class StoryManager : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (dialogueLabel.VisibleCharacters != -1 && visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
+		if (dialogueLabel.VisibleCharacters != -1)
 		{
-			var currentTextCharacter = dialogueLabel.Text[dialogueLabel.VisibleCharacters];
-			if (!char.IsWhiteSpace(currentTextCharacter))
+			if (visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
 			{
-				if (textSoundCharacterCounter <= 0)
+				var currentTextCharacter = dialogueLabel.Text[dialogueLabel.VisibleCharacters];
+				if (!char.IsWhiteSpace(currentTextCharacter))
 				{
-					audioPlayer.Playback.StopStream(textSoundStreamId);
-					textSoundStreamId = audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
-					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+					if (textSoundCharacterCounter <= 0)
+					{
+						audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+						textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+					}
+					textSoundCharacterCounter--;
 				}
-				textSoundCharacterCounter--;
-			}
 
-			dialogueLabel.VisibleCharacters++;
-			visibleCharactersTimer = 0;
+				dialogueLabel.VisibleCharacters++;
+				visibleCharactersTimer = 0;
+			}
+			else
+			{
+				visibleCharactersTimer += delta;
+			}
 		}
 
 		if (dialogueLabel.VisibleCharacters >= dialogueLabel.Text.Length)
 		{
-			audioPlayer.Playback.StopStream(textSoundStreamId);
-
 			dialogueLabel.VisibleCharacters = -1;
 		}
-
-		visibleCharactersTimer += delta;
 
 		if (!continueIsLocked && isAutoMode)
 		{
