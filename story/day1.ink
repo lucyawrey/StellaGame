@@ -44,7 +44,7 @@ Stella.Narrator: I can't even remember where I'm supposed to be working today?
 Stella.Narrator: Is it the cafe or the hospital?
 Stella: I could just call in sick.
 Stella: What're they going to do, fire me?
-Stella.Slow: ...
+Stella.Slow: . . .
 Stella: Whoever they are.
 Stella.Narrator: The alarm continues to go off.
 Stella.Narrator: I can't even shut it off from here because my phone is all the way across the room, exactly where I left it.
@@ -80,12 +80,14 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         Stella: Maybe I can sleep for just for a bit longer.
         // Play music, background noise
         ~ clear()
+        ~ auto()
         ~ delay(3)
+        Stella.Slow: . . . . . .
         Stella.Narrator: If I stay in bed too long I'll fall back asleep without an alarm.
         Stella.Narrator: Again.
         ~ auto()
-        _
         ~ delay(3)
+        Stella.Slow: . . . . . .
         ~ play_music("morning")
         ~ background("bedroom")
         Stella.Narrator: I better get up.
@@ -93,7 +95,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
     ** (check_wall_calendar) [Check calendar]
         The dessert themed wall calendar on the wall has a tasty-yet-incriminating ice cream cone drawn next to the month name: July.
         It hasn't been changed in three months.
-        Stella.Slow: ...
+        Stella.Slow: . . .
         Stella.Narrator: I should just check my phone.
     ** (check_phone) {check_wall_calendar} [Check phone calendar]
         Ignoring several unread messages, Stella checks the calendar app on her phone.
