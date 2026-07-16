@@ -39,6 +39,9 @@ public partial class StoryManager : Node
 	private Array<Button> choiceButtons;
 
 	[Export]
+	private Array<Button> actChoiceButtons;
+
+	[Export]
 	private BoxContainer choicesBox;
 
 	[Export]
@@ -58,6 +61,15 @@ public partial class StoryManager : Node
 	private double visibleCharactersTimer = 0.0;
 
 	private long textSoundStreamId = 0;
+
+	private Dictionary<string, int> actChoiceMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
+
+	public enum DialogueBoxMode
+	{
+		Dialogue,
+		Choices,
+		ActChoices
+	}
 
 	public override void _Ready()
 	{
@@ -82,6 +94,15 @@ public partial class StoryManager : Node
 			choiceButtons[i].Pressed += delegate
 			{
 				story.ChooseChoiceIndex(choice);
+				Continue();
+			};
+		}
+		foreach (var choiceButton in actChoiceButtons)
+		{
+
+			choiceButton.Pressed += delegate
+			{
+				story.ChooseChoiceIndex(actChoiceMap[choiceButton.Text]);
 				Continue();
 			};
 		}
@@ -141,10 +162,26 @@ public partial class StoryManager : Node
 		}
 	}
 
-	private void SetChoiceMode(bool choiceMode)
+	private void SetDialogueBoxMode(DialogueBoxMode mode)
 	{
-		dialogueLabel.Visible = !choiceMode;
-		choicesBox.Visible = choiceMode;
+		switch (mode)
+		{
+			case DialogueBoxMode.Dialogue:
+				dialogueLabel.Visible = true;
+				choicesBox.Visible = false;
+				actChoicesBox.Visible = false;
+				break;
+			case DialogueBoxMode.Choices:
+				dialogueLabel.Visible = false;
+				choicesBox.Visible = true;
+				actChoicesBox.Visible = false;
+				break;
+			case DialogueBoxMode.ActChoices:
+				dialogueLabel.Visible = false;
+				choicesBox.Visible = false;
+				actChoicesBox.Visible = true;
+				break;
+		}
 	}
 
 	private void HideControl(bool hide, Control control)
@@ -173,7 +210,7 @@ public partial class StoryManager : Node
 				Continue();
 				return;
 			}
-			SetChoiceMode(false);
+			SetDialogueBoxMode(DialogueBoxMode.Dialogue);
 
 			string characterId = "";
 			var match = characterRegex.Match(content);
@@ -227,11 +264,7 @@ public partial class StoryManager : Node
 		else if (story.CurrentChoices.Count > 0)
 		{
 			nameBox.Visible = false;
-
-			if (story.CurrentChoices[0].Text == "Act")
-			{
-
-			}
+			SetDialogueBoxMode(DialogueBoxMode.Choices);
 
 			foreach (var button in choiceButtons)
 			{
@@ -239,7 +272,6 @@ public partial class StoryManager : Node
 			}
 			foreach (InkChoice choice in story.CurrentChoices)
 			{
-				SetChoiceMode(true);
 				if (choice.Index < 4)
 				{
 					HideControl(false, choiceButtons[choice.Index]);
