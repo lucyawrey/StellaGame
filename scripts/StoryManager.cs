@@ -140,11 +140,12 @@ public partial class StoryManager : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
+		var text = dialogueLabel.GetParsedText();
 		if (dialogueLabel.VisibleCharacters != -1)
 		{
+			var currentTextCharacter = text[dialogueLabel.VisibleCharacters];
 			if (visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
 			{
-				var currentTextCharacter = dialogueLabel.Text[dialogueLabel.VisibleCharacters];
 				if (!char.IsWhiteSpace(currentTextCharacter))
 				{
 					if (textSoundCharacterCounter <= 0)
@@ -164,7 +165,7 @@ public partial class StoryManager : Node
 			}
 		}
 
-		if (dialogueLabel.VisibleCharacters >= dialogueLabel.Text.Length)
+		if (dialogueLabel.VisibleCharacters >= text.Length)
 		{
 			dialogueLabel.VisibleCharacters = -1;
 		}

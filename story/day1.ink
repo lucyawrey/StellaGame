@@ -31,7 +31,7 @@ Stella.Dream: Not like this.
 = enter
 ~ play_music("unimplimented") // background noise
 Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
-Stella.Narrator: Somehow, every one of my blankets are discarded on the floor on the other side of the room.
+Stella.Narrator: Somehow, all of my blankets are discarded on the floor.
 Stella.Narrator: The first thing I notice about my body is that I feel sweaty and unusually sick.
 Stella.Narrator: At least the bright morning sun coming through the window helps.
 Stella: I don't wanna get up.
@@ -124,7 +124,7 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
 = enter
 Stella.Narrator: I open the bathroom door and step inside.
 Stella.Narrator: It's clean enough, but small and very cluttered.
-Stella.Narrator: I should have taken a bath last night, but now I don't have time for much more than a quick shower.
+Stella.Narrator: I should have taken a bath last night, but now I don't have time anything but a shower.
 -> act
 
 = act
