@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://scripts/CharacterManager.cs" id="4_eow3j"]
+[ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://assets/sound_effects/audio_stream_polyphonic.tres" id="4_j5wjh"]
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
 
@@ -32,6 +33,7 @@ backgroundImage = NodePath("../UserInterface/GameBox/MarginContainer/BackgroundI
 script = ExtResource("4_eow3j")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
+stream = ExtResource("4_j5wjh")
 script = ExtResource("3_feb5d")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]

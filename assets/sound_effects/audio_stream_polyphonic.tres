@@ -1,0 +1,4 @@
+[gd_resource type="AudioStreamPolyphonic" format=3 uid="uid://b7t6h782fg7nw"]
+
+[resource]
+polyphony = 80

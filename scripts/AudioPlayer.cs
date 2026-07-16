@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 public partial class AudioPlayer : AudioStreamPlayer
 {
@@ -11,7 +10,6 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public override void _Ready()
     {
-        Stream = new AudioStreamPolyphonic();
         Play();
         Playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
     }
