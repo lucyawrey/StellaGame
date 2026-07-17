@@ -21,6 +21,9 @@ Dream: Yet, you know it is coming for you all the same.
 // Show aborted slashing animation
 // Play sound effect
 Stella.Dream: Not like this.
+~ auto()
+Dream: _
+~ delay(1)
 -> date ->
 -> day_1_bedroom
 
@@ -81,12 +84,10 @@ Stella.Narrator: I need to check where I'm supposed to be today. And get out of 
         // Play music, background noise
         ~ clear()
         ~ auto()
-        ~ delay(3)
         Stella.Slow: . . . . . .
         Stella.Narrator: If I stay in bed too long I'll fall back asleep without an alarm.
         Stella.Narrator: Again.
         ~ auto()
-        ~ delay(3)
         Stella.Slow: . . . . . .
         ~ play_music("morning")
         ~ background("bedroom")

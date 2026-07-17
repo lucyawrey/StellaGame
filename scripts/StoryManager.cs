@@ -55,7 +55,13 @@ public partial class StoryManager : Node
 
 	private bool isAutoMode = false;
 
-	private bool continueIsLocked = false;
+	private bool isInputLocked = false;
+
+	private bool isDelayed = false;
+
+	private string delayedContent = null;
+
+	private double delayClock = 0;
 
 	private CharacterManager.Character currentCharacter = null;
 
@@ -115,16 +121,20 @@ public partial class StoryManager : Node
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if (isInputLocked)
+		{
+			return;
+		}
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (!continueIsLocked && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
 				Continue();
 			}
 		}
 		else if (@event is InputEventKey keyEvent)
 		{
-			if (!continueIsLocked && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+			if (keyEvent.Pressed && keyEvent.Keycode == Key.Space)
 			{
 				Continue();
 			}
@@ -132,7 +142,7 @@ public partial class StoryManager : Node
 			{
 				isAutoMode = true;
 			}
-			else if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
 				isAutoMode = false;
 			}
@@ -141,6 +151,7 @@ public partial class StoryManager : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Typewriter effect
 		var text = dialogueLabel.GetParsedText();
 		if (dialogueLabel.VisibleCharacters <= text.Length && dialogueBox.Visible && dialogueLabel.Visible && currentCharacter != null)
 		{
@@ -166,9 +177,23 @@ public partial class StoryManager : Node
 			}
 		}
 
-		if (!continueIsLocked && isAutoMode)
+		// Auto mode
+		if (!isInputLocked && isAutoMode)
 		{
 			Continue();
+		}
+
+		// Delay
+		if (isDelayed)
+		{
+			if (delayClock <= 0)
+			{
+				Resume();
+			}
+			else
+			{
+				delayClock -= delta;
+			}
 		}
 	}
 
@@ -208,20 +233,41 @@ public partial class StoryManager : Node
 		}
 	}
 
+	private void Resume()
+	{
+		isDelayed = false;
+		isInputLocked = false;
+		Continue();
+	}
+
 	private void Continue()
 	{
-		continueIsLocked = true;
-
 		if (story.GetCanContinue())
 		{
-			string content = story.Continue().Trim();
+			string content;
+			if (delayedContent == null)
+			{
+				content = story.Continue().Trim();
+
+				if (isDelayed)
+				{
+					delayedContent = content;
+					return;
+				}
+			}
+			else
+			{
+				content = delayedContent;
+				delayedContent = null;
+			}
+
 			if (string.IsNullOrWhiteSpace(content))
 			{
 				Continue();
 				return;
 			}
-			SetDialogueBoxMode(DialogueBoxMode.Dialogue);
 
+			SetDialogueBoxMode(DialogueBoxMode.Dialogue);
 			string characterId = "";
 			var match = characterRegex.Match(content);
 			if (match.Success)
@@ -268,8 +314,6 @@ public partial class StoryManager : Node
 			{
 				userInterface.Theme = currentCharacter.Theme;
 			}
-
-			continueIsLocked = false;
 		}
 		else if (story.CurrentChoices.Count > 0)
 		{
@@ -318,46 +362,65 @@ public partial class StoryManager : Node
 	{
 
 	}
+
 	private void Background(string imageName)
 	{
 		backgroundImage.Set(imageName);
 	}
+
 	private void PlayMusic(string songName)
 	{
 		audioPlayer.PlayMusic(songName);
 	}
+
 	private void StopMusic()
 	{
 		audioPlayer.StopMusic();
 	}
+
 	private void PlaySound(string soundName)
 	{
 		audioPlayer.PlaySound(soundName);
 	}
+
 	private void Auto()
 	{
 
 	}
-	private void Delay(float timeInSeconds)
-	{
 
+	private void Delay(float time)
+	{
+		if (isDelayed)
+		{
+			delayClock += time;
+		}
+		{
+			isDelayed = true;
+			isInputLocked = true;
+			delayClock = time;
+		}
 	}
+
 	private string GetDate(int gameDay)
 	{
 		return "October 4th, 2097";
 	}
+
 	private bool GetDebugMode(bool isDebugMode)
 	{
 		return isDebugMode;
 	}
+
 	private void AddItem(string itemName, int quantity)
 	{
 
 	}
+
 	private bool CheckItem(string itemName, int quantity)
 	{
 		return true;
 	}
+
 	private void RemoveItem(string itemName, int quantity)
 	{
 

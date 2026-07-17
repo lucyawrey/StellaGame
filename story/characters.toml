@@ -4,12 +4,12 @@ NameColor = "#999999"
 TextColor = "#ffffff"
 Font = "base"
 FontSize = 30
-TextSpeed = 70
+TextSpeed = 90
 Prefix = ""
 Suffix = ""
 TextSound = "click"
 TextSoundPitch = 1
-TextSoundSpacing = 3
+TextSoundSpacing = 4
 Fullscreen = false
 Theme = "base"
 
