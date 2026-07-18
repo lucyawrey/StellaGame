@@ -4,7 +4,7 @@ using Tomlyn;
 
 public partial class CharacterManager : Node
 {
-    private readonly string charactersPath = "res://story/characters.toml";
+    private readonly string charactersPath = "res://src/config/characters.toml";
 
     private Dictionary<string, ImportCharacter> importCharacters;
 

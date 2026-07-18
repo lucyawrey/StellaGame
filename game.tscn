@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/StoryManager.cs" id="1_e2o6t"]
 [ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://assets/themes/base.tres" id="1_ryrav"]
-[ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://story/story.ink" id="2_feb5d"]
+[ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_j5wjh"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://scripts/CharacterManager.cs" id="4_eow3j"]
 [ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://assets/sound_effects/audio_stream_polyphonic.tres" id="4_j5wjh"]
@@ -13,7 +13,7 @@
 
 [node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_e2o6t")
-story = ExtResource("2_feb5d")
+story = ExtResource("2_j5wjh")
 characterManager = NodePath("../CharacterManager")
 userInterface = NodePath("../UserInterface")
 audioPlayer = NodePath("../AudioPlayer")

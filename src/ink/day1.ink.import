@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bpv4pflkcrjap"
+path="res://.godot/imported/day1.ink-0edaa7f37d325905140e9e0ee3bb6a2b.res"
+
+[deps]
+
+source_file="res://src/ink/day1.ink"
+dest_files=["res://.godot/imported/day1.ink-0edaa7f37d325905140e9e0ee3bb6a2b.res"]
+
+[params]
+
+is_main_file=false
+compress=true
