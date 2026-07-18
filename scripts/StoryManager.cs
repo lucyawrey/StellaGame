@@ -53,7 +53,7 @@ public partial class StoryManager : Node
 
 	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
 
-	private bool isAutoMode = false;
+	private bool isSkipMode = false;
 
 	private bool isInputLocked = false;
 
@@ -140,11 +140,11 @@ public partial class StoryManager : Node
 			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
-				isAutoMode = true;
+				isSkipMode = true;
 			}
 			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
-				isAutoMode = false;
+				isSkipMode = false;
 			}
 		}
 	}
@@ -178,7 +178,7 @@ public partial class StoryManager : Node
 		}
 
 		// Auto mode
-		if (!isInputLocked && isAutoMode)
+		if (!isInputLocked && isSkipMode)
 		{
 			Continue();
 		}
@@ -247,7 +247,7 @@ public partial class StoryManager : Node
 			string content;
 			if (delayedContent == null)
 			{
-				content = story.Continue().Trim();
+				content = story.Continue();
 
 				if (isDelayed)
 				{
