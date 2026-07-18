@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
-[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://scripts/StoryManager.cs" id="1_e2o6t"]
-[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://assets/themes/base.tres" id="1_ryrav"]
-[ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_j5wjh"]
-[ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://scripts/AudioPlayer.cs" id="3_feb5d"]
-[ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://scripts/CharacterManager.cs" id="4_eow3j"]
-[ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://assets/sound_effects/audio_stream_polyphonic.tres" id="4_j5wjh"]
-[ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://particle_systems/void_particle_process_material.tres" id="5_ryrav"]
-[ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://scripts/BackgroundImage.cs" id="6_ryrav"]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
+[ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
+[ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://src/scripts/CharacterManager.cs" id="3_uktfx"]
+[ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://src/resources/audio_streams/audio_stream_polyphonic.tres" id="4_y2hwx"]
+[ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://src/scripts/AudioPlayer.cs" id="5_qiocs"]
+[ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://src/resources/themes/base.tres" id="6_xdrfk"]
+[ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://src/resources/materials/void_particle_process_material.tres" id="7_g3j30"]
+[ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://src/scripts/BackgroundImage.cs" id="8_a7soy"]
 
 [node name="Game" type="Node" unique_id=1005478206]
 
 [node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
-script = ExtResource("1_e2o6t")
-story = ExtResource("2_j5wjh")
+script = ExtResource("1_cdx1q")
+story = ExtResource("2_4bcji")
 characterManager = NodePath("../CharacterManager")
 userInterface = NodePath("../UserInterface")
 audioPlayer = NodePath("../AudioPlayer")
@@ -30,17 +30,17 @@ actChoicesBox = NodePath("../UserInterface/DialogueBox/ActChoices")
 backgroundImage = NodePath("../UserInterface/GameBox/MarginContainer/BackgroundImage")
 
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
-script = ExtResource("4_eow3j")
+script = ExtResource("3_uktfx")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
-stream = ExtResource("4_j5wjh")
-script = ExtResource("3_feb5d")
+stream = ExtResource("4_y2hwx")
+script = ExtResource("5_qiocs")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
-theme = ExtResource("1_ryrav")
+theme = ExtResource("6_xdrfk")
 
 [node name="VoidBackground" type="ColorRect" parent="UserInterface" unique_id=269220503]
 layout_mode = 0
@@ -54,7 +54,7 @@ position = Vector2(640, -40)
 amount = 100
 lifetime = 20.0
 preprocess = 2.0
-process_material = ExtResource("5_ryrav")
+process_material = ExtResource("7_g3j30")
 
 [node name="GameBox" type="PanelContainer" parent="UserInterface" unique_id=885437159]
 layout_mode = 0
@@ -74,7 +74,7 @@ theme_override_constants/margin_bottom = -1
 [node name="BackgroundImage" type="TextureRect" parent="UserInterface/GameBox/MarginContainer" unique_id=1904857836]
 layout_mode = 2
 expand_mode = 1
-script = ExtResource("6_ryrav")
+script = ExtResource("8_a7soy")
 
 [node name="FullscreenBox" type="PanelContainer" parent="UserInterface" unique_id=1262696186]
 visible = false
@@ -96,7 +96,7 @@ theme_override_constants/margin_bottom = -1
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
-script = ExtResource("6_ryrav")
+script = ExtResource("8_a7soy")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/FullscreenBox" unique_id=700704297]
 layout_mode = 2

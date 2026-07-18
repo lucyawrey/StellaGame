@@ -178,7 +178,7 @@ Balconies r nice :D
 {day_1_balcony > 1: -> act | -> enter}
 
 = enter
-Stella.Narrator: I step onto the balcony and breath in the crisp autumn air.
+Stella.Narrator: I step onto the balcony and breathe in the crisp autumn air.
 Stella.Narrator: It's nice.
 Stella.Narrator: The view of the city past the railing is pretty in the midmorning light. I should really put some furniture out here.
 -> act
