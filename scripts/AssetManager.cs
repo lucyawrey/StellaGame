@@ -33,8 +33,8 @@ public static class AssetManager
     //theme
     private static Dictionary<string, Theme> themeLibrary = new()
     {
-        { "base", GD.Load<Theme>("res://assets/themes/base.tres") },
-        { "void", GD.Load<Theme>("res://assets/themes/void.tres") },
+        { "base", GD.Load<Theme>("res://src/resources/themes/base.tres") },
+        { "void", GD.Load<Theme>("res://src/resources/themes/void.tres") },
     };
 
     public static bool GetMusic(string songName, out AudioStream song)
