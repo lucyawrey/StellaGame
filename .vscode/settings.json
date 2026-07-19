@@ -1,4 +1,5 @@
 {
     "files.autoSave": "afterDelay",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "godotTools.editorPath.godot4": "/Applications/Godot.app"
 }
