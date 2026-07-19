@@ -3,13 +3,14 @@ EXTERNAL background(image)
 EXTERNAL play_music(song)
 EXTERNAL stop_music()
 EXTERNAL play_sound(sound)
-EXTERNAL auto()
+EXTERNAL auto(count)
 EXTERNAL delay(time)
+EXTERNAL add_item(item, quantity)
+EXTERNAL remove_item(item, quantity)
+
 EXTERNAL get_date(day)
 EXTERNAL get_debug_mode(mode)
-EXTERNAL add_item(item, quantity)
-EXTERNAL check_item(item, quantity)
-EXTERNAL remove_item(item, quantity)
+EXTERNAL get_item(item, quantity)
 
 === function clear()
 ~ return
@@ -26,10 +27,16 @@ EXTERNAL remove_item(item, quantity)
 === function play_sound(sound)
 ~ return
 
-=== function auto()
+=== function auto(count)
 ~ return
 
 === function delay(time)
+~ return
+
+=== function add_item(item, quantity)
+~ return
+
+=== function remove_item(item, quantity)
 ~ return
 
 === function get_date(game_day)
@@ -38,11 +45,5 @@ EXTERNAL remove_item(item, quantity)
 === function get_debug_mode(mode)
 ~ return mode
 
-=== function add_item(item, quantity)
-~ return
-
-=== function check_item(item, quantity)
+=== function get_item(item, quantity)
 ~ return true
-
-=== function remove_item(item, quantity)
-~ return

@@ -13,7 +13,7 @@
 
 [node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_cdx1q")
-story = ExtResource("2_4bcji")
+Story = ExtResource("2_4bcji")
 characterManager = NodePath("../CharacterManager")
 userInterface = NodePath("../UserInterface")
 audioPlayer = NodePath("../AudioPlayer")
