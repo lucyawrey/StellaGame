@@ -57,8 +57,8 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="VoidParticles" type="GPUParticles2D" parent="UserInterface" unique_id=1808307230]
-position = Vector2(640, -40)
-amount = 100
+position = Vector2(1000, -40)
+amount = 120
 lifetime = 20.0
 preprocess = 2.0
 process_material = ExtResource("7_g3j30")
