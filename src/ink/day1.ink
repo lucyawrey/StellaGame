@@ -35,15 +35,15 @@ Dream: _
 ~ play_music("unimplimented") // background noise
 Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
 Stella.Narrator: Somehow, all of my blankets are discarded on the floor.
-Stella.Narrator: The first thing I notice about my body is that I feel sweaty and unusually sick.
+Stella.Narrator: The nextt thing I notice is that I feel sweaty and a bit sick.
 Stella.Narrator: At least the bright morning sun coming through the window helps.
 Stella: I don't wanna get up.
-~ delay(0.2)
+~ delay(0.5)
 ~ play_music("typhoon_parade")
 Stella.Narrator: My phone's alarm starts blaring mid 2010's J-pop as if in direct rejection of my plea.
 Stella: Ughhhh.
 Stella.Narrator: I only set it to go off on days I have work. Which means I actually have to get up.
-Stella.Narrator: I can't even remember where I'm supposed to be working today?
+Stella.Narrator: I can't even remember where I'm supposed to be working today.
 Stella.Narrator: Is it the cafe or the hospital?
 Stella: I could just call in sick.
 Stella: What're they going to do, fire me?
@@ -51,20 +51,22 @@ Stella.Slow: . . .
 Stella: Whoever they are.
 Stella.Narrator: The alarm continues to go off.
 Stella.Narrator: I can't even shut it off from here because my phone is all the way across the room, exactly where I left it.
-Stella.Narrator: Specifically to ensure I had to actually get out of bed.
+Stella.Narrator: Specifically to ensure I have to actually get out of bed.
 Stella.Narrator: It just keeps going.
 Stella.Narrator: I breifly concider blowing it up.
 Stella.Narrator: But eventually, I resolve myself to fate.
-Stella.Narrator: I could use a cold shower anyway. Might help with the nausea.
-Stella.Narrator: I pull myself out of bed, stretch, and finally cross the room to turn off the cursed thing off.
-~ delay(0.3)
-~ stop_music()
+Stella.Narrator: I pull myself out of bed to turn the cursed thing off.
 ~ play_sound("click")
-~ delay(0.3)
+~ stop_music()
+~ delay(0.5)
 ~ play_music("morning")
-Stella.Narrator: I take a breath while running my fingers through my hair.
-Stella.Narrator: It's damp from sweat and, somehow, even messier than normal.
-Stella.Narrator: I need to check where I'm supposed to be today. And get out of these sweaty pajamas and into the shower.
+~ delay(0.5)
+~ show("stella", "center")
+Stella: I could use a shower anyway.
+Stella.Narrator: Might help with the nausea.
+Stella.Narrator: I take a breath and run my fingers through my hair.
+Stella.Narrator: It's damp with sweat and somehow even messier than normal.
+Stella.Narrator: I definately need a shower. And I need to check where I'm supposed to be today.
 -> act
 
 = act

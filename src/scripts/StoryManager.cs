@@ -34,6 +34,9 @@ public partial class StoryManager : Node
 	private PanelContainer dialogueBox;
 
 	[Export]
+	private Control sprites;
+
+	[Export]
 	private PanelContainer nameBox;
 
 	[Export]
@@ -85,6 +88,7 @@ public partial class StoryManager : Node
 	public override void _Ready()
 	{
 		// Ink external function setup
+		Story.BindExternalFunction("show", new Callable(this, "Show"));
 		Story.BindExternalFunction("clear", new Callable(this, "Clear"));
 		Story.BindExternalFunction("background", new Callable(this, "Background"));
 		Story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
@@ -124,10 +128,6 @@ public partial class StoryManager : Node
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (IsInputLocked())
-		{
-			return;
-		}
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
@@ -179,12 +179,6 @@ public partial class StoryManager : Node
 			}
 		}
 
-		// Skip mode
-		if (isSkipMode)
-		{
-			InputAdvance();
-		}
-
 		// Handle delay action
 		if (isDelayed)
 		{
@@ -204,10 +198,20 @@ public partial class StoryManager : Node
 			advanceCounter--;
 			Continue();
 		}
+
+		// Skip mode
+		if (isSkipMode)
+		{
+			InputAdvance();
+		}
 	}
 
 	private void InputAdvance()
 	{
+		if (IsInputLocked())
+		{
+			return;
+		}
 		if (IsTextPrinting())
 		{
 			FinishTextPrinting();
@@ -277,43 +281,74 @@ public partial class StoryManager : Node
 			if (delayedContent == null)
 			{
 				content = Story.Continue();
-
-				while (actionQueue.TryDequeue(out var action))
-				{
-					if (action is StoryAction.Background backgroundAction)
-					{
-						backgroundImage.Set(backgroundAction.ImageName);
-					}
-					else if (action is StoryAction.PlayMusic playMusicAction)
-					{
-						audioPlayer.PlayMusic(playMusicAction.SongName);
-					}
-					else if (action is StoryAction.StopMusic)
-					{
-						audioPlayer.StopMusic();
-					}
-					else if (action is StoryAction.PlaySound playSoundAction)
-					{
-						audioPlayer.PlaySound(playSoundAction.SoundName);
-					}
-					else if (action is StoryAction.Auto auto)
-					{
-						advanceCounter += auto.Count;
-					}
-					else if (action is StoryAction.Delay delayAction)
-					{
-						isDelayed = true;
-						delayClock = delayAction.Time;
-						delayedContent = content;
-						return;
-					}
-				}
 			}
 			else
 			{
 				content = delayedContent;
-				delayedContent = null;
 			}
+
+			while (actionQueue.TryDequeue(out var action))
+			{
+				if (action is StoryAction.Show showAction)
+				{
+					if (AssetManager.GetSprite(showAction.ImageName, out var image))
+					{
+						var sprite = new Sprite2D
+						{
+							Texture = image
+						};
+						sprites.AddChild(sprite);
+					}
+					else
+					{
+						GD.Print($"Sprite '{showAction.ImageName}' not found.");
+					}
+				}
+				else if (action is StoryAction.Clear)
+				{
+					foreach (var child in sprites.GetChildren())
+					{
+						child.QueueFree();
+					}
+				}
+				else if (action is StoryAction.Background backgroundAction)
+				{
+					backgroundImage.Set(backgroundAction.ImageName);
+				}
+				else if (action is StoryAction.PlayMusic playMusicAction)
+				{
+					audioPlayer.PlayMusic(playMusicAction.SongName);
+				}
+				else if (action is StoryAction.StopMusic)
+				{
+					audioPlayer.StopMusic();
+				}
+				else if (action is StoryAction.PlaySound playSoundAction)
+				{
+					audioPlayer.PlaySound(playSoundAction.SoundName);
+				}
+				else if (action is StoryAction.Auto auto)
+				{
+					advanceCounter += auto.Count;
+				}
+				else if (action is StoryAction.Delay delayAction)
+				{
+					isDelayed = true;
+					delayClock = delayAction.Time;
+					delayedContent = content;
+					return;
+				}
+				else if (action is StoryAction.AddItem addItemAction)
+				{
+					// TODO add item action
+				}
+				else if (action is StoryAction.RemoveItem removeItemAction)
+				{
+					// TODO remove item aciton
+				}
+			}
+
+			delayedContent = null;
 
 			if (string.IsNullOrWhiteSpace(content))
 			{
@@ -410,6 +445,11 @@ public partial class StoryManager : Node
 		{
 			GetTree().Quit();
 		}
+	}
+
+	public void Show(string imageName, string position)
+	{
+		actionQueue.Enqueue(new StoryAction.Show() { ImageName = imageName, Position = position });
 	}
 
 	public void Clear()

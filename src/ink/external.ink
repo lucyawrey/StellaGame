@@ -1,3 +1,4 @@
+EXTERNAL show(image, position)
 EXTERNAL clear()
 EXTERNAL background(image)
 EXTERNAL play_music(song)
@@ -11,6 +12,9 @@ EXTERNAL remove_item(item, quantity)
 EXTERNAL get_date(day)
 EXTERNAL get_debug_mode(mode)
 EXTERNAL get_item(item, quantity)
+
+=== function show(image, position)
+~ return
 
 === function clear()
 ~ return

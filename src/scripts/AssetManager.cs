@@ -25,6 +25,11 @@ public static class AssetManager
         { "bedroom", GD.Load<Texture2D>("res://assets/backgrounds/bedroom.png") },
     };
 
+    private static Dictionary<string, Texture2D> spriteLibrary = new()
+    {
+        { "stella", GD.Load<Texture2D>("res://assets/sprites/stella.png") },
+    };
+
     private static Dictionary<string, string> fontLibrary = new()
     {
         { "base", "res://assets/fonts/PoppinsSemiBold.ttf" }
@@ -65,6 +70,16 @@ public static class AssetManager
             return false;
         }
         return backgroundLibrary.TryGetValue(imageName, out image);
+    }
+
+    public static bool GetSprite(string imageName, out Texture2D image)
+    {
+        if (imageName == null)
+        {
+            image = null;
+            return false;
+        }
+        return spriteLibrary.TryGetValue(imageName, out image);
     }
 
     public static bool GetFont(string fontName, out string font)

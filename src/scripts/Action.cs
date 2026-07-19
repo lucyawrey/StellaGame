@@ -1,5 +1,11 @@
 public abstract class StoryAction
 {
+    public class Show : StoryAction
+    {
+        public required string ImageName { get; set; }
+        public required string Position { get; set; }
+    }
+
     public class Clear : StoryAction;
 
     public class Background : StoryAction

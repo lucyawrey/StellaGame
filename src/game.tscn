@@ -11,7 +11,7 @@
 
 [node name="Game" type="Node" unique_id=1005478206]
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "sprites", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_cdx1q")
 Story = ExtResource("2_4bcji")
 characterManager = NodePath("../CharacterManager")
@@ -22,6 +22,7 @@ dialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Di
 nameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
 fullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
 dialogueBox = NodePath("../UserInterface/Content/DialogueBox")
+sprites = NodePath("../UserInterface/Content/Sprites")
 nameBox = NodePath("../UserInterface/Content/NameBox")
 choiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
 actChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
@@ -137,6 +138,20 @@ layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
+
+[node name="Sprites" type="Control" parent="UserInterface/Content" unique_id=1251687551]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -138.0
+offset_right = -20.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0
