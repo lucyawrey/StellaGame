@@ -58,7 +58,6 @@ Stella.Narrator: But eventually, I resolve myself to fate.
 Stella.Narrator: I pull myself out of bed to turn the cursed thing off.
 ~ play_sound("click")
 ~ stop_music()
-~ delay(0.5)
 ~ play_music("morning")
 ~ delay(0.5)
 ~ show("stella", "center")
@@ -143,6 +142,9 @@ Stella.Narrator: I should have taken a bath last night, but now I don't have tim
     ++ [Bedroom]
         ~ play_sound("move")
         -> day_1_bedroom
+    ++ [Kitchen]
+        ~ play_sound("move")
+        -> day_1_kitchen
     ++ [Stay here]
 - -> act
 
@@ -164,6 +166,9 @@ Stella.Narrator: I walk into the kitchen...
     ++ [Bedroom]
         ~ play_sound("move")
         -> day_1_bedroom
+    ++ [Bathroom]
+        ~ play_sound("move")
+        -> day_1_bathroom
     ++ [Apartment Hallway]
         Stella: I don't want to leave this way.
     ++ [Stay here]

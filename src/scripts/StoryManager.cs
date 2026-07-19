@@ -280,7 +280,7 @@ public partial class StoryManager : Node
 			string content;
 			if (delayedContent == null)
 			{
-				content = Story.Continue();
+				content = Story.Continue().Trim();
 			}
 			else
 			{
