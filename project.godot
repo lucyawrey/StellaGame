@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="stella_game"
+config/name="StellaGame"
 run/main_scene="uid://bbdm60akwvchh"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://assets/sprites/icon.svg"
@@ -25,7 +25,7 @@ window/stretch/scale_mode="integer"
 
 [dotnet]
 
-project/assembly_name="stella_game"
+project/assembly_name="StellaGame"
 
 [editor_plugins]
 
