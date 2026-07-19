@@ -89,6 +89,7 @@ public partial class StoryManager : Node
 	{
 		// Ink external function setup
 		Story.BindExternalFunction("show", new Callable(this, "Show"));
+		Story.BindExternalFunction("hide", new Callable(this, "Hide"));
 		Story.BindExternalFunction("clear", new Callable(this, "Clear"));
 		Story.BindExternalFunction("background", new Callable(this, "Background"));
 		Story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
@@ -295,13 +296,24 @@ public partial class StoryManager : Node
 					{
 						var sprite = new Sprite2D
 						{
-							Texture = image
+							Texture = image,
+							Name = showAction.ImageName,
 						};
 						sprites.AddChild(sprite);
 					}
 					else
 					{
 						GD.Print($"Sprite '{showAction.ImageName}' not found.");
+					}
+				}
+				else if (action is StoryAction.Hide hideAction)
+				{
+					foreach (var child in sprites.GetChildren())
+					{
+						if (child.Name == hideAction.ImageName)
+						{
+							child.QueueFree();
+						}
 					}
 				}
 				else if (action is StoryAction.Clear)
@@ -450,6 +462,11 @@ public partial class StoryManager : Node
 	public void Show(string imageName, string position)
 	{
 		actionQueue.Enqueue(new StoryAction.Show() { ImageName = imageName, Position = position });
+	}
+
+	public void Hide(string imageName)
+	{
+		actionQueue.Enqueue(new StoryAction.Hide() { ImageName = imageName });
 	}
 
 	public void Clear()

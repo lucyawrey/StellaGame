@@ -6,6 +6,11 @@ public abstract class StoryAction
         public required string Position { get; set; }
     }
 
+    public class Hide : StoryAction
+    {
+        public required string ImageName { get; set; }
+    }
+
     public class Clear : StoryAction;
 
     public class Background : StoryAction
