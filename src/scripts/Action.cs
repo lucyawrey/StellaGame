@@ -1,3 +1,5 @@
+namespace StellaGame;
+
 public abstract class StoryAction
 {
     public class Show : StoryAction

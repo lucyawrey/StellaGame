@@ -1,6 +1,8 @@
 using Godot;
 using System.Collections.Generic;
 
+namespace StellaGame;
+
 public static class AssetManager
 {
     private static Dictionary<string, AudioStream> musicLibrary = new()

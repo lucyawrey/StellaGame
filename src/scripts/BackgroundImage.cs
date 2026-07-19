@@ -1,5 +1,7 @@
 using Godot;
 
+namespace StellaGame;
+
 public partial class BackgroundImage : TextureRect
 {
     public void Set(string imageName)

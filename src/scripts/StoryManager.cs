@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
 
+namespace StellaGame;
+
 public partial class StoryManager : Node
 {
 	[Export]

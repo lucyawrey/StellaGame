@@ -1,5 +1,7 @@
 using Godot;
 
+namespace StellaGame;
+
 public partial class AudioPlayer : AudioStreamPlayer
 {
     public AudioStreamPlaybackPolyphonic Playback { get; set; }

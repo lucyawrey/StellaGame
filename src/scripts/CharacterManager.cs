@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Godot;
 using Tomlyn;
 
+namespace StellaGame;
+
 public partial class CharacterManager : Node
 {
     private readonly string charactersPath = "res://src/config/characters.toml";
