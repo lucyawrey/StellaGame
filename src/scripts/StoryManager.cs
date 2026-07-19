@@ -34,7 +34,7 @@ public partial class StoryManager : Node
 	private PanelContainer dialogueBox;
 
 	[Export]
-	private Control sprites;
+	private SpriteGroup spriteGroup;
 
 	[Export]
 	private PanelContainer nameBox;
@@ -299,7 +299,7 @@ public partial class StoryManager : Node
 							Texture = image,
 							Name = showAction.ImageName,
 						};
-						sprites.AddChild(sprite);
+						spriteGroup.AddChild(sprite);
 					}
 					else
 					{
@@ -308,7 +308,7 @@ public partial class StoryManager : Node
 				}
 				else if (action is StoryAction.Hide hideAction)
 				{
-					foreach (var child in sprites.GetChildren())
+					foreach (var child in spriteGroup.GetChildren())
 					{
 						if (child.Name == hideAction.ImageName)
 						{
@@ -318,7 +318,7 @@ public partial class StoryManager : Node
 				}
 				else if (action is StoryAction.Clear)
 				{
-					foreach (var child in sprites.GetChildren())
+					foreach (var child in spriteGroup.GetChildren())
 					{
 						child.QueueFree();
 					}

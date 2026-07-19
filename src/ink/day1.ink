@@ -32,7 +32,7 @@ Dream: _
 {day_1_bedroom > 1: -> act | -> enter}
 
 = enter
-~ play_music("unimplimented") // background noise
+~ play_music("background_noise")
 Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
 Stella.Narrator: Somehow, all of my blankets are discarded on the floor.
 Stella.Narrator: The nextt thing I notice is that I feel sweaty and a bit sick.

@@ -8,10 +8,11 @@
 [ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://src/resources/themes/base.tres" id="6_xdrfk"]
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://src/resources/materials/void_particle_process_material.tres" id="7_g3j30"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://src/scripts/BackgroundImage.cs" id="8_a7soy"]
+[ext_resource type="Script" uid="uid://dtxrlyau0rsgg" path="res://src/scripts/SpriteGroup.cs" id="9_4bcji"]
 
 [node name="Game" type="Node" unique_id=1005478206]
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "sprites", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_cdx1q")
 Story = ExtResource("2_4bcji")
 characterManager = NodePath("../CharacterManager")
@@ -22,7 +23,7 @@ dialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Di
 nameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
 fullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
 dialogueBox = NodePath("../UserInterface/Content/DialogueBox")
-sprites = NodePath("../UserInterface/Content/Sprites")
+spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
 nameBox = NodePath("../UserInterface/Content/NameBox")
 choiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
 actChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
@@ -139,7 +140,7 @@ mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="Sprites" type="Control" parent="UserInterface/Content" unique_id=1251687551]
+[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -152,6 +153,7 @@ offset_right = -20.0
 offset_bottom = -138.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_4bcji")
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0
