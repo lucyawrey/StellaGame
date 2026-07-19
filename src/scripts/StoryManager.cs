@@ -57,8 +57,6 @@ public partial class StoryManager : Node
 
 	private bool isSkipMode = false;
 
-	private bool isInputLocked = false;
-
 	private int advanceCounter = 0;
 
 	private bool isDelayed = false;
@@ -126,20 +124,20 @@ public partial class StoryManager : Node
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (isInputLocked)
+		if (IsInputLocked())
 		{
 			return;
 		}
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left && advanceCounter == 0)
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 			{
 				InputAdvance();
 			}
 		}
 		else if (@event is InputEventKey keyEvent)
 		{
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Space)
 			{
 				InputAdvance();
 			}
@@ -154,26 +152,17 @@ public partial class StoryManager : Node
 		}
 	}
 
-	public void InputAdvance()
-	{
-		if (advanceCounter == 0)
-		{
-			advanceCounter++;
-		}
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
-		// Typewriter effect
-		var text = dialogueLabel.GetParsedText();
-		if (dialogueLabel.VisibleCharacters <= text.Length && dialogueBox.Visible && dialogueLabel.Visible && currentCharacter != null)
+		// Text printing effect
+		if (IsTextPrinting() && currentCharacter != null)
 		{
 			var charactersPerTick = 1 + currentCharacter.TextSpeed / 60; // Tick rate is 60
 			var textSpeed = currentCharacter.TextSpeed / charactersPerTick;
 
 			if (visibleCharactersTimer >= 1.0 / textSpeed)
 			{
-				var spaces = text.Count(" ", dialogueLabel.VisibleCharacters, Math.Min(dialogueLabel.VisibleCharacters + charactersPerTick, text.Length));
+				var spaces = dialogueLabel.GetParsedText().Count(" ", dialogueLabel.VisibleCharacters, Math.Min(dialogueLabel.VisibleCharacters + charactersPerTick, dialogueLabel.GetParsedText().Length));
 				if (textSoundCharacterCounter <= 0)
 				{
 					audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
@@ -191,9 +180,9 @@ public partial class StoryManager : Node
 		}
 
 		// Skip mode
-		if (isSkipMode && advanceCounter == 0)
+		if (isSkipMode)
 		{
-			advanceCounter++;
+			InputAdvance();
 		}
 
 		// Handle delay action
@@ -202,7 +191,6 @@ public partial class StoryManager : Node
 			if (delayClock <= 0)
 			{
 				isDelayed = false;
-				isInputLocked = false;
 				advanceCounter++;
 			}
 			else
@@ -210,13 +198,39 @@ public partial class StoryManager : Node
 				delayClock -= delta;
 			}
 		}
-
-		// Continue if advance counter is set
-		if (advanceCounter > 0)
+		// Continue story if advance counter is set and game is not delayed
+		else if (advanceCounter > 0 && !IsTextPrinting())
 		{
 			advanceCounter--;
 			Continue();
 		}
+	}
+
+	private void InputAdvance()
+	{
+		if (IsTextPrinting())
+		{
+			FinishTextPrinting();
+		}
+		else if (advanceCounter == 0)
+		{
+			advanceCounter++;
+		}
+	}
+
+	private bool IsTextPrinting()
+	{
+		return dialogueLabel.IsVisibleInTree() && dialogueLabel.Text.Length > 0 && dialogueLabel.VisibleCharacters <= dialogueLabel.GetParsedText().Length;
+	}
+
+	private void FinishTextPrinting()
+	{
+		dialogueLabel.VisibleCharacters = dialogueLabel.GetParsedText().Length;
+	}
+
+	private bool IsInputLocked()
+	{
+		return isDelayed;
 	}
 
 	private void SetDialogueBoxMode(DialogueBoxMode mode)
@@ -264,7 +278,7 @@ public partial class StoryManager : Node
 			{
 				content = Story.Continue();
 
-				if (actionQueue.TryDequeue(out var action))
+				while (actionQueue.TryDequeue(out var action))
 				{
 					if (action is StoryAction.Background backgroundAction)
 					{
@@ -289,7 +303,6 @@ public partial class StoryManager : Node
 					else if (action is StoryAction.Delay delayAction)
 					{
 						isDelayed = true;
-						isInputLocked = true;
 						delayClock = delayAction.Time;
 						delayedContent = content;
 						return;
