@@ -59,6 +59,8 @@ public partial class StoryManager : Node
 
 	private bool isInputLocked = false;
 
+	private int advanceCounter = 0;
+
 	private bool isDelayed = false;
 
 	private string delayedContent = null;
@@ -106,7 +108,7 @@ public partial class StoryManager : Node
 			choiceButton.Pressed += delegate
 			{
 				Story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
-				Continue();
+				advanceCounter++;
 			};
 		}
 		for (var i = 0; i < choiceButtons.Count; i++)
@@ -115,11 +117,11 @@ public partial class StoryManager : Node
 			choiceButtons[i].Pressed += delegate
 			{
 				Story.ChooseChoiceIndex(choice);
-				Continue();
+				advanceCounter++;
 			};
 		}
 
-		Callable.From(Continue).CallDeferred();
+		advanceCounter++;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -130,16 +132,16 @@ public partial class StoryManager : Node
 		}
 		if (@event is InputEventMouseButton mouseEvent)
 		{
-			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left && advanceCounter == 0)
 			{
-				Continue();
+				InputAdvance();
 			}
 		}
 		else if (@event is InputEventKey keyEvent)
 		{
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Space)
 			{
-				Continue();
+				InputAdvance();
 			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
@@ -149,6 +151,14 @@ public partial class StoryManager : Node
 			{
 				isSkipMode = false;
 			}
+		}
+	}
+
+	public void InputAdvance()
+	{
+		if (advanceCounter == 0)
+		{
+			advanceCounter++;
 		}
 	}
 
@@ -180,23 +190,32 @@ public partial class StoryManager : Node
 			}
 		}
 
-		// Auto mode
-		if (!isInputLocked && isSkipMode)
+		// Skip mode
+		if (isSkipMode && advanceCounter == 0)
 		{
-			Continue();
+			advanceCounter++;
 		}
 
-		// Delay
+		// Handle delay action
 		if (isDelayed)
 		{
 			if (delayClock <= 0)
 			{
-				Resume();
+				isDelayed = false;
+				isInputLocked = false;
+				advanceCounter++;
 			}
 			else
 			{
 				delayClock -= delta;
 			}
+		}
+
+		// Continue if advance counter is set
+		if (advanceCounter > 0)
+		{
+			advanceCounter--;
+			Continue();
 		}
 	}
 
@@ -236,13 +255,6 @@ public partial class StoryManager : Node
 		}
 	}
 
-	private void Resume()
-	{
-		isDelayed = false;
-		isInputLocked = false;
-		Continue();
-	}
-
 	private void Continue()
 	{
 		if (Story.GetCanContinue())
@@ -269,6 +281,10 @@ public partial class StoryManager : Node
 					else if (action is StoryAction.PlaySound playSoundAction)
 					{
 						audioPlayer.PlaySound(playSoundAction.SoundName);
+					}
+					else if (action is StoryAction.Auto auto)
+					{
+						advanceCounter += auto.Count;
 					}
 					else if (action is StoryAction.Delay delayAction)
 					{
@@ -408,9 +424,9 @@ public partial class StoryManager : Node
 		actionQueue.Enqueue(new StoryAction.PlaySound() { SoundName = soundName });
 	}
 
-	public void Auto()
+	public void Auto(int count)
 	{
-		actionQueue.Enqueue(new StoryAction.Auto());
+		actionQueue.Enqueue(new StoryAction.Auto() { Count = count });
 	}
 
 	public void Delay(float time)

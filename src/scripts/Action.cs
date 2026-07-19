@@ -19,7 +19,10 @@ public abstract class StoryAction
         public required string SoundName { get; set; }
     }
 
-    public class Auto : StoryAction;
+    public class Auto : StoryAction
+    {
+        public required int Count { get; set; }
+    };
 
     public class Delay : StoryAction
     {
