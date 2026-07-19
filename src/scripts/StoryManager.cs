@@ -1,13 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Godot;
-using Godot.Collections;
 using GodotInk;
 
 public partial class StoryManager : Node
 {
 	[Export]
-	private InkStory story;
+	public InkStory Story { get; set; }
 
 	[Export]
 	private CharacterManager characterManager;
@@ -37,10 +37,10 @@ public partial class StoryManager : Node
 	private PanelContainer nameBox;
 
 	[Export]
-	private Array<Button> choiceButtons;
+	private Godot.Collections.Array<Button> choiceButtons;
 
 	[Export]
-	private Array<Button> actChoiceButtons;
+	private Godot.Collections.Array<Button> actChoiceButtons;
 
 	[Export]
 	private BoxContainer choicesBox;
@@ -52,6 +52,8 @@ public partial class StoryManager : Node
 	private BackgroundImage backgroundImage;
 
 	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
+
+	private Queue<StoryAction> actionQueue = new();
 
 	private bool isSkipMode = false;
 
@@ -83,18 +85,19 @@ public partial class StoryManager : Node
 	public override void _Ready()
 	{
 		// Ink external function setup
-		story.BindExternalFunction("clear", new Callable(this, "Clear"));
-		story.BindExternalFunction("background", new Callable(this, "Background"));
-		story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
-		story.BindExternalFunction("stop_music", new Callable(this, "StopMusic"));
-		story.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
-		story.BindExternalFunction("auto", new Callable(this, "Auto"));
-		story.BindExternalFunction("delay", new Callable(this, "Delay"));
-		story.BindExternalFunction("get_date", new Callable(this, "GetDate"));
-		story.BindExternalFunction("get_debug_mode", new Callable(this, "GetDebugMode"));
-		story.BindExternalFunction("add_item", new Callable(this, "AddItem"));
-		story.BindExternalFunction("check_item", new Callable(this, "CheckItem"));
-		story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
+		Story.BindExternalFunction("clear", new Callable(this, "Clear"));
+		Story.BindExternalFunction("background", new Callable(this, "Background"));
+		Story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
+		Story.BindExternalFunction("stop_music", new Callable(this, "StopMusic"));
+		Story.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
+		Story.BindExternalFunction("auto", new Callable(this, "Auto"));
+		Story.BindExternalFunction("delay", new Callable(this, "Delay"));
+		Story.BindExternalFunction("add_item", new Callable(this, "AddItem"));
+		Story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
+
+		Story.BindExternalFunction("get_date", new Callable(this, "GetDate"));
+		Story.BindExternalFunction("get_debug_mode", new Callable(this, "GetDebugMode"));
+		Story.BindExternalFunction("get_item", new Callable(this, "GetItem"));
 
 		// Choice button callback set up
 		foreach (var choiceButton in actChoiceButtons)
@@ -102,7 +105,7 @@ public partial class StoryManager : Node
 			actChoiceButtonMap[choiceButton.Text] = choiceButton;
 			choiceButton.Pressed += delegate
 			{
-				story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
+				Story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
 				Continue();
 			};
 		}
@@ -111,7 +114,7 @@ public partial class StoryManager : Node
 			var choice = i;
 			choiceButtons[i].Pressed += delegate
 			{
-				story.ChooseChoiceIndex(choice);
+				Story.ChooseChoiceIndex(choice);
 				Continue();
 			};
 		}
@@ -242,17 +245,39 @@ public partial class StoryManager : Node
 
 	private void Continue()
 	{
-		if (story.GetCanContinue())
+		if (Story.GetCanContinue())
 		{
 			string content;
 			if (delayedContent == null)
 			{
-				content = story.Continue();
+				content = Story.Continue();
 
-				if (isDelayed)
+				if (actionQueue.TryDequeue(out var action))
 				{
-					delayedContent = content;
-					return;
+					if (action is StoryAction.Background backgroundAction)
+					{
+						backgroundImage.Set(backgroundAction.ImageName);
+					}
+					else if (action is StoryAction.PlayMusic playMusicAction)
+					{
+						audioPlayer.PlayMusic(playMusicAction.SongName);
+					}
+					else if (action is StoryAction.StopMusic)
+					{
+						audioPlayer.StopMusic();
+					}
+					else if (action is StoryAction.PlaySound playSoundAction)
+					{
+						audioPlayer.PlaySound(playSoundAction.SoundName);
+					}
+					else if (action is StoryAction.Delay delayAction)
+					{
+						isDelayed = true;
+						isInputLocked = true;
+						delayClock = delayAction.Time;
+						delayedContent = content;
+						return;
+					}
 				}
 			}
 			else
@@ -315,7 +340,7 @@ public partial class StoryManager : Node
 				userInterface.Theme = currentCharacter.Theme;
 			}
 		}
-		else if (story.CurrentChoices.Count > 0)
+		else if (Story.CurrentChoices.Count > 0)
 		{
 			nameBox.Visible = false;
 
@@ -331,7 +356,7 @@ public partial class StoryManager : Node
 			{
 				HideControl(true, button);
 			}
-			foreach (InkChoice choice in story.CurrentChoices)
+			foreach (InkChoice choice in Story.CurrentChoices)
 			{
 				if (choice.Index >= 4)
 				{
@@ -358,47 +383,49 @@ public partial class StoryManager : Node
 		}
 	}
 
-	private void Clear()
+	public void Clear()
 	{
-
+		actionQueue.Enqueue(new StoryAction.Clear());
 	}
 
-	private void Background(string imageName)
+	public void Background(string imageName)
 	{
-		backgroundImage.Set(imageName);
+		actionQueue.Enqueue(new StoryAction.Background() { ImageName = imageName });
 	}
 
-	private void PlayMusic(string songName)
+	public void PlayMusic(string songName)
 	{
-		audioPlayer.PlayMusic(songName);
+		actionQueue.Enqueue(new StoryAction.PlayMusic() { SongName = songName });
 	}
 
-	private void StopMusic()
+	public void StopMusic()
 	{
-		audioPlayer.StopMusic();
+		actionQueue.Enqueue(new StoryAction.StopMusic());
 	}
 
-	private void PlaySound(string soundName)
+	public void PlaySound(string soundName)
 	{
-		audioPlayer.PlaySound(soundName);
+		actionQueue.Enqueue(new StoryAction.PlaySound() { SoundName = soundName });
 	}
 
-	private void Auto()
+	public void Auto()
 	{
-
+		actionQueue.Enqueue(new StoryAction.Auto());
 	}
 
-	private void Delay(float time)
+	public void Delay(float time)
 	{
-		if (isDelayed)
-		{
-			delayClock += time;
-		}
-		{
-			isDelayed = true;
-			isInputLocked = true;
-			delayClock = time;
-		}
+		actionQueue.Enqueue(new StoryAction.Delay() { Time = time });
+	}
+
+	public void AddItem(string itemName, int quantity)
+	{
+		actionQueue.Enqueue(new StoryAction.AddItem() { ItemName = itemName, Quantity = quantity });
+	}
+
+	public void RemoveItem(string itemName, int quantity)
+	{
+		actionQueue.Enqueue(new StoryAction.RemoveItem() { ItemName = itemName, Quantity = quantity });
 	}
 
 	private string GetDate(int gameDay)
@@ -411,18 +438,8 @@ public partial class StoryManager : Node
 		return isDebugMode;
 	}
 
-	private void AddItem(string itemName, int quantity)
-	{
-
-	}
-
-	private bool CheckItem(string itemName, int quantity)
+	private bool GetItem(string itemName, int quantity)
 	{
 		return true;
-	}
-
-	private void RemoveItem(string itemName, int quantity)
-	{
-
 	}
 }
