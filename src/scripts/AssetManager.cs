@@ -30,18 +30,19 @@ public static class AssetManager
     private static Dictionary<string, Texture2D> spriteLibrary = new()
     {
         { "stella", GD.Load<Texture2D>("res://assets/sprites/stella.png") },
+        { "azalea", GD.Load<Texture2D>("res://assets/sprites/azalea.png") },
+        { "giovanni", GD.Load<Texture2D>("res://assets/sprites/giovanni.png") },
+    };
+
+    private static Dictionary<string, Theme> themeLibrary = new()
+    {
+        { "base", GD.Load<Theme>("res://src/resources/themes/base.tres") },
+        { "void", GD.Load<Theme>("res://src/resources/themes/void.tres") },
     };
 
     private static Dictionary<string, string> fontLibrary = new()
     {
         { "base", "res://assets/fonts/PoppinsSemiBold.ttf" }
-    };
-
-    //theme
-    private static Dictionary<string, Theme> themeLibrary = new()
-    {
-        { "base", GD.Load<Theme>("res://src/resources/themes/base.tres") },
-        { "void", GD.Load<Theme>("res://src/resources/themes/void.tres") },
     };
 
     public static bool GetMusic(string songName, out AudioStream song)
