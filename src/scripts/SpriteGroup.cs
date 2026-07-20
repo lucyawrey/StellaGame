@@ -8,8 +8,8 @@ public partial class SpriteGroup : Control
     private Dictionary<string, Vector2> PositionMap = new()
     {
         { "center", new Vector2(0, 0) },
-        { "left", new Vector2(-160, 0) },
-        { "right", new Vector2(160, 0) },
+        { "left", new Vector2(-190, 0) },
+        { "right", new Vector2(190, 0) },
     };
 
     private Vector2 PositionToVector(string position)

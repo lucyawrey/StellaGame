@@ -12,6 +12,9 @@ public partial class StoryManager : Node
 	public InkStory Story { get; set; }
 
 	[Export]
+	public StateManager state;
+
+	[Export]
 	private CharacterManager characterManager;
 
 	[Export]
@@ -56,7 +59,7 @@ public partial class StoryManager : Node
 	[Export]
 	private BackgroundImage backgroundImage;
 
-	private readonly Regex characterRegex = new Regex(@"^([^\s]+):\s(.*?)$");
+	private static readonly Regex REGEX = new Regex(@"^([^\s]+):\s(.*?)$");
 
 	private Queue<StoryAction> actionQueue = new();
 
@@ -283,6 +286,9 @@ public partial class StoryManager : Node
 			string content;
 			if (delayedContent == null)
 			{
+				// Autosave
+				state.SaveGame();
+
 				content = Story.Continue().Trim();
 			}
 			else
@@ -351,7 +357,7 @@ public partial class StoryManager : Node
 
 			SetDialogueBoxMode(DialogueBoxMode.Dialogue);
 			string characterId = "";
-			var match = characterRegex.Match(content);
+			var match = REGEX.Match(content);
 			if (match.Success)
 			{
 				characterId = match.Groups[1].Value;
