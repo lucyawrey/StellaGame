@@ -23,7 +23,7 @@ Theme = "void"
 [Card]
 Name = ""
 FontSize = 50
-TextSpeed = 2
+TextSpeed = 4
 Prefix = "[center]"
 TextSoundPitch = 1.2
 TextSoundSpacing = 1
@@ -59,5 +59,5 @@ NameColor = "#c46e1d"
 NameColor = "#0a940a"
 
 [Slow]
-TextSpeed = 2
+TextSpeed = 4
 TextSoundSpacing = 1
