@@ -65,7 +65,7 @@ Stella: I could use a shower anyway.
 Stella.Narrator: Might help with the nausea.
 Stella.Narrator: I take a breath and run my fingers through my hair.
 Stella.Narrator: It's damp with sweat and somehow even messier than normal.
-Stella.Narrator: I definately need a shower. And I need to check where I'm supposed to be today.
+Stella.Narrator: I definitely need a shower. And I need to check where I'm supposed to be today.
 -> act
 
 = act
