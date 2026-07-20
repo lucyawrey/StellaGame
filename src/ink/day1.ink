@@ -35,7 +35,7 @@ Dream: _
 ~ play_music("background_noise")
 Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
 Stella.Narrator: Somehow, all of my blankets are discarded on the floor.
-Stella.Narrator: The nextt thing I notice is that I feel sweaty and a bit sick.
+Stella.Narrator: The next thing I notice is that I feel sweaty and a bit sick.
 Stella.Narrator: At least the bright morning sun coming through the window helps.
 Stella: I don't wanna get up.
 ~ delay(0.5)

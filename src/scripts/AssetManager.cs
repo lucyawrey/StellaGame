@@ -101,7 +101,7 @@ public static class AssetManager
 
     public static int GetBaseFontSize()
     {
-        return 30;
+        return 42;
     }
 
     public static bool GetTheme(string themeName, out Theme theme)

@@ -3,7 +3,7 @@ Name = "Base"
 NameColor = "#999999"
 TextColor = "#ffffff"
 Font = "base"
-FontSize = 30
+FontSize = 42
 TextSpeed = 90
 Prefix = ""
 Suffix = ""
@@ -22,7 +22,7 @@ Theme = "void"
 
 [Card]
 Name = ""
-FontSize = 42
+FontSize = 50
 TextSpeed = 2
 Prefix = "[center]"
 TextSoundPitch = 1.2
