@@ -294,36 +294,15 @@ public partial class StoryManager : Node
 			{
 				if (action is StoryAction.Show showAction)
 				{
-					if (AssetManager.GetSprite(showAction.ImageName, out var image))
-					{
-						var sprite = new Sprite2D
-						{
-							Texture = image,
-							Name = showAction.ImageName,
-						};
-						spriteGroup.AddChild(sprite);
-					}
-					else
-					{
-						GD.Print($"Sprite '{showAction.ImageName}' not found.");
-					}
+					spriteGroup.AddSprite(showAction.ImageName, showAction.Position);
 				}
 				else if (action is StoryAction.Hide hideAction)
 				{
-					foreach (var child in spriteGroup.GetChildren())
-					{
-						if (child.Name == hideAction.ImageName)
-						{
-							child.QueueFree();
-						}
-					}
+					spriteGroup.RemoveSprite(hideAction.ImageName);
 				}
 				else if (action is StoryAction.Clear)
 				{
-					foreach (var child in spriteGroup.GetChildren())
-					{
-						child.QueueFree();
-					}
+					spriteGroup.RemoveAllSprites();
 				}
 				else if (action is StoryAction.Background backgroundAction)
 				{
