@@ -71,16 +71,16 @@ public partial class CharacterManager : Node
             Name = importCharacter.Name ?? nameFallback,
             NameColor = importCharacter.NameColor,
             TextColor = importCharacter.TextColor,
-            Font = AssetManager.GetFont(importCharacter.Font, out var font) ? font : null,
+            Font = AssetLibrary.GetFont(importCharacter.Font, out var font) ? font : null,
             FontSize = importCharacter.FontSize,
             TextSpeed = importCharacter.TextSpeed,
             Prefix = importCharacter.Prefix,
             Suffix = importCharacter.Suffix,
-            TextSound = AssetManager.GetSound(importCharacter.TextSound, out var sound) ? sound : null,
+            TextSound = AssetLibrary.GetSound(importCharacter.TextSound, out var sound) ? sound : null,
             TextSoundPitch = importCharacter.TextSoundPitch,
             TextSoundSpacing = importCharacter.TextSoundSpacing,
             Fullscreen = importCharacter.Fullscreen,
-            Theme = AssetManager.GetTheme(importCharacter.Theme, out var theme) ? theme : null
+            Theme = AssetLibrary.GetTheme(importCharacter.Theme, out var theme) ? theme : null
         };
         return character;
     }

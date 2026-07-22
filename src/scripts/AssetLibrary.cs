@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StellaGame;
 
-public static class AssetManager
+public static class AssetLibrary
 {
     private static Dictionary<string, AudioStream> musicLibrary = new()
     {

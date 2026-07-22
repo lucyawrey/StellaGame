@@ -40,9 +40,10 @@ backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/Bac
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
 script = ExtResource("3_uktfx")
 
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("state")]
 stream = ExtResource("4_y2hwx")
 script = ExtResource("5_qiocs")
+state = NodePath("../StateManager")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
@@ -126,11 +127,12 @@ theme_override_constants/margin_top = -1
 theme_override_constants/margin_right = -1
 theme_override_constants/margin_bottom = -1
 
-[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/FullscreenBox/BackgroundMargin" unique_id=1023635288]
+[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/FullscreenBox/BackgroundMargin" unique_id=1023635288 node_paths=PackedStringArray("state")]
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 script = ExtResource("8_a7soy")
+state = NodePath("../../../../../StateManager")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Content/FullscreenBox" unique_id=700704297]
 layout_mode = 2
@@ -146,7 +148,7 @@ mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551]
+[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("state")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -160,6 +162,7 @@ offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_4bcji")
+state = NodePath("../../../StateManager")
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0

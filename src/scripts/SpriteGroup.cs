@@ -5,6 +5,9 @@ namespace StellaGame;
 
 public partial class SpriteGroup : Control
 {
+    [Export]
+    private StateManager state;
+
     private Dictionary<string, Vector2> PositionMap = new()
     {
         { "center", new Vector2(0, 0) },
@@ -48,13 +51,17 @@ public partial class SpriteGroup : Control
 
     public void AddSprite(string imageName, string position)
     {
-        if (AssetManager.GetSprite(imageName, out var image))
+        if (AssetLibrary.GetSprite(imageName, out var image))
         {
+            var vector = PositionToVector(position);
+
+            state.ActiveSlot.CurrentSpriteGroup.Add(imageName, vector);
+
             var sprite = new Sprite2D
             {
                 Texture = image,
                 Name = imageName,
-                Position = PositionToVector(position),
+                Position = vector,
             };
             AddChild(sprite);
         }

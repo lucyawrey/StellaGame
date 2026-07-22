@@ -12,7 +12,7 @@ public partial class StoryManager : Node
 	public InkStory Story { get; set; }
 
 	[Export]
-	public StateManager state;
+	private StateManager state;
 
 	[Export]
 	private CharacterManager characterManager;
@@ -373,8 +373,8 @@ public partial class StoryManager : Node
 
 			var nameText = string.IsNullOrWhiteSpace(currentCharacter.Name) ? "" : $"[color={currentCharacter.NameColor}]{currentCharacter.Name}[/color]";
 
-			var font = currentCharacter.Font != AssetManager.GetBaseFont() ? $"[font={currentCharacter.Font}]" : "";
-			var fontSize = currentCharacter.FontSize != AssetManager.GetBaseFontSize() ? $"[font_size={currentCharacter.FontSize}]" : "";
+			var font = currentCharacter.Font != AssetLibrary.GetBaseFont() ? $"[font={currentCharacter.Font}]" : "";
+			var fontSize = currentCharacter.FontSize != AssetLibrary.GetBaseFontSize() ? $"[font_size={currentCharacter.FontSize}]" : "";
 			var fullscreenNameText = currentCharacter.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
 			var dialogueText = $"{font}{fontSize}[color={currentCharacter.TextColor}]{fullscreenNameText}{currentCharacter.Prefix}{content}{currentCharacter.Suffix}";
 
@@ -446,57 +446,57 @@ public partial class StoryManager : Node
 		}
 	}
 
-	public void Show(string imageName, string position)
+	private void Show(string imageName, string position)
 	{
 		actionQueue.Enqueue(new StoryAction.Show() { ImageName = imageName, Position = position });
 	}
 
-	public void Hide(string imageName)
+	private void Hide(string imageName)
 	{
 		actionQueue.Enqueue(new StoryAction.Hide() { ImageName = imageName });
 	}
 
-	public void Clear()
+	private void Clear()
 	{
 		actionQueue.Enqueue(new StoryAction.Clear());
 	}
 
-	public void Background(string imageName)
+	private void Background(string imageName)
 	{
 		actionQueue.Enqueue(new StoryAction.Background() { ImageName = imageName });
 	}
 
-	public void PlayMusic(string songName)
+	private void PlayMusic(string songName)
 	{
 		actionQueue.Enqueue(new StoryAction.PlayMusic() { SongName = songName });
 	}
 
-	public void StopMusic()
+	private void StopMusic()
 	{
 		actionQueue.Enqueue(new StoryAction.StopMusic());
 	}
 
-	public void PlaySound(string soundName)
+	private void PlaySound(string soundName)
 	{
 		actionQueue.Enqueue(new StoryAction.PlaySound() { SoundName = soundName });
 	}
 
-	public void Auto(int count)
+	private void Auto(int count)
 	{
 		actionQueue.Enqueue(new StoryAction.Auto() { Count = count });
 	}
 
-	public void Delay(float time)
+	private void Delay(float time)
 	{
 		actionQueue.Enqueue(new StoryAction.Delay() { Time = time });
 	}
 
-	public void AddItem(string itemName, int quantity)
+	private void AddItem(string itemName, int quantity)
 	{
 		actionQueue.Enqueue(new StoryAction.AddItem() { ItemName = itemName, Quantity = quantity });
 	}
 
-	public void RemoveItem(string itemName, int quantity)
+	private void RemoveItem(string itemName, int quantity)
 	{
 		actionQueue.Enqueue(new StoryAction.RemoveItem() { ItemName = itemName, Quantity = quantity });
 	}
