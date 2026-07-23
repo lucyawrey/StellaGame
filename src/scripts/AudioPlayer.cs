@@ -9,7 +9,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public AudioStreamPlaybackPolyphonic Playback { get; set; }
 
-    private long currentSongStreamId;
+    private long currentSongStreamId = 0;
 
     public override void _Ready()
     {
@@ -50,7 +50,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void StopMusic()
     {
-        if (Playback.IsStreamPlaying(currentSongStreamId))
+        if (Playback != null && Playback.IsStreamPlaying(currentSongStreamId))
         {
             Playback.StopStream(currentSongStreamId);
         }
