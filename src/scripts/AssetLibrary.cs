@@ -45,7 +45,7 @@ public static class AssetLibrary
         { "base", GD.Load<FontFile>("res://assets/fonts/PoppinsSemiBold.ttf") }
     };
 
-    public static string BaseFontPath { get; }
+    public static string BaseFontPath { get; } = fonts["base"].ResourcePath;
 
     public static bool GetMusic(string songName, out AudioStream song)
     {

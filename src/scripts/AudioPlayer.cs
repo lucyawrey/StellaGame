@@ -17,15 +17,24 @@ public partial class AudioPlayer : AudioStreamPlayer
         Playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
     }
 
+    public void Load()
+    {
+        PlayMusic(state.ActiveSlot.CurrentSong);
+    }
+
     public void PlayMusic(string songName)
     {
-        if (state.ActiveSlot.CurrentSongName != null && state.ActiveSlot.CurrentSongName == songName)
+        if (songName == null)
+        {
+            StopMusic();
+        }
+        if (state.ActiveSlot.CurrentSong != null && state.ActiveSlot.CurrentSong == songName)
         {
             return;
         }
         if (AssetLibrary.GetMusic(songName, out var song))
         {
-            state.ActiveSlot.CurrentSongName = songName;
+            state.ActiveSlot.CurrentSong = songName;
 
             StopMusic();
             currentSongStreamId = Playback.PlayStream(song);

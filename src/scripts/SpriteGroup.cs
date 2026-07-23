@@ -15,9 +15,21 @@ public partial class SpriteGroup : Control
         { "right", new Vector2(190, 0) },
     };
 
+    public void Load()
+    {
+        foreach (var entry in state.ActiveSlot.CurrentSpriteGroup)
+        {
+            AddSprite(entry.Key, entry.Value);
+        }
+    }
+
     private Vector2 PositionToVector(string position)
     {
         var finalVector = new Vector2(0, 0);
+        if (position == null)
+        {
+            return finalVector;
+        }
         foreach (var rawPositionToken in position.Split(","))
         {
             var positionToken = rawPositionToken.Trim();
@@ -49,19 +61,17 @@ public partial class SpriteGroup : Control
         return finalVector;
     }
 
-    public void AddSprite(string imageName, string position)
+    public void AddSprite(string imageName, string position = null)
     {
         if (AssetLibrary.GetSprite(imageName, out var image))
         {
-            var vector = PositionToVector(position);
-
-            state.ActiveSlot.CurrentSpriteGroup.Add(imageName, vector);
+            state.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
 
             var sprite = new Sprite2D
             {
                 Texture = image,
                 Name = imageName,
-                Position = vector,
+                Position = PositionToVector(position),
             };
             AddChild(sprite);
         }

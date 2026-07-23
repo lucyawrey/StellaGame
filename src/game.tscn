@@ -13,9 +13,12 @@
 
 [node name="Game" type="Node" unique_id=1005478206]
 
-[node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("storyManager")]
+[node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("storyManager", "audioPlayer", "spriteGroup", "backgroundImage")]
 script = ExtResource("1_uktfx")
 storyManager = NodePath("../StoryManager")
+audioPlayer = NodePath("../AudioPlayer")
+spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
+backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
 [node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("state", "characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_cdx1q")
@@ -127,12 +130,11 @@ theme_override_constants/margin_top = -1
 theme_override_constants/margin_right = -1
 theme_override_constants/margin_bottom = -1
 
-[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/FullscreenBox/BackgroundMargin" unique_id=1023635288 node_paths=PackedStringArray("state")]
+[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/FullscreenBox/BackgroundMargin" unique_id=1023635288]
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 script = ExtResource("8_a7soy")
-state = NodePath("../../../../../StateManager")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Content/FullscreenBox" unique_id=700704297]
 layout_mode = 2

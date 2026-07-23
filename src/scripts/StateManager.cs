@@ -8,6 +8,15 @@ public partial class StateManager : Node
     [Export]
     private StoryManager storyManager;
 
+    [Export]
+    private AudioPlayer audioPlayer;
+
+    [Export]
+    private SpriteGroup spriteGroup;
+
+    [Export]
+    private BackgroundImage backgroundImage;
+
     public SaveData Save { get; set; } = new();
 
     public SlotData ActiveSlot { get; set; } = new();
@@ -29,13 +38,51 @@ public partial class StateManager : Node
     {
         public int Id { get; set; } = 0;
 
-        public JsonDocument InkStory { get; set; }
+        public JsonDocument InkStory { get; set; } = null;
 
-        public string CurrentSongName { get; set; } = null;
+        public string CurrentSong { get; set; } = null;
 
-        public string CurrentBackgroundImageName { get; set; } = null;
+        public string CurrentBackgroundImage { get; set; } = null;
 
-        public Dictionary<string, Vector2> CurrentSpriteGroup { get; set; } = new();
+        public Dictionary<string, string> CurrentSpriteGroup { get; set; } = new();
+    }
+
+    public void LoadGame(int switchToSlot = -1)
+    {
+        // Save
+        if (FileAccess.FileExists(SAVE_PATH))
+        {
+            using var saveFile = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
+            var saveJson = saveFile.GetAsText();
+            Save = JsonSerializer.Deserialize<SaveData>(saveJson);
+        }
+        else
+        {
+            GD.Print($"File not found at {SAVE_PATH}, creating new save.");
+        }
+
+        // Active Slot
+        if (switchToSlot >= 0)
+        {
+            Save.ActiveSlotId = switchToSlot;
+        }
+        var slotPath = $"{SLOT_PATH}{Save.ActiveSlotId}{JSON_EXT}";
+        if (FileAccess.FileExists(slotPath))
+        {
+            using var slotFile = FileAccess.Open(slotPath, FileAccess.ModeFlags.Read);
+            var slotJson = slotFile.GetAsText();
+            ActiveSlot = JsonSerializer.Deserialize<SlotData>(slotJson);
+        }
+        else
+        {
+            GD.Print($"File not found at {slotPath}, creating new save.");
+        }
+
+        // Load everything;
+        storyManager.Load();
+        audioPlayer.Load();
+        backgroundImage.Load(this);
+        spriteGroup.Load();
     }
 
     public void SaveGame()

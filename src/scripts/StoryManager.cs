@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Godot;
 using GodotInk;
@@ -129,7 +130,8 @@ public partial class StoryManager : Node
 			};
 		}
 
-		advanceCounter++;
+		// Load game, should be done in Game manager eventually.
+		state.LoadGame();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -210,6 +212,15 @@ public partial class StoryManager : Node
 		{
 			InputAdvance();
 		}
+	}
+
+	public void Load()
+	{
+		if (state.ActiveSlot.InkStory != null)
+		{
+			Story.LoadState(JsonSerializer.Serialize(state.ActiveSlot.InkStory));
+		}
+		advanceCounter++;
 	}
 
 	private void InputAdvance()
