@@ -19,10 +19,10 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void Load()
     {
-        PlayMusic(state.ActiveSlot.CurrentSong);
+        PlayMusic(state.ActiveSlot.CurrentSong, false);
     }
 
-    public void PlayMusic(string songName)
+    public void PlayMusic(string songName, bool save = true)
     {
         if (songName == null)
         {
@@ -34,10 +34,13 @@ public partial class AudioPlayer : AudioStreamPlayer
         }
         if (AssetLibrary.GetMusic(songName, out var song))
         {
-            state.ActiveSlot.CurrentSong = songName;
-
             StopMusic();
             currentSongStreamId = Playback.PlayStream(song);
+
+            if (save)
+            {
+                state.ActiveSlot.CurrentSong = songName;
+            }
         }
         else
         {

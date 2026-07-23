@@ -6,10 +6,10 @@ public partial class BackgroundImage : TextureRect
 {
     public void Load(StateManager state)
     {
-        Set(state.ActiveSlot.CurrentBackgroundImage, state);
+        Set(state.ActiveSlot.CurrentBackgroundImage, state, false);
     }
 
-    public void Set(string imageName, StateManager state)
+    public void Set(string imageName, StateManager state, bool save = true)
     {
         if (imageName == "none" || imageName == null)
         {
@@ -18,7 +18,10 @@ public partial class BackgroundImage : TextureRect
         else if (AssetLibrary.GetBackground(imageName, out var image))
         {
             Texture = image;
-            state.ActiveSlot.CurrentBackgroundImage = imageName;
+            if (save)
+            {
+                state.ActiveSlot.CurrentBackgroundImage = imageName;
+            }
         }
         else
         {

@@ -19,7 +19,7 @@ public partial class SpriteGroup : Control
     {
         foreach (var entry in state.ActiveSlot.CurrentSpriteGroup)
         {
-            AddSprite(entry.Key, entry.Value);
+            AddSprite(entry.Key, entry.Value, false);
         }
     }
 
@@ -61,11 +61,14 @@ public partial class SpriteGroup : Control
         return finalVector;
     }
 
-    public void AddSprite(string imageName, string position = null)
+    public void AddSprite(string imageName, string position = null, bool save = true)
     {
         if (AssetLibrary.GetSprite(imageName, out var image))
         {
-            state.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
+            if (save)
+            {
+                state.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
+            }
 
             var sprite = new Sprite2D
             {
