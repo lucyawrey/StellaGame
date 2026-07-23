@@ -33,7 +33,7 @@ public partial class StateManager : Node
 
         public string CurrentSongName { get; set; } = null;
 
-        public string CurrentBackgroundImageName { get; set; } = "none";
+        public string CurrentBackgroundImageName { get; set; } = null;
 
         public Dictionary<string, Vector2> CurrentSpriteGroup { get; set; } = new();
     }

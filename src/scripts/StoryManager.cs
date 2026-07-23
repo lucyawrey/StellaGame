@@ -312,7 +312,7 @@ public partial class StoryManager : Node
 				}
 				else if (action is StoryAction.Background backgroundAction)
 				{
-					backgroundImage.Set(backgroundAction.ImageName);
+					backgroundImage.Set(backgroundAction.ImageName, state);
 				}
 				else if (action is StoryAction.PlayMusic playMusicAction)
 				{
