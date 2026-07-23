@@ -39,7 +39,7 @@ public partial class CharacterManager : Node
         public string Name { get; set; }
         public string NameColor { get; set; }
         public string TextColor { get; set; }
-        public string Font { get; set; }
+        public FontFile Font { get; set; }
         public int FontSize { get; set; }
         public int TextSpeed { get; set; }
         public string Prefix { get; set; }

@@ -5,7 +5,7 @@ namespace StellaGame;
 
 public static class AssetLibrary
 {
-    private static Dictionary<string, AudioStream> musicLibrary = new()
+    private static Dictionary<string, AudioStream> music = new()
     {
         { "morning", GD.Load<AudioStream>("res://assets/music/morning.mp3") },
         { "nostalgia", GD.Load<AudioStream>("res://assets/music/nostalgia.mp3") },
@@ -15,35 +15,37 @@ public static class AssetLibrary
         { "woosh", GD.Load<AudioStream>("res://assets/music/woosh.mp3") },
     };
 
-    private static Dictionary<string, AudioStream> soundLibrary = new()
+    private static Dictionary<string, AudioStream> sound = new()
     {
         { "click", GD.Load<AudioStream>("res://assets/sound_effects/click.wav") },
         { "land", GD.Load<AudioStream>("res://assets/sound_effects/land.mp3") },
     };
 
-    private static Dictionary<string, Texture2D> backgroundLibrary = new()
+    private static Dictionary<string, Texture2D> backgrounds = new()
     {
         { "cafe", GD.Load<Texture2D>("res://assets/backgrounds/cafe.png") },
         { "bedroom", GD.Load<Texture2D>("res://assets/backgrounds/bedroom.png") },
     };
 
-    private static Dictionary<string, Texture2D> spriteLibrary = new()
+    private static Dictionary<string, Texture2D> sprites = new()
     {
         { "stella", GD.Load<Texture2D>("res://assets/sprites/stella.png") },
         { "azalea", GD.Load<Texture2D>("res://assets/sprites/azalea.png") },
         { "giovanni", GD.Load<Texture2D>("res://assets/sprites/giovanni.png") },
     };
 
-    private static Dictionary<string, Theme> themeLibrary = new()
+    private static Dictionary<string, Theme> themes = new()
     {
         { "base", GD.Load<Theme>("res://src/resources/themes/base.tres") },
         { "void", GD.Load<Theme>("res://src/resources/themes/void.tres") },
     };
 
-    private static Dictionary<string, string> fontLibrary = new()
+    private static Dictionary<string, FontFile> fonts = new()
     {
-        { "base", "res://assets/fonts/PoppinsSemiBold.ttf" }
+        { "base", GD.Load<FontFile>("res://assets/fonts/PoppinsSemiBold.ttf") }
     };
+
+    public static string BaseFontPath { get; }
 
     public static bool GetMusic(string songName, out AudioStream song)
     {
@@ -52,7 +54,7 @@ public static class AssetLibrary
             song = null;
             return false;
         }
-        return musicLibrary.TryGetValue(songName, out song);
+        return music.TryGetValue(songName, out song);
     }
 
     public static bool GetSound(string soundName, out AudioStream sound)
@@ -62,7 +64,7 @@ public static class AssetLibrary
             sound = null;
             return false;
         }
-        return soundLibrary.TryGetValue(soundName, out sound);
+        return AssetLibrary.sound.TryGetValue(soundName, out sound);
     }
 
     public static bool GetBackground(string imageName, out Texture2D image)
@@ -72,7 +74,7 @@ public static class AssetLibrary
             image = null;
             return false;
         }
-        return backgroundLibrary.TryGetValue(imageName, out image);
+        return backgrounds.TryGetValue(imageName, out image);
     }
 
     public static bool GetSprite(string imageName, out Texture2D image)
@@ -82,22 +84,17 @@ public static class AssetLibrary
             image = null;
             return false;
         }
-        return spriteLibrary.TryGetValue(imageName, out image);
+        return sprites.TryGetValue(imageName, out image);
     }
 
-    public static bool GetFont(string fontName, out string font)
+    public static bool GetFont(string fontName, out FontFile font)
     {
         if (fontName == null)
         {
             font = null;
             return false;
         }
-        return fontLibrary.TryGetValue(fontName, out font);
-    }
-
-    public static string GetBaseFont()
-    {
-        return fontLibrary["base"];
+        return fonts.TryGetValue(fontName, out font);
     }
 
     public static int GetBaseFontSize()
@@ -112,6 +109,6 @@ public static class AssetLibrary
             theme = null;
             return false;
         }
-        return themeLibrary.TryGetValue(themeName, out theme);
+        return themes.TryGetValue(themeName, out theme);
     }
 }

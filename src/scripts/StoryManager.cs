@@ -372,8 +372,9 @@ public partial class StoryManager : Node
 			currentCharacter = characterManager.GetCharacter(characterId);
 
 			var nameText = string.IsNullOrWhiteSpace(currentCharacter.Name) ? "" : $"[color={currentCharacter.NameColor}]{currentCharacter.Name}[/color]";
+			var fontPath = currentCharacter.Font.ResourcePath;
 
-			var font = currentCharacter.Font != AssetLibrary.GetBaseFont() ? $"[font={currentCharacter.Font}]" : "";
+			var font = fontPath != AssetLibrary.BaseFontPath ? $"[font={fontPath}]" : "";
 			var fontSize = currentCharacter.FontSize != AssetLibrary.GetBaseFontSize() ? $"[font_size={currentCharacter.FontSize}]" : "";
 			var fullscreenNameText = currentCharacter.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
 			var dialogueText = $"{font}{fontSize}[color={currentCharacter.TextColor}]{fullscreenNameText}{currentCharacter.Prefix}{content}{currentCharacter.Suffix}";
