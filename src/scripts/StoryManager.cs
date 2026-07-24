@@ -55,6 +55,9 @@ public partial class StoryManager : Node
 	private BoxContainer choicesBox;
 
 	[Export]
+	private Control content;
+
+	[Export]
 	private BoxContainer actChoicesBox;
 
 	[Export]
@@ -79,6 +82,8 @@ public partial class StoryManager : Node
 	private double visibleCharactersTimer = 0.0;
 
 	private int textSoundCharacterCounter = 0;
+
+	private double loadClock = 0;
 
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
@@ -212,6 +217,15 @@ public partial class StoryManager : Node
 		{
 			InputAdvance();
 		}
+
+		if (loadClock <= 0)
+		{
+			content.Visible = true;
+		}
+		else
+		{
+			loadClock -= delta;
+		}
 	}
 
 	public void Load()
@@ -221,6 +235,8 @@ public partial class StoryManager : Node
 			Story.LoadState(JsonSerializer.Serialize(state.ActiveSlot.InkStory));
 		}
 		advanceCounter++;
+		content.Visible = false;
+		loadClock = 0.5;
 	}
 
 	private void InputAdvance()
@@ -241,12 +257,12 @@ public partial class StoryManager : Node
 
 	private bool IsTextPrinting()
 	{
-		return dialogueLabel.IsVisibleInTree() && dialogueLabel.Text.Length > 0 && dialogueLabel.VisibleCharacters <= dialogueLabel.GetParsedText().Length;
+		return dialogueLabel.VisibleCharacters != -1 && dialogueLabel.IsVisibleInTree() && dialogueLabel.Text.Length > 0 && dialogueLabel.VisibleCharacters <= dialogueLabel.GetParsedText().Length;
 	}
 
 	private void FinishTextPrinting()
 	{
-		dialogueLabel.VisibleCharacters = dialogueLabel.GetParsedText().Length;
+		dialogueLabel.VisibleCharacters = -1;
 	}
 
 	private bool IsInputLocked()
@@ -294,17 +310,17 @@ public partial class StoryManager : Node
 	{
 		if (Story.GetCanContinue())
 		{
-			string content;
+			string rawText;
 			if (delayedContent == null)
 			{
 				// Autosave
 				state.SaveGame();
 
-				content = Story.Continue().Trim();
+				rawText = Story.Continue().Trim();
 			}
 			else
 			{
-				content = delayedContent;
+				rawText = delayedContent;
 			}
 
 			while (actionQueue.TryDequeue(out var action))
@@ -345,7 +361,7 @@ public partial class StoryManager : Node
 				{
 					isDelayed = true;
 					delayClock = delayAction.Time;
-					delayedContent = content;
+					delayedContent = rawText;
 					return;
 				}
 				else if (action is StoryAction.AddItem addItemAction)
@@ -360,7 +376,7 @@ public partial class StoryManager : Node
 
 			delayedContent = null;
 
-			if (string.IsNullOrWhiteSpace(content))
+			if (string.IsNullOrWhiteSpace(rawText))
 			{
 				Continue();
 				return;
@@ -368,16 +384,16 @@ public partial class StoryManager : Node
 
 			SetDialogueBoxMode(DialogueBoxMode.Dialogue);
 			string characterId = "";
-			var match = REGEX.Match(content);
+			var match = REGEX.Match(rawText);
 			if (match.Success)
 			{
 				characterId = match.Groups[1].Value;
-				content = match.Groups[2].Value;
+				rawText = match.Groups[2].Value;
 			}
 
-			if (content == "_")
+			if (rawText == "_")
 			{
-				content = "";
+				rawText = "";
 			}
 
 			currentCharacter = characterManager.GetCharacter(characterId);
@@ -388,7 +404,7 @@ public partial class StoryManager : Node
 			var font = fontPath != AssetLibrary.BaseFontPath ? $"[font={fontPath}]" : "";
 			var fontSize = currentCharacter.FontSize != AssetLibrary.GetBaseFontSize() ? $"[font_size={currentCharacter.FontSize}]" : "";
 			var fullscreenNameText = currentCharacter.Fullscreen && !string.IsNullOrWhiteSpace(nameText) ? $"{nameText}: " : "";
-			var dialogueText = $"{font}{fontSize}[color={currentCharacter.TextColor}]{fullscreenNameText}{currentCharacter.Prefix}{content}{currentCharacter.Suffix}";
+			var dialogueText = $"{font}{fontSize}[color={currentCharacter.TextColor}]{fullscreenNameText}{currentCharacter.Prefix}{rawText}{currentCharacter.Suffix}";
 
 			if (currentCharacter.Fullscreen)
 			{
@@ -413,6 +429,12 @@ public partial class StoryManager : Node
 			if (currentCharacter.Theme != null && userInterface.Theme != currentCharacter.Theme)
 			{
 				userInterface.Theme = currentCharacter.Theme;
+			}
+
+			// Complete text if content is hidden
+			if (!content.Visible)
+			{
+				FinishTextPrinting();
 			}
 		}
 		else if (Story.CurrentChoices.Count > 0)

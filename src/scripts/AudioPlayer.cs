@@ -7,15 +7,22 @@ public partial class AudioPlayer : AudioStreamPlayer
     [Export]
     private StateManager state;
 
-    public AudioStreamPlaybackPolyphonic Playback { get; set; }
+    private AudioStreamPlaybackPolyphonic _playback = null;
+
+    public AudioStreamPlaybackPolyphonic Playback
+    {
+        get
+        {
+            if (_playback == null)
+            {
+                Play();
+                _playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+            }
+            return _playback;
+        }
+    }
 
     private long currentSongStreamId = 0;
-
-    public override void _Ready()
-    {
-        Play();
-        Playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
-    }
 
     public void Load()
     {
@@ -28,7 +35,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         {
             StopMusic();
         }
-        if (state.ActiveSlot.CurrentSong != null && state.ActiveSlot.CurrentSong == songName)
+        if (save && state.ActiveSlot.CurrentSong != null && state.ActiveSlot.CurrentSong == songName)
         {
             return;
         }
