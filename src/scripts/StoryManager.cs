@@ -537,7 +537,7 @@ public partial class StoryManager : Node
 
 	private string GetDate(int gameDay)
 	{
-		return "October 4th, 2097";
+		return "October 7th, 2097";
 	}
 
 	private bool GetDebugMode(bool isDebugMode)

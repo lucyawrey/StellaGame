@@ -72,7 +72,8 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
 ~ play_music("morning")
 + {!investigate_bedroom or !sleep_in or !check_wall_calendar or !check_phone} [Act]
     ** (investigate_bedroom) [Investigate bedroom]
-        The bedroom is well decorated and comfortable, but a massive pile of discarded clothes sit on the floor.
+        The bed is large has an array of cute plushies set on top of it.
+        The ramaining room is well decorated and comfortable, but a massive pile of discarded clothes lay on the floor.
         Stella.Narrator: I think this is everything I own.
         *** (pick_up_clothes) [Pick up clothes]
             ~ add_item("clothes_pile", 1)
@@ -81,6 +82,7 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
             This is where they belong.
             Stella.Narrator: I might put them away properly later.
     ** (sleep_in) {!day_1_bathroom.act.take_shower} [Go back to bed]
+        Stella: I'm really tired...
         Stella: Maybe I can sleep for just a bit longer.
         // Play music, background noise
         ~ auto(1)
@@ -100,8 +102,9 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
         Stella.Narrator: I should just check my phone.
     ** (check_phone) {check_wall_calendar} [Check phone calendar]
         Ignoring several unread messages, Stella checks the calendar app on her phone.
-        It thankfully auto-updates when schedules are posted.
-        Stella: Right, the cafe. {sleep_in: I'm already late... | I definately am going to be a bit late. }
+        Thankfully, it automatically updates when schedules are sent over.
+        Stella: Right, I'm working at the cafe, like most mondays.
+        Stella: {sleep_in: I'm already late... | I definately am going to be a bit late. }
     ++ [Do nothing]
 * [Talk]
     Stella: There's no one here but me, right?
@@ -123,9 +126,10 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
 {day_1_bathroom > 1: -> act | -> enter}
 
 = enter
-Stella.Narrator: I open the bathroom door and step inside.
-Stella.Narrator: It's clean enough, but small and very cluttered.
-Stella.Narrator: I should have taken a bath last night, but now I don't have time anything but a shower.
+Stella.Narrator: I open the door bathroom door and step inside.
+Stella.Narrator: Inside is a modestly sized Japanese style bathroom that is only a little in need of cleaning.
+Stella.Narrator: And very in need of decluttering.
+Stella.Narrator: I should have taken a bath last night. Now I don't have time for anything but a quick shower.
 -> act
 
 = act

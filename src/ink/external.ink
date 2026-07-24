@@ -48,7 +48,7 @@ EXTERNAL get_item(item, quantity)
 ~ return
 
 === function get_date(game_day)
-~ return "October 4th, 2097"
+~ return "October 7th, 2097"
 
 === function get_debug_mode(mode)
 ~ return mode
