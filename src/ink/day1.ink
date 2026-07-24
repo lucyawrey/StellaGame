@@ -72,7 +72,7 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
 ~ play_music("morning")
 + {!investigate_bedroom or !sleep_in or !check_wall_calendar or !check_phone} [Act]
     ** (investigate_bedroom) [Investigate bedroom]
-        The bedroom is well decorated and comfortable, but a massive pile of discarded clothes sits on the floor.
+        The bedroom is well decorated and comfortable, but a massive pile of discarded clothes sit on the floor.
         Stella.Narrator: I think this is everything I own.
         *** (pick_up_clothes) [Pick up clothes]
             ~ add_item("clothes_pile", 1)

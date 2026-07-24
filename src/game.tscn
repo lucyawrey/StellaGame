@@ -20,7 +20,7 @@ audioPlayer = NodePath("../AudioPlayer")
 spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
 backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("state", "characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("state", "characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "content", "actChoicesBox", "backgroundImage")]
 script = ExtResource("1_cdx1q")
 Story = ExtResource("2_4bcji")
 state = NodePath("../StateManager")
@@ -37,6 +37,7 @@ nameBox = NodePath("../UserInterface/Content/NameBox")
 choiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
 actChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
 choicesBox = NodePath("../UserInterface/Content/DialogueBox/Choices")
+content = NodePath("../UserInterface/Content")
 actChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
 backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
