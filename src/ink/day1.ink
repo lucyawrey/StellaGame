@@ -3,23 +3,22 @@
 Dream: You float formless in the space between.
 Dream: It is quiet. It is comfortable. It is vast beyond comprehension.
 Dream: And it is so, so empty.
-Dream: You have been alone for so very long.
-Dream: You float in that vast expanse for what might have been an instant or an eternity.
-Dream: Then, you notice a small mote of light floating in that endless void.
-Dream: It is so close, how did you not notice it before?
+Dream: You have been alone out here for so very long.
+Dream: Floating in the vast expanse.
+Dream: But, just now, you notice a small mote of light before you.
 Dream: It feels familiar. It feels warm.
 Dream: You reach out to it.
 Dream: Light.
 Dream: Blinding.
-Dream: Nothingness becomes everything.
-Dream: A woman stands before you. She holds a gleaming blade aloft.
+Dream: Suddenly, a woman stands before you.
+Dream: She holds a gleaming blade aloft.
+Dream: The void you have always known fills with color and memory.
 // Show glowing light
-Dream: Women, standing, and blades are new to you. Yet, you know them.
-Dream: The blade of light falls.
-Dream: Death, too, is new to you.
-Dream: Yet, you know it is coming for you all the same.
+Dream: And then the blade of light falls.
+Dream: The concept of death is new to you.
+Dream: Yet, somehow, you know it is coming for you.
 // Show aborted slashing animation
-// Play sound effect
+// Play light fizzling out sound effect
 Stella.Dream: Not like this.
 ~ auto(1)
 Dream: _
@@ -37,20 +36,20 @@ Stella.Narrator: I open my eyes and find myself lying halfway off my bed.
 Stella.Narrator: Somehow, all of my blankets are discarded on the floor.
 Stella.Narrator: The next thing I notice is that I feel sweaty and a bit sick.
 Stella.Narrator: At least the bright morning sun coming through the window helps.
-Stella: I don't wanna get up.
+Stella: I do not want to get up.
 ~ delay(0.5)
 ~ play_music("typhoon_parade")
 Stella.Narrator: My phone's alarm starts blaring mid 2010's J-pop as if in direct rejection of my plea.
 Stella: Ughhhh.
 Stella.Narrator: I only set it to go off on days I have work. Which means I actually have to get up.
-Stella.Narrator: I can't even remember where I'm supposed to be working today.
+Stella.Narrator: I do not even remember where I'm supposed to be working today.
 Stella.Narrator: Is it the cafe or the hospital?
 Stella: I could just call in sick.
-Stella: What're they going to do, fire me?
+Stella: What are they going to do, fire me?
 Stella.Slow: . . .
 Stella: Whoever they are.
 Stella.Narrator: The alarm continues to go off.
-Stella.Narrator: I can't even shut it off from here because my phone is all the way across the room, exactly where I left it.
+Stella.Narrator: Shutting it off from here is impossibl because my phone is all the way across the room, exactly where I left it.
 Stella.Narrator: Specifically to ensure I have to actually get out of bed.
 Stella.Narrator: It just keeps going.
 Stella.Narrator: I breifly concider blowing it up.
@@ -60,17 +59,16 @@ Stella.Narrator: I pull myself out of bed to turn the cursed thing off.
 ~ stop_music()
 ~ play_music("morning")
 ~ delay(0.5)
-~ show("stella", "center")
 Stella: I could use a shower anyway.
 Stella.Narrator: Might help with the nausea.
 Stella.Narrator: I take a breath and run my fingers through my hair.
-Stella.Narrator: It's damp with sweat and somehow even messier than normal.
-Stella.Narrator: I definitely need a shower. And I need to check where I'm supposed to be today.
+Stella.Narrator: It is damp with sweat and somehow even messier than normal.
+Stella.Narrator: I definitely need that shower. And I need to check where I'm supposed to be today.
 -> act
 
 = act
 ~ play_music("morning")
-+ {!investigate_bedroom or !sleep_in or !check_wall_calendar or !check_phone} [Act]
++ {!investigate_bedroom or !sleep_in or !check_calendar or !check_phone} [Act]
     ** (investigate_bedroom) [Investigate bedroom]
         The bed is large has an array of cute plushies set on top of it.
         The ramaining room is well decorated and comfortable, but a massive pile of discarded clothes lay on the floor.
@@ -82,32 +80,32 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
             This is where they belong.
             Stella.Narrator: I might put them away properly later.
     ** (sleep_in) {!day_1_bathroom.act.take_shower} [Go back to bed]
-        Stella: I'm really tired...
+        Stella: I am really tired...
         Stella: Maybe I can sleep for just a bit longer.
         // Play music, background noise
         ~ auto(1)
         Stella.Slow: . . . . . .
-        Stella.Narrator: If I stay in bed too long I'll fall back asleep without an alarm.
-        Stella.Narrator: Again.
+        Stella.Narrator: If I stay in bed too long I will fall back asleep.
+        Stella.Narrator: Without an alarm this time.
         ~ auto(1)
         Stella.Slow: . . . . . .
         ~ play_music("morning")
         ~ background("bedroom")
         Stella.Narrator: I better get up.
     ** (get_dressed) {day_1_bathroom.act.take_shower} [Get dressed]
-    ** (check_wall_calendar) [Check calendar]
+    ** (check_calendar) [Check calendar]
         The dessert themed wall calendar on the wall has a tasty-yet-incriminating ice cream cone drawn next to the month name: July.
-        It hasn't been changed in three months.
+        It has not been changed in three months.
         Stella.Slow: . . .
         Stella.Narrator: I should just check my phone.
-    ** (check_phone) {check_wall_calendar} [Check phone calendar]
+    ** (check_phone) {check_calendar} [Check phone calendar]
         Ignoring several unread messages, Stella checks the calendar app on her phone.
         Thankfully, it automatically updates when schedules are sent over.
-        Stella: Right, I'm working at the cafe, like most mondays.
-        Stella: {sleep_in: I'm already late... | I definately am going to be a bit late. }
+        Stella: Right, I am working at the cafe today. Like almost every other Monday.
+        Stella: {sleep_in: It looks like I am already late. | It looks like I am definately going to be a bit late. }
     ++ [Do nothing]
-* [Talk]
-    Stella: There's no one here but me, right?
+* (talk) [Talk]
+    Stella: There is nobody here but me, right?
 + [Move]
     ++ [Bathroom]
         ~ play_sound("move")
@@ -126,16 +124,20 @@ Stella.Narrator: I definitely need a shower. And I need to check where I'm suppo
 {day_1_bathroom > 1: -> act | -> enter}
 
 = enter
-Stella.Narrator: I open the door bathroom door and step inside.
-Stella.Narrator: Inside is a modestly sized Japanese style bathroom that is only a little in need of cleaning.
-Stella.Narrator: And very in need of decluttering.
-Stella.Narrator: I should have taken a bath last night. Now I don't have time for anything but a quick shower.
+Stella.Narrator: I step inside the small Japanese style bathroom.
+Stella.Narrator: It has a deep bathtub, an open shower, a toilet, and a vanity.
+Stella.Narrator: The whole thing is a little in need of cleaning, and very in need of decluttering.
+Stella.Narrator: I really would have rather taken a long bath last night, but I will have to a settle for a quick shower right now.
 -> act
 
 = act
 + {!investigate_bathroom or !take_shower or !brush_teeth or !fix_hair or !apply_makeup} [Act]
     ** (investigate_bathroom) [Investigate bathroom]
+        The vanity countertop is covered in water damaged books and rarely used makeup products.
+        Stella.Narrator: I should clean this up when I have more time.
     ** (mirror) [Look in the mirror]
+        ~ show("stella", "center")
+        Stella.Narrator: It's just me.
     ** (take_shower) [Take a shower]
     ** (brush_teeth) {take_shower} [Brush teeth]
     ** (fix_hair) {brush_teeth} [Fix hair]
@@ -174,7 +176,7 @@ Stella.Narrator: I walk into the kitchen...
         ~ play_sound("move")
         -> day_1_bathroom
     ++ [Apartment Hallway]
-        Stella: I don't want to leave this way.
+        Stella: I do not want to leave this way.
     ++ [Stay here]
 - -> act
 
@@ -201,8 +203,9 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
         +++ [Sit anyway] -> sitting_on_balcony
         +++ [Do not] -> act
     ++ [Do nothing]
-* [Talk]
-    Stella: Nobody to talk to. Makes me want to actually leave home.
+* {day_1_bedroom.act.talk} [Talk]
+    Stella: There is still nobody here but me.
+    Stella: It almost makes me actually want to leave home.
 + [Move]
     ++ [Bedroom]
         ~ play_sound("move")

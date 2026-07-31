@@ -158,11 +158,11 @@ public partial class StoryManager : Node
 			{
 				state.LoadGame(-1, true);
 			}
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			if (keyEvent.Pressed && keyEvent.Keycode == Key.Tab)
 			{
 				isSkipMode = true;
 			}
-			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Tab)
 			{
 				isSkipMode = false;
 			}
