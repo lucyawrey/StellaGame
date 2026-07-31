@@ -47,35 +47,43 @@ public partial class StateManager : Node
         public Dictionary<string, string> CurrentSpriteGroup { get; set; } = new();
     }
 
-    public void LoadGame(int switchToSlot = -1)
+    public void LoadGame(int switchToSlot = -1, bool deleteSlot = false)
     {
-        // Save
-        if (FileAccess.FileExists(SAVE_PATH))
+        if (deleteSlot)
         {
-            using var saveFile = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
-            var saveJson = saveFile.GetAsText();
-            Save = JsonSerializer.Deserialize<SaveData>(saveJson);
+            Save = new();
+            ActiveSlot = new();
         }
         else
         {
-            GD.Print($"File not found at {SAVE_PATH}, creating new save.");
-        }
+            // Load Main Save
+            if (FileAccess.FileExists(SAVE_PATH))
+            {
+                using var saveFile = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
+                var saveJson = saveFile.GetAsText();
+                Save = JsonSerializer.Deserialize<SaveData>(saveJson);
+            }
+            else
+            {
+                GD.Print($"File not found at {SAVE_PATH}, creating new save.");
+            }
 
-        // Active Slot
-        if (switchToSlot >= 0)
-        {
-            Save.ActiveSlotId = switchToSlot;
-        }
-        var slotPath = $"{SLOT_PATH}{Save.ActiveSlotId}{JSON_EXT}";
-        if (FileAccess.FileExists(slotPath))
-        {
-            using var slotFile = FileAccess.Open(slotPath, FileAccess.ModeFlags.Read);
-            var slotJson = slotFile.GetAsText();
-            ActiveSlot = JsonSerializer.Deserialize<SlotData>(slotJson);
-        }
-        else
-        {
-            GD.Print($"File not found at {slotPath}, creating new save.");
+            // Load Active Slot
+            if (switchToSlot >= 0)
+            {
+                Save.ActiveSlotId = switchToSlot;
+            }
+            var slotPath = $"{SLOT_PATH}{Save.ActiveSlotId}{JSON_EXT}";
+            if (FileAccess.FileExists(slotPath))
+            {
+                using var slotFile = FileAccess.Open(slotPath, FileAccess.ModeFlags.Read);
+                var slotJson = slotFile.GetAsText();
+                ActiveSlot = JsonSerializer.Deserialize<SlotData>(slotJson);
+            }
+            else
+            {
+                GD.Print($"File not found at {slotPath}, creating new save.");
+            }
         }
 
         // Load everything;

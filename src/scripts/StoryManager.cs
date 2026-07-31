@@ -154,6 +154,10 @@ public partial class StoryManager : Node
 			{
 				InputAdvance();
 			}
+			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Escape)
+			{
+				state.LoadGame(-1, true);
+			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
 				isSkipMode = true;
@@ -233,6 +237,10 @@ public partial class StoryManager : Node
 		if (state.ActiveSlot.InkStory != null)
 		{
 			Story.LoadState(JsonSerializer.Serialize(state.ActiveSlot.InkStory));
+		}
+		else
+		{
+			Story.ResetState();
 		}
 		advanceCounter++;
 		content.Visible = false;

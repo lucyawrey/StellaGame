@@ -6,6 +6,7 @@ public partial class BackgroundImage : TextureRect
 {
     public void Load(StateManager state)
     {
+        Set("none", state, false);
         Set(state.ActiveSlot.CurrentBackgroundImage, state, false);
     }
 

@@ -26,6 +26,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void Load()
     {
+        StopMusic();
         PlayMusic(state.ActiveSlot.CurrentSong, false);
     }
 

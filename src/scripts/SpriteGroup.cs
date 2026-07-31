@@ -17,6 +17,7 @@ public partial class SpriteGroup : Control
 
     public void Load()
     {
+        RemoveAllSprites();
         foreach (var entry in state.ActiveSlot.CurrentSpriteGroup)
         {
             AddSprite(entry.Key, entry.Value, false);
