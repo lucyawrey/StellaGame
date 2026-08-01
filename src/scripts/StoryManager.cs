@@ -306,11 +306,13 @@ public partial class StoryManager : Node
 		{
 			control.Modulate = new Color(1, 1, 1, 0);
 			control.MouseFilter = Control.MouseFilterEnum.Ignore;
+			control.FocusMode = Control.FocusModeEnum.None;
 		}
 		else
 		{
 			control.Modulate = new Color(1, 1, 1, 1);
 			control.MouseFilter = Control.MouseFilterEnum.Stop;
+			control.FocusMode = Control.FocusModeEnum.All;
 		}
 	}
 
@@ -461,6 +463,7 @@ public partial class StoryManager : Node
 			{
 				HideControl(true, button);
 			}
+			var focusIsSet = false;
 			foreach (InkChoice choice in Story.CurrentChoices)
 			{
 				if (choice.Index >= 4)
@@ -473,12 +476,22 @@ public partial class StoryManager : Node
 					SetDialogueBoxMode(DialogueBoxMode.ActChoices);
 					actChoiceIndexMap[choice.Text] = choice.Index;
 					actChoiceButtonMap[choice.Text].Disabled = false;
+					if (!focusIsSet)
+					{
+						actChoiceButtonMap[choice.Text].GrabFocus();
+						focusIsSet = true;
+					}
 				}
 				else
 				{
 					SetDialogueBoxMode(DialogueBoxMode.Choices);
 					HideControl(false, choiceButtons[choice.Index]);
 					choiceButtons[choice.Index].Text = choice.Text;
+					if (!focusIsSet)
+					{
+						choiceButtons[choice.Index].GrabFocus();
+						focusIsSet = true;
+					}
 				}
 			}
 		}
