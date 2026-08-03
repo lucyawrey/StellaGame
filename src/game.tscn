@@ -10,13 +10,14 @@
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://src/resources/materials/void_particle_process_material.tres" id="7_g3j30"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://src/scripts/BackgroundImage.cs" id="8_a7soy"]
 [ext_resource type="Script" uid="uid://dtxrlyau0rsgg" path="res://src/scripts/SpriteGroup.cs" id="9_4bcji"]
+[ext_resource type="FontFile" uid="uid://bp1waotd07ga0" path="res://assets/fonts/QuiteMagicalRegular.ttf" id="11_y2hwx"]
 
 [node name="Game" type="Node" unique_id=1005478206]
 
 [node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("storyManager", "audioPlayer", "spriteGroup", "backgroundImage")]
 script = ExtResource("1_uktfx")
 storyManager = NodePath("../StoryManager")
-audioPlayer = NodePath("../UserInterface/AudioPlayer")
+audioPlayer = NodePath("../AudioPlayer")
 spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
 backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
@@ -26,7 +27,7 @@ Story = ExtResource("2_4bcji")
 state = NodePath("../StateManager")
 characterManager = NodePath("../CharacterManager")
 userInterface = NodePath("../UserInterface")
-audioPlayer = NodePath("../UserInterface/AudioPlayer")
+audioPlayer = NodePath("../AudioPlayer")
 fullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
 dialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
 nameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
@@ -43,6 +44,11 @@ backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/Bac
 
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
 script = ExtResource("3_uktfx")
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("state")]
+stream = ExtResource("4_y2hwx")
+script = ExtResource("5_qiocs")
+state = NodePath("../StateManager")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
@@ -250,7 +256,80 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="UserInterface" unique_id=396511962 node_paths=PackedStringArray("state")]
-stream = ExtResource("4_y2hwx")
-script = ExtResource("5_qiocs")
-state = NodePath("../../StateManager")
+[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Title" type="RichTextLabel" parent="UserInterface/Menu" unique_id=1263459827]
+layout_mode = 0
+offset_left = -874.0
+offset_top = -455.0
+offset_right = -275.0
+offset_bottom = -253.0
+theme_override_fonts/normal_font = ExtResource("11_y2hwx")
+theme_override_font_sizes/normal_font_size = 102
+bbcode_enabled = true
+text = "[color=474aff]Magical Girl
+[color=b54fff]Pastel [color=e3e06f]Starshower"
+
+[node name="DialogueBox" type="PanelContainer" parent="UserInterface/Menu" unique_id=1015915559]
+layout_mode = 0
+offset_left = -900.0
+offset_top = 47.0
+offset_right = -26.0
+offset_bottom = 520.0
+mouse_filter = 2
+
+[node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Menu/DialogueBox" unique_id=67295086]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="Dialogue" type="RichTextLabel" parent="UserInterface/Menu/DialogueBox/DialogueMargin" unique_id=1707397241]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+visible_characters_behavior = 1
+
+[node name="Choices" type="VBoxContainer" parent="UserInterface/Menu/DialogueBox" unique_id=1168745467]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Start" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1678591012]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Continue"
+
+[node name="Load" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=783365402]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Load"
+
+[node name="Extras" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=828225042]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Extras"
+
+[node name="Settings" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1167981286]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Settings"
+
+[node name="Exit" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=119147127]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit"
