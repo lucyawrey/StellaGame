@@ -17,6 +17,8 @@ public partial class StateManager : Node
     [Export]
     private BackgroundImage backgroundImage;
 
+    public bool GameIsLoaded { get; set; } = false;
+
     public SaveData Save { get; set; } = new();
 
     public SlotData ActiveSlot { get; set; } = new();
@@ -91,6 +93,7 @@ public partial class StateManager : Node
         audioPlayer.Load();
         backgroundImage.Load(this);
         spriteGroup.Load();
+        GameIsLoaded = true;
     }
 
     public void SaveGame()

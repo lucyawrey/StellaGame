@@ -25,6 +25,9 @@ public partial class StoryManager : Node
 	private AudioPlayer audioPlayer;
 
 	[Export]
+	private MenuManager menu;
+
+	[Export]
 	private RichTextLabel fullscreenDialogueLabel;
 
 	[Export]
@@ -83,8 +86,6 @@ public partial class StoryManager : Node
 
 	private int textSoundCharacterCounter = 0;
 
-	private double loadClock = 0;
-
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
 	private Dictionary<string, Button> actChoiceButtonMap = new();
@@ -134,13 +135,14 @@ public partial class StoryManager : Node
 				advanceCounter++;
 			};
 		}
-
-		// Load game, should be done in Game manager eventually.
-		state.LoadGame();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if (menu.Visible)
+		{
+			return;
+		}
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
@@ -156,13 +158,14 @@ public partial class StoryManager : Node
 			}
 			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Escape)
 			{
-				state.LoadGame(-1, true);
+				menu.Visible = true;
+				content.Visible = false;
 			}
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.Tab)
+			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
 				isSkipMode = true;
 			}
-			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Tab)
+			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
 				isSkipMode = false;
 			}
@@ -221,15 +224,6 @@ public partial class StoryManager : Node
 		{
 			InputAdvance();
 		}
-
-		if (loadClock <= 0)
-		{
-			content.Visible = true;
-		}
-		else
-		{
-			loadClock -= delta;
-		}
 	}
 
 	public void Load()
@@ -243,8 +237,6 @@ public partial class StoryManager : Node
 			Story.ResetState();
 		}
 		advanceCounter++;
-		content.Visible = false;
-		loadClock = 0.5;
 	}
 
 	private void InputAdvance()
@@ -436,9 +428,9 @@ public partial class StoryManager : Node
 			}
 
 			// Set theme for character
-			if (currentCharacter.Theme != null && userInterface.Theme != currentCharacter.Theme)
+			if (currentCharacter.Theme != null && content.Theme != currentCharacter.Theme)
 			{
-				userInterface.Theme = currentCharacter.Theme;
+				content.Theme = currentCharacter.Theme;
 			}
 
 			// Complete text if content is hidden
