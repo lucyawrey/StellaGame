@@ -139,6 +139,9 @@ Stella.Narrator: I really would have rather taken a long bath last night, but I 
         ~ show("stella", "center")
         Stella.Narrator: It's just me.
     ** (take_shower) [Take a shower]
+        Stella.Narrator: I tiredly strip off my pajamas and step into the shower.
+        // Play move SFX, shower SFX.
+        Stella.Narrator: Then, I turn the handle and simply spend a few moments luxuriating in the cold water running over my body.
     ** (brush_teeth) {take_shower} [Brush teeth]
     ** (fix_hair) {brush_teeth} [Fix hair]
     ** (apply_makeup) {fix_hair} [Apply makeup]
