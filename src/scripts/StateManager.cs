@@ -96,6 +96,11 @@ public partial class StateManager : Node
         GameIsLoaded = true;
     }
 
+    public bool SaveExists()
+    {
+        return FileAccess.FileExists(SAVE_PATH);
+    }
+
     public void SaveGame()
     {
         // Save

@@ -25,17 +25,42 @@ public partial class MenuManager : Control
     [Export]
     private Control content;
 
+    public void Open()
+    {
+        Visible = true;
+        content.Visible = false;
+        continueButton.GrabFocus();
+    }
+
     public override void _Ready()
     {
         continueButton.Pressed += () =>
         {
             Visible = false;
-            content.Visible = true;
             if (!state.GameIsLoaded)
             {
                 state.LoadGame();
             }
+            else
+            {
+                content.Visible = true;
+            }
         };
+        continueButton.MouseEntered += continueButton.GrabFocus;
+        if (!state.SaveExists())
+        {
+            continueButton.Text = "New Game";
+        }
+
+        loadButton.MouseEntered += loadButton.GrabFocus;
+
+        extrasButton.MouseEntered += extrasButton.GrabFocus;
+
+        settingsButton.MouseEntered += settingsButton.GrabFocus;
+
         exitButton.Pressed += () => GetTree().Quit();
+        exitButton.MouseEntered += exitButton.GrabFocus;
+
+        continueButton.GrabFocus();
     }
 }

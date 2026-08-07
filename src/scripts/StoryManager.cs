@@ -125,6 +125,7 @@ public partial class StoryManager : Node
 				Story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
 				advanceCounter++;
 			};
+			choiceButton.MouseEntered += choiceButton.GrabFocus;
 		}
 		for (var i = 0; i < choiceButtons.Count; i++)
 		{
@@ -134,6 +135,7 @@ public partial class StoryManager : Node
 				Story.ChooseChoiceIndex(choice);
 				advanceCounter++;
 			};
+			choiceButtons[i].MouseEntered += choiceButtons[i].GrabFocus;
 		}
 	}
 
@@ -158,8 +160,11 @@ public partial class StoryManager : Node
 			}
 			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Escape)
 			{
-				menu.Visible = true;
-				content.Visible = false;
+				menu.Open();
+			}
+			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.R)
+			{
+				state.LoadGame(deleteSlot: true);
 			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
@@ -267,7 +272,7 @@ public partial class StoryManager : Node
 
 	private bool IsInputLocked()
 	{
-		return isDelayed;
+		return isDelayed || !content.IsVisibleInTree();
 	}
 
 	private void SetDialogueBoxMode(DialogueBoxMode mode)
@@ -310,6 +315,7 @@ public partial class StoryManager : Node
 
 	private void Continue()
 	{
+		content.Visible = true;
 		if (Story.GetCanContinue())
 		{
 			string rawText;
