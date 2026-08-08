@@ -17,43 +17,43 @@
 
 [node name="Game" type="Node" unique_id=1005478206]
 
-[node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("storyManager", "audioPlayer", "spriteGroup", "backgroundImage")]
+[node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("StoryManager", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
 script = ExtResource("1_uktfx")
-storyManager = NodePath("../StoryManager")
-audioPlayer = NodePath("../AudioPlayer")
-spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
-backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
+StoryManager = NodePath("../StoryManager")
+AudioPlayer = NodePath("../AudioPlayer")
+SpriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
+BackgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("state", "characterManager", "userInterface", "audioPlayer", "menu", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "content", "actChoicesBox", "backgroundImage", "progressStar")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("State", "CharacterManager", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
 Story = ExtResource("2_4bcji")
-state = NodePath("../StateManager")
-characterManager = NodePath("../CharacterManager")
-userInterface = NodePath("../UserInterface")
-audioPlayer = NodePath("../AudioPlayer")
-menu = NodePath("../UserInterface/MenuManager")
-fullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
-dialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
-nameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
-fullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
-dialogueBox = NodePath("../UserInterface/Content/DialogueBox")
-spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
-nameBox = NodePath("../UserInterface/Content/NameBox")
-choiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
-actChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
-choicesBox = NodePath("../UserInterface/Content/DialogueBox/Choices")
-content = NodePath("../UserInterface/Content")
-actChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
-backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
-progressStar = NodePath("../UserInterface/Content/ProgressStar")
+State = NodePath("../StateManager")
+CharacterManager = NodePath("../CharacterManager")
+UserInterface = NodePath("../UserInterface")
+AudioPlayer = NodePath("../AudioPlayer")
+Menu = NodePath("../UserInterface/MenuManager")
+FullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
+DialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
+NameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
+FullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
+DialogueBox = NodePath("../UserInterface/Content/DialogueBox")
+SpriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
+NameBox = NodePath("../UserInterface/Content/NameBox")
+ChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
+ActChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
+ChoicesBox = NodePath("../UserInterface/Content/DialogueBox/Choices")
+Content = NodePath("../UserInterface/Content")
+ActChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
+BackgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
+ProgressStar = NodePath("../UserInterface/Content/ProgressStar")
 
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
 script = ExtResource("3_uktfx")
 
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("state")]
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("State")]
 stream = ExtResource("4_y2hwx")
 script = ExtResource("5_qiocs")
-state = NodePath("../StateManager")
+State = NodePath("../StateManager")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
@@ -158,7 +158,7 @@ mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("state")]
+[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("State")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -172,7 +172,7 @@ offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_4bcji")
-state = NodePath("../../../StateManager")
+State = NodePath("../../../StateManager")
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0
@@ -268,7 +268,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_g3j30")
 script = ExtResource("12_a7soy")
 
-[node name="MenuManager" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("continueButton", "loadButton", "extrasButton", "settingsButton", "exitButton", "state", "content")]
+[node name="MenuManager" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Content")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -283,13 +283,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_qiocs")
-continueButton = NodePath("DialogueBox/Choices/Continue")
-loadButton = NodePath("DialogueBox/Choices/Load")
-extrasButton = NodePath("DialogueBox/Choices/Extras")
-settingsButton = NodePath("DialogueBox/Choices/Settings")
-exitButton = NodePath("DialogueBox/Choices/Exit")
-state = NodePath("../../StateManager")
-content = NodePath("../Content")
+ContinueButton = NodePath("DialogueBox/Choices/Continue")
+LoadButton = NodePath("DialogueBox/Choices/Load")
+ExtrasButton = NodePath("DialogueBox/Choices/Extras")
+SettingsButton = NodePath("DialogueBox/Choices/Settings")
+ExitButton = NodePath("DialogueBox/Choices/Exit")
+State = NodePath("../../StateManager")
+Content = NodePath("../Content")
 
 [node name="Title" type="RichTextLabel" parent="UserInterface/MenuManager" unique_id=1263459827]
 layout_mode = 0

@@ -6,7 +6,7 @@ namespace StellaGame;
 public partial class SpriteGroup : Control
 {
     [Export]
-    private StateManager state;
+    public StateManager State { get; set; }
 
     private Dictionary<string, Vector2> PositionMap = new()
     {
@@ -18,7 +18,7 @@ public partial class SpriteGroup : Control
     public void Load()
     {
         RemoveAllSprites();
-        foreach (var entry in state.ActiveSlot.CurrentSpriteGroup)
+        foreach (var entry in State.ActiveSlot.CurrentSpriteGroup)
         {
             AddSprite(entry.Key, entry.Value, false);
         }
@@ -68,7 +68,7 @@ public partial class SpriteGroup : Control
         {
             if (save)
             {
-                state.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
+                State.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
             }
 
             var sprite = new Sprite2D

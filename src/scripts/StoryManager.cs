@@ -13,61 +13,61 @@ public partial class StoryManager : Node
 	public InkStory Story { get; set; }
 
 	[Export]
-	private StateManager state;
+	public StateManager State { get; set; }
 
 	[Export]
-	private CharacterManager characterManager;
+	public CharacterManager CharacterManager { get; set; }
 
 	[Export]
-	private Control userInterface;
+	public Control UserInterface { get; set; }
 
 	[Export]
-	private AudioPlayer audioPlayer;
+	public AudioPlayer AudioPlayer { get; set; }
 
 	[Export]
-	private MenuManager menu;
+	public MenuManager Menu { get; set; }
 
 	[Export]
-	private RichTextLabel fullscreenDialogueLabel;
+	public RichTextLabel FullscreenDialogueLabel { get; set; }
 
 	[Export]
-	private RichTextLabel dialogueLabel;
+	public RichTextLabel DialogueLabel { get; set; }
 
 	[Export]
-	private RichTextLabel nameLabel;
+	public RichTextLabel NameLabel { get; set; }
 
 	[Export]
-	private PanelContainer fullscreenBox;
+	public PanelContainer FullscreenBox { get; set; }
 
 	[Export]
-	private PanelContainer dialogueBox;
+	public PanelContainer DialogueBox { get; set; }
 
 	[Export]
-	private SpriteGroup spriteGroup;
+	public SpriteGroup SpriteGroup { get; set; }
 
 	[Export]
-	private PanelContainer nameBox;
+	public PanelContainer NameBox { get; set; }
 
 	[Export]
-	private Godot.Collections.Array<Button> choiceButtons;
+	public Godot.Collections.Array<Button> ChoiceButtons { get; set; }
 
 	[Export]
-	private Godot.Collections.Array<Button> actChoiceButtons;
+	public Godot.Collections.Array<Button> ActChoiceButtons { get; set; }
 
 	[Export]
-	private BoxContainer choicesBox;
+	public BoxContainer ChoicesBox { get; set; }
 
 	[Export]
-	private Control content;
+	public Control Content { get; set; }
 
 	[Export]
-	private BoxContainer actChoicesBox;
+	public BoxContainer ActChoicesBox { get; set; }
 
 	[Export]
-	private BackgroundImage backgroundImage;
+	public BackgroundImage BackgroundImage { get; set; }
 
 	[Export]
-	private ProgressStar progressStar;
+	public ProgressStar ProgressStar { get; set; }
 
 	private static readonly Regex REGEX = new Regex(@"^([^\s]+):\s(.*?)$");
 
@@ -120,7 +120,7 @@ public partial class StoryManager : Node
 		Story.BindExternalFunction("get_item", new Callable(this, "GetItem"));
 
 		// Choice button callback set up
-		foreach (var choiceButton in actChoiceButtons)
+		foreach (var choiceButton in ActChoiceButtons)
 		{
 			actChoiceButtonMap[choiceButton.Text] = choiceButton;
 			choiceButton.Pressed += delegate
@@ -130,21 +130,21 @@ public partial class StoryManager : Node
 			};
 			choiceButton.MouseEntered += choiceButton.GrabFocus;
 		}
-		for (var i = 0; i < choiceButtons.Count; i++)
+		for (var i = 0; i < ChoiceButtons.Count; i++)
 		{
 			var choice = i;
-			choiceButtons[i].Pressed += delegate
+			ChoiceButtons[i].Pressed += delegate
 			{
 				Story.ChooseChoiceIndex(choice);
 				advanceCounter++;
 			};
-			choiceButtons[i].MouseEntered += choiceButtons[i].GrabFocus;
+			ChoiceButtons[i].MouseEntered += ChoiceButtons[i].GrabFocus;
 		}
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (menu.Visible)
+		if (Menu.Visible)
 		{
 			return;
 		}
@@ -163,11 +163,11 @@ public partial class StoryManager : Node
 			}
 			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Escape)
 			{
-				menu.Open();
+				Menu.Open();
 			}
 			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.R)
 			{
-				state.LoadGame(deleteSlot: true);
+				State.LoadGame(deleteSlot: true);
 			}
 			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
 			{
@@ -190,15 +190,15 @@ public partial class StoryManager : Node
 
 			if (visibleCharactersTimer >= 1.0 / textSpeed)
 			{
-				var spaces = dialogueLabel.GetParsedText().Count(" ", dialogueLabel.VisibleCharacters, Math.Min(dialogueLabel.VisibleCharacters + charactersPerTick, dialogueLabel.GetParsedText().Length));
+				var spaces = DialogueLabel.GetParsedText().Count(" ", DialogueLabel.VisibleCharacters, Math.Min(DialogueLabel.VisibleCharacters + charactersPerTick, DialogueLabel.GetParsedText().Length));
 				if (textSoundCharacterCounter <= 0)
 				{
-					audioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+					AudioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
 					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
 				}
 				textSoundCharacterCounter -= charactersPerTick - spaces;
 
-				dialogueLabel.VisibleCharacters += charactersPerTick;
+				DialogueLabel.VisibleCharacters += charactersPerTick;
 				visibleCharactersTimer = 0;
 			}
 			else
@@ -206,9 +206,9 @@ public partial class StoryManager : Node
 				visibleCharactersTimer += delta;
 			}
 		}
-		else if (!progressStar.Visible && dialogueLabel.IsVisibleInTree())
+		else if (!ProgressStar.Visible && DialogueLabel.IsVisibleInTree())
 		{
-			progressStar.Visible = true;
+			ProgressStar.Visible = true;
 		}
 
 		// Handle delay action
@@ -240,9 +240,9 @@ public partial class StoryManager : Node
 
 	public void Load()
 	{
-		if (state.ActiveSlot.InkStory != null)
+		if (State.ActiveSlot.InkStory != null)
 		{
-			Story.LoadState(JsonSerializer.Serialize(state.ActiveSlot.InkStory));
+			Story.LoadState(JsonSerializer.Serialize(State.ActiveSlot.InkStory));
 		}
 		else
 		{
@@ -269,17 +269,17 @@ public partial class StoryManager : Node
 
 	private bool IsTextPrinting()
 	{
-		return dialogueLabel.VisibleCharacters != -1 && dialogueLabel.IsVisibleInTree() && dialogueLabel.Text.Length > 0 && dialogueLabel.VisibleCharacters <= dialogueLabel.GetParsedText().Length;
+		return DialogueLabel.VisibleCharacters != -1 && DialogueLabel.IsVisibleInTree() && DialogueLabel.Text.Length > 0 && DialogueLabel.VisibleCharacters <= DialogueLabel.GetParsedText().Length;
 	}
 
 	private void FinishTextPrinting()
 	{
-		dialogueLabel.VisibleCharacters = -1;
+		DialogueLabel.VisibleCharacters = -1;
 	}
 
 	private bool IsInputLocked()
 	{
-		return isDelayed || !content.IsVisibleInTree();
+		return isDelayed || !Content.IsVisibleInTree();
 	}
 
 	private void SetDialogueBoxMode(DialogueBoxMode mode)
@@ -287,19 +287,19 @@ public partial class StoryManager : Node
 		switch (mode)
 		{
 			case DialogueBoxMode.Dialogue:
-				dialogueLabel.Visible = true;
-				choicesBox.Visible = false;
-				actChoicesBox.Visible = false;
+				DialogueLabel.Visible = true;
+				ChoicesBox.Visible = false;
+				ActChoicesBox.Visible = false;
 				break;
 			case DialogueBoxMode.Choices:
-				dialogueLabel.Visible = false;
-				choicesBox.Visible = true;
-				actChoicesBox.Visible = false;
+				DialogueLabel.Visible = false;
+				ChoicesBox.Visible = true;
+				ActChoicesBox.Visible = false;
 				break;
 			case DialogueBoxMode.ActChoices:
-				dialogueLabel.Visible = false;
-				choicesBox.Visible = false;
-				actChoicesBox.Visible = true;
+				DialogueLabel.Visible = false;
+				ChoicesBox.Visible = false;
+				ActChoicesBox.Visible = true;
 				break;
 		}
 	}
@@ -322,15 +322,15 @@ public partial class StoryManager : Node
 
 	private void Continue()
 	{
-		progressStar.Visible = false;
-		content.Visible = true;
+		ProgressStar.Visible = false;
+		Content.Visible = true;
 		if (Story.GetCanContinue())
 		{
 			string rawText;
 			if (delayedContent == null)
 			{
 				// Autosave
-				state.SaveGame();
+				State.SaveGame();
 
 				rawText = Story.Continue().Trim();
 			}
@@ -343,31 +343,31 @@ public partial class StoryManager : Node
 			{
 				if (action is StoryAction.Show showAction)
 				{
-					spriteGroup.AddSprite(showAction.ImageName, showAction.Position);
+					SpriteGroup.AddSprite(showAction.ImageName, showAction.Position);
 				}
 				else if (action is StoryAction.Hide hideAction)
 				{
-					spriteGroup.RemoveSprite(hideAction.ImageName);
+					SpriteGroup.RemoveSprite(hideAction.ImageName);
 				}
 				else if (action is StoryAction.Clear)
 				{
-					spriteGroup.RemoveAllSprites();
+					SpriteGroup.RemoveAllSprites();
 				}
 				else if (action is StoryAction.Background backgroundAction)
 				{
-					backgroundImage.Set(backgroundAction.ImageName, state);
+					BackgroundImage.Set(backgroundAction.ImageName, State);
 				}
 				else if (action is StoryAction.PlayMusic playMusicAction)
 				{
-					audioPlayer.PlayMusic(playMusicAction.SongName);
+					AudioPlayer.PlayMusic(playMusicAction.SongName);
 				}
 				else if (action is StoryAction.StopMusic)
 				{
-					audioPlayer.StopMusic();
+					AudioPlayer.StopMusic();
 				}
 				else if (action is StoryAction.PlaySound playSoundAction)
 				{
-					audioPlayer.PlaySound(playSoundAction.SoundName);
+					AudioPlayer.PlaySound(playSoundAction.SoundName);
 				}
 				else if (action is StoryAction.Auto auto)
 				{
@@ -412,7 +412,7 @@ public partial class StoryManager : Node
 				rawText = "";
 			}
 
-			currentCharacter = characterManager.GetCharacter(characterId);
+			currentCharacter = CharacterManager.GetCharacter(characterId);
 
 			var nameText = string.IsNullOrWhiteSpace(currentCharacter.Name) ? "" : $"[color={currentCharacter.NameColor}]{currentCharacter.Name}[/color]";
 			var fontPath = currentCharacter.Font.ResourcePath;
@@ -424,40 +424,40 @@ public partial class StoryManager : Node
 
 			if (currentCharacter.Fullscreen)
 			{
-				fullscreenBox.Visible = true;
-				dialogueBox.Visible = false;
-				nameBox.Visible = false;
+				FullscreenBox.Visible = true;
+				DialogueBox.Visible = false;
+				NameBox.Visible = false;
 
-				fullscreenDialogueLabel.AppendText($"\n{dialogueText}");
+				FullscreenDialogueLabel.AppendText($"\n{dialogueText}");
 			}
 			else
 			{
-				dialogueLabel.VisibleCharacters = 0;
-				fullscreenBox.Visible = false;
-				dialogueBox.Visible = true;
-				nameBox.Visible = !string.IsNullOrWhiteSpace(nameText);
+				DialogueLabel.VisibleCharacters = 0;
+				FullscreenBox.Visible = false;
+				DialogueBox.Visible = true;
+				NameBox.Visible = !string.IsNullOrWhiteSpace(nameText);
 
-				nameLabel.Text = nameText;
-				dialogueLabel.Text = dialogueText;
+				NameLabel.Text = nameText;
+				DialogueLabel.Text = dialogueText;
 			}
 
 			// Set theme for character
-			if (currentCharacter.Theme != null && content.Theme != currentCharacter.Theme)
+			if (currentCharacter.Theme != null && Content.Theme != currentCharacter.Theme)
 			{
-				content.Theme = currentCharacter.Theme;
+				Content.Theme = currentCharacter.Theme;
 			}
 
 			// Complete text if content is hidden
-			if (!content.Visible)
+			if (!Content.Visible)
 			{
 				FinishTextPrinting();
 			}
 		}
 		else if (Story.CurrentChoices.Count > 0)
 		{
-			nameBox.Visible = false;
+			NameBox.Visible = false;
 
-			foreach (var button in actChoiceButtons)
+			foreach (var button in ActChoiceButtons)
 			{
 				button.Disabled = true;
 			}
@@ -465,7 +465,7 @@ public partial class StoryManager : Node
 			{
 				actChoiceIndexMap[key] = -1;
 			}
-			foreach (var button in choiceButtons)
+			foreach (var button in ChoiceButtons)
 			{
 				HideControl(true, button);
 			}
@@ -491,11 +491,11 @@ public partial class StoryManager : Node
 				else
 				{
 					SetDialogueBoxMode(DialogueBoxMode.Choices);
-					HideControl(false, choiceButtons[choice.Index]);
-					choiceButtons[choice.Index].Text = choice.Text;
+					HideControl(false, ChoiceButtons[choice.Index]);
+					ChoiceButtons[choice.Index].Text = choice.Text;
 					if (!focusIsSet)
 					{
-						choiceButtons[choice.Index].GrabFocus();
+						ChoiceButtons[choice.Index].GrabFocus();
 						focusIsSet = true;
 					}
 				}

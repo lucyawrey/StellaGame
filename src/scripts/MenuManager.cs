@@ -5,62 +5,62 @@ namespace StellaGame;
 public partial class MenuManager : Control
 {
     [Export]
-    private Button continueButton;
+    public Button ContinueButton { get; set; }
 
     [Export]
-    private Button loadButton;
+    public Button LoadButton { get; set; }
 
     [Export]
-    private Button extrasButton;
+    public Button ExtrasButton { get; set; }
 
     [Export]
-    private Button settingsButton;
+    public Button SettingsButton { get; set; }
 
     [Export]
-    private Button exitButton;
+    public Button ExitButton { get; set; }
 
     [Export]
-    private StateManager state;
+    public StateManager State { get; set; }
 
     [Export]
-    private Control content;
+    public Control Content { get; set; }
 
     public void Open()
     {
         Visible = true;
-        content.Visible = false;
-        continueButton.GrabFocus();
+        Content.Visible = false;
+        ContinueButton.GrabFocus();
     }
 
     public override void _Ready()
     {
-        continueButton.Pressed += () =>
+        ContinueButton.Pressed += () =>
         {
             Visible = false;
-            if (!state.GameIsLoaded)
+            if (!State.GameIsLoaded)
             {
-                state.LoadGame();
+                State.LoadGame();
             }
             else
             {
-                content.Visible = true;
+                Content.Visible = true;
             }
         };
-        continueButton.MouseEntered += continueButton.GrabFocus;
-        if (!state.SaveExists())
+        ContinueButton.MouseEntered += ContinueButton.GrabFocus;
+        if (!State.SaveExists())
         {
-            continueButton.Text = "New Game";
+            ContinueButton.Text = "New Game";
         }
 
-        loadButton.MouseEntered += loadButton.GrabFocus;
+        LoadButton.MouseEntered += LoadButton.GrabFocus;
 
-        extrasButton.MouseEntered += extrasButton.GrabFocus;
+        ExtrasButton.MouseEntered += ExtrasButton.GrabFocus;
 
-        settingsButton.MouseEntered += settingsButton.GrabFocus;
+        SettingsButton.MouseEntered += SettingsButton.GrabFocus;
 
-        exitButton.Pressed += () => GetTree().Quit();
-        exitButton.MouseEntered += exitButton.GrabFocus;
+        ExitButton.Pressed += () => GetTree().Quit();
+        ExitButton.MouseEntered += ExitButton.GrabFocus;
 
-        continueButton.GrabFocus();
+        ContinueButton.GrabFocus();
     }
 }

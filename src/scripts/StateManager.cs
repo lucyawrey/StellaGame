@@ -6,16 +6,16 @@ using StellaGame;
 public partial class StateManager : Node
 {
     [Export]
-    private StoryManager storyManager;
+    public StoryManager StoryManager { get; set; }
 
     [Export]
-    private AudioPlayer audioPlayer;
+    public AudioPlayer AudioPlayer { get; set; }
 
     [Export]
-    private SpriteGroup spriteGroup;
+    public SpriteGroup SpriteGroup { get; set; }
 
     [Export]
-    private BackgroundImage backgroundImage;
+    public BackgroundImage BackgroundImage { get; set; }
 
     public bool GameIsLoaded { get; set; } = false;
 
@@ -89,10 +89,10 @@ public partial class StateManager : Node
         }
 
         // Load everything;
-        storyManager.Load();
-        audioPlayer.Load();
-        backgroundImage.Load(this);
-        spriteGroup.Load();
+        StoryManager.Load();
+        AudioPlayer.Load();
+        BackgroundImage.Load(this);
+        SpriteGroup.Load();
         GameIsLoaded = true;
     }
 
@@ -114,7 +114,7 @@ public partial class StateManager : Node
         }
 
         // Active Slot
-        ActiveSlot.InkStory = JsonDocument.Parse(storyManager.Story.SaveState());
+        ActiveSlot.InkStory = JsonDocument.Parse(StoryManager.Story.SaveState());
 
         string slotJsonString = JsonSerializer.Serialize(ActiveSlot, JSON_OPTIONS);
         using var slotFile = FileAccess.Open($"{SLOT_PATH}{ActiveSlot.Id}{JSON_EXT}", FileAccess.ModeFlags.Write);

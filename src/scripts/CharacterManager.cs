@@ -64,6 +64,44 @@ public partial class CharacterManager : Node
         importCharacters = TomlSerializer.Deserialize<Dictionary<string, ImportCharacter>>(toml);
     }
 
+    public Character GetCharacter(string characterId)
+    {
+        Character character;
+        var initialCharacterId = characterId ?? "";
+        if (characterCache.TryGetValue(initialCharacterId, out character))
+        {
+            return character;
+        }
+
+        if (string.IsNullOrWhiteSpace(characterId))
+        {
+            characterId = narratorCharacterId;
+        }
+        characterId = $"{baseCharacterId}.{characterId}";
+
+        var splitId = characterId.Split('.');
+        var characters = new List<Character>();
+        ImportCharacter lastImportCharacter = null;
+        var i = 0;
+        foreach (var id in splitId)
+        {
+            ImportCharacter importCharacter = null;
+            if ((lastImportCharacter?.Forms != null && lastImportCharacter.Forms.TryGetValue(id, out importCharacter)) || importCharacters.TryGetValue(id, out importCharacter))
+            {
+                characters.Add(ConvertToCharacter(importCharacter, i == 1 ? id : null));
+                lastImportCharacter = importCharacter;
+            }
+            else
+            {
+                GD.PrintErr($"Character not found: {id}");
+            }
+            i++;
+        }
+        character = MergeCharacters(characters);
+        characterCache[initialCharacterId] = character;
+        return character;
+    }
+
     private Character ConvertToCharacter(ImportCharacter importCharacter, string nameFallback = null)
     {
         var character = new Character
@@ -106,43 +144,5 @@ public partial class CharacterManager : Node
             mergedCharacter.Theme = character.Theme ?? mergedCharacter.Theme;
         }
         return mergedCharacter;
-    }
-
-    public Character GetCharacter(string characterId)
-    {
-        Character character;
-        var initialCharacterId = characterId ?? "";
-        if (characterCache.TryGetValue(initialCharacterId, out character))
-        {
-            return character;
-        }
-
-        if (string.IsNullOrWhiteSpace(characterId))
-        {
-            characterId = narratorCharacterId;
-        }
-        characterId = $"{baseCharacterId}.{characterId}";
-
-        var splitId = characterId.Split('.');
-        var characters = new List<Character>();
-        ImportCharacter lastImportCharacter = null;
-        var i = 0;
-        foreach (var id in splitId)
-        {
-            ImportCharacter importCharacter = null;
-            if ((lastImportCharacter?.Forms != null && lastImportCharacter.Forms.TryGetValue(id, out importCharacter)) || importCharacters.TryGetValue(id, out importCharacter))
-            {
-                characters.Add(ConvertToCharacter(importCharacter, i == 1 ? id : null));
-                lastImportCharacter = importCharacter;
-            }
-            else
-            {
-                GD.PrintErr($"Character not found: {id}");
-            }
-            i++;
-        }
-        character = MergeCharacters(characters);
-        characterCache[initialCharacterId] = character;
-        return character;
     }
 }

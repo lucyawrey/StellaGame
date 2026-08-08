@@ -5,9 +5,7 @@ namespace StellaGame;
 public partial class AudioPlayer : AudioStreamPlayer
 {
     [Export]
-    private StateManager state;
-
-    private AudioStreamPlaybackPolyphonic _playback = null;
+    public StateManager State { get; set; }
 
     public AudioStreamPlaybackPolyphonic Playback
     {
@@ -24,10 +22,12 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     private long currentSongStreamId = 0;
 
+    private AudioStreamPlaybackPolyphonic _playback = null;
+
     public void Load()
     {
         StopMusic();
-        PlayMusic(state.ActiveSlot.CurrentSong, false);
+        PlayMusic(State.ActiveSlot.CurrentSong, false);
     }
 
     public void PlayMusic(string songName, bool save = true)
@@ -36,7 +36,7 @@ public partial class AudioPlayer : AudioStreamPlayer
         {
             StopMusic();
         }
-        if (save && state.ActiveSlot.CurrentSong != null && state.ActiveSlot.CurrentSong == songName)
+        if (save && State.ActiveSlot.CurrentSong != null && State.ActiveSlot.CurrentSong == songName)
         {
             return;
         }
@@ -47,7 +47,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
             if (save)
             {
-                state.ActiveSlot.CurrentSong = songName;
+                State.ActiveSlot.CurrentSong = songName;
             }
         }
         else
