@@ -49,7 +49,7 @@ Stella: What are they going to do, fire me?
 Stella.Slow: . . .
 Stella: Whoever they are.
 Stella.Narrator: The alarm continues to go off.
-Stella.Narrator: Shutting it off from here is impossibl because my phone is all the way across the room, exactly where I left it.
+Stella.Narrator: Shutting it off from here is impossible because my phone is all the way across the room, exactly where I left it.
 Stella.Narrator: Specifically to ensure I have to actually get out of bed.
 Stella.Narrator: It just keeps going.
 Stella.Narrator: I breifly concider blowing it up.

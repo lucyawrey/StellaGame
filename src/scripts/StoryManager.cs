@@ -66,6 +66,9 @@ public partial class StoryManager : Node
 	[Export]
 	private BackgroundImage backgroundImage;
 
+	[Export]
+	private ProgressStar progressStar;
+
 	private static readonly Regex REGEX = new Regex(@"^([^\s]+):\s(.*?)$");
 
 	private Queue<StoryAction> actionQueue = new();
@@ -203,6 +206,10 @@ public partial class StoryManager : Node
 				visibleCharactersTimer += delta;
 			}
 		}
+		else if (!progressStar.Visible && dialogueLabel.IsVisibleInTree())
+		{
+			progressStar.Visible = true;
+		}
 
 		// Handle delay action
 		if (isDelayed)
@@ -315,6 +322,7 @@ public partial class StoryManager : Node
 
 	private void Continue()
 	{
+		progressStar.Visible = false;
 		content.Visible = true;
 		if (Story.GetCanContinue())
 		{
