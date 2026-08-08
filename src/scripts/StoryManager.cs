@@ -89,6 +89,8 @@ public partial class StoryManager : Node
 
 	private int textSoundCharacterCounter = 0;
 
+	private Button buttonToFocus = null;
+
 	private Dictionary<string, int> actChoiceIndexMap = new() { { "Act", -1 }, { "Talk", -1 }, { "Move", -1 } };
 
 	private Dictionary<string, Button> actChoiceButtonMap = new();
@@ -148,6 +150,7 @@ public partial class StoryManager : Node
 		{
 			return;
 		}
+
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
@@ -155,25 +158,26 @@ public partial class StoryManager : Node
 				InputAdvance();
 			}
 		}
-		else if (@event is InputEventKey keyEvent)
+		else
 		{
-			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Space)
+			if (@event.IsActionPressed("ui_accept") && !@event.IsEcho())
 			{
 				InputAdvance();
 			}
-			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.Escape)
+			if (@event.IsActionPressed("ui_cancel") && !@event.IsEcho())
 			{
+				Content.Visible = false;
 				Menu.Open();
 			}
-			if (keyEvent.Pressed && !keyEvent.IsEcho() && keyEvent.Keycode == Key.R)
+			if (@event.IsActionPressed("reload") && !@event.IsEcho())
 			{
 				State.LoadGame(deleteSlot: true);
 			}
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			if (@event.IsActionPressed("skip"))
 			{
 				isSkipMode = true;
 			}
-			if (!keyEvent.Pressed && keyEvent.Keycode == Key.Shift)
+			if (@event.IsActionReleased("skip"))
 			{
 				isSkipMode = false;
 			}
@@ -251,9 +255,18 @@ public partial class StoryManager : Node
 		advanceCounter++;
 	}
 
+	public void Open()
+	{
+		Content.Visible = true;
+		if (buttonToFocus != null)
+		{
+			buttonToFocus.GrabFocus();
+		}
+	}
+
 	private void InputAdvance()
 	{
-		if (IsInputLocked())
+		if (IsContinueLocked())
 		{
 			return;
 		}
@@ -277,9 +290,9 @@ public partial class StoryManager : Node
 		DialogueLabel.VisibleCharacters = -1;
 	}
 
-	private bool IsInputLocked()
+	private bool IsContinueLocked()
 	{
-		return isDelayed || !Content.IsVisibleInTree();
+		return isDelayed || !Content.IsVisibleInTree() || (!DialogueLabel.IsVisibleInTree() && !FullscreenDialogueLabel.IsVisibleInTree());
 	}
 
 	private void SetDialogueBoxMode(DialogueBoxMode mode)
@@ -484,7 +497,8 @@ public partial class StoryManager : Node
 					actChoiceButtonMap[choice.Text].Disabled = false;
 					if (!focusIsSet)
 					{
-						actChoiceButtonMap[choice.Text].GrabFocus();
+						buttonToFocus = actChoiceButtonMap[choice.Text];
+						buttonToFocus.GrabFocus();
 						focusIsSet = true;
 					}
 				}
@@ -495,7 +509,8 @@ public partial class StoryManager : Node
 					ChoiceButtons[choice.Index].Text = choice.Text;
 					if (!focusIsSet)
 					{
-						ChoiceButtons[choice.Index].GrabFocus();
+						buttonToFocus = ChoiceButtons[choice.Index];
+						buttonToFocus.GrabFocus();
 						focusIsSet = true;
 					}
 				}

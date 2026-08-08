@@ -268,7 +268,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_g3j30")
 script = ExtResource("12_a7soy")
 
-[node name="MenuManager" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Content")]
+[node name="MenuManager" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Story")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -289,7 +289,7 @@ ExtrasButton = NodePath("DialogueBox/Choices/Extras")
 SettingsButton = NodePath("DialogueBox/Choices/Settings")
 ExitButton = NodePath("DialogueBox/Choices/Exit")
 State = NodePath("../../StateManager")
-Content = NodePath("../Content")
+Story = NodePath("../../StoryManager")
 
 [node name="Title" type="RichTextLabel" parent="UserInterface/MenuManager" unique_id=1263459827]
 layout_mode = 0

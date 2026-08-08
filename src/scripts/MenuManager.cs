@@ -23,12 +23,11 @@ public partial class MenuManager : Control
     public StateManager State { get; set; }
 
     [Export]
-    public Control Content { get; set; }
+    public StoryManager Story { get; set; }
 
     public void Open()
     {
         Visible = true;
-        Content.Visible = false;
         ContinueButton.GrabFocus();
     }
 
@@ -43,7 +42,7 @@ public partial class MenuManager : Control
             }
             else
             {
-                Content.Visible = true;
+                Story.Open();
             }
         };
         ContinueButton.MouseEntered += ContinueButton.GrabFocus;
