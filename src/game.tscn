@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
+[ext_resource type="Script" uid="uid://c0x6c1ttbob0r" path="res://src/scripts/Game.cs" id="1_a7soy"]
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
 [ext_resource type="Script" uid="uid://bl415hhninu1p" path="res://src/scripts/StateManager.cs" id="1_uktfx"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://c2f0jhkycrq5d" path="res://src/scripts/ProgressStar.cs" id="12_a7soy"]
 
 [node name="Game" type="Node" unique_id=1005478206]
+script = ExtResource("1_a7soy")
 
 [node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("StoryManager", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
 script = ExtResource("1_uktfx")
