@@ -10,10 +10,10 @@ namespace StellaGame;
 public partial class StoryManager : Node
 {
 	[Export]
-	public InkStory Story { get; set; }
+	public Game Game { get; set; }
 
 	[Export]
-	public StateManager State { get; set; }
+	public InkStory Story { get; set; }
 
 	[Export]
 	public CharacterManager CharacterManager { get; set; }
@@ -171,7 +171,7 @@ public partial class StoryManager : Node
 			}
 			if (@event.IsActionPressed("reload") && !@event.IsEcho())
 			{
-				State.LoadGame(deleteSlot: true);
+				Game.State.LoadGame(deleteSlot: true);
 			}
 			if (@event.IsActionPressed("skip"))
 			{
@@ -244,9 +244,9 @@ public partial class StoryManager : Node
 
 	public void Load()
 	{
-		if (State.ActiveSlot.InkStory != null)
+		if (Game.State.ActiveSlot.InkStory != null)
 		{
-			Story.LoadState(JsonSerializer.Serialize(State.ActiveSlot.InkStory));
+			Story.LoadState(JsonSerializer.Serialize(Game.State.ActiveSlot.InkStory));
 		}
 		else
 		{
@@ -343,7 +343,7 @@ public partial class StoryManager : Node
 			if (delayedContent == null)
 			{
 				// Autosave
-				State.SaveGame();
+				Game.State.SaveGame();
 
 				rawText = Story.Continue().Trim();
 			}
@@ -368,7 +368,7 @@ public partial class StoryManager : Node
 				}
 				else if (action is StoryAction.Background backgroundAction)
 				{
-					BackgroundImage.Set(backgroundAction.ImageName, State);
+					BackgroundImage.Set(backgroundAction.ImageName, true);
 				}
 				else if (action is StoryAction.PlayMusic playMusicAction)
 				{

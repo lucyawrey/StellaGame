@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c0x6c1ttbob0r" path="res://src/scripts/Game.cs" id="1_a7soy"]
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
-[ext_resource type="Script" uid="uid://bl415hhninu1p" path="res://src/scripts/StateManager.cs" id="1_uktfx"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
 [ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://src/scripts/CharacterManager.cs" id="3_uktfx"]
 [ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://src/resources/audio_streams/audio_stream_polyphonic.tres" id="4_y2hwx"]
@@ -16,20 +15,17 @@
 [ext_resource type="FontFile" uid="uid://bp1waotd07ga0" path="res://assets/fonts/QuiteMagicalRegular.ttf" id="11_y2hwx"]
 [ext_resource type="Script" uid="uid://c2f0jhkycrq5d" path="res://src/scripts/ProgressStar.cs" id="12_a7soy"]
 
-[node name="Game" type="Node" unique_id=1005478206]
+[node name="Game" type="Node" unique_id=1005478206 node_paths=PackedStringArray("StoryManager", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
 script = ExtResource("1_a7soy")
+StoryManager = NodePath("StoryManager")
+AudioPlayer = NodePath("AudioPlayer")
+SpriteGroup = NodePath("UserInterface/Content/SpriteGroup")
+BackgroundImage = NodePath("UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StateManager" type="Node" parent="." unique_id=1009064195 node_paths=PackedStringArray("StoryManager", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
-script = ExtResource("1_uktfx")
-StoryManager = NodePath("../StoryManager")
-AudioPlayer = NodePath("../AudioPlayer")
-SpriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
-BackgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
-
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("State", "CharacterManager", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "CharacterManager", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
+Game = NodePath("..")
 Story = ExtResource("2_4bcji")
-State = NodePath("../StateManager")
 CharacterManager = NodePath("../CharacterManager")
 UserInterface = NodePath("../UserInterface")
 AudioPlayer = NodePath("../AudioPlayer")
@@ -52,10 +48,10 @@ ProgressStar = NodePath("../UserInterface/Content/ProgressStar")
 [node name="CharacterManager" type="Node" parent="." unique_id=155487932]
 script = ExtResource("3_uktfx")
 
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("State")]
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("Game")]
 stream = ExtResource("4_y2hwx")
 script = ExtResource("5_qiocs")
-State = NodePath("../StateManager")
+Game = NodePath("..")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
@@ -119,10 +115,11 @@ theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = -2
 theme_override_constants/margin_bottom = -2
 
-[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/GameBox/MarginContainer" unique_id=1904857836]
+[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/GameBox/MarginContainer" unique_id=1904857836 node_paths=PackedStringArray("Game")]
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("8_a7soy")
+Game = NodePath("../../../../..")
 
 [node name="FullscreenBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1262696186]
 visible = false
@@ -144,7 +141,6 @@ theme_override_constants/margin_bottom = -1
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
-script = ExtResource("8_a7soy")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Content/FullscreenBox" unique_id=700704297]
 layout_mode = 2
@@ -160,7 +156,7 @@ mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("State")]
+[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("Game")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,7 +170,7 @@ offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_4bcji")
-State = NodePath("../../../StateManager")
+Game = NodePath("../../..")
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0
@@ -270,7 +266,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_g3j30")
 script = ExtResource("12_a7soy")
 
-[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Story")]
+[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("Game", "ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "Story")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -285,12 +281,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_qiocs")
+Game = NodePath("../..")
 ContinueButton = NodePath("DialogueBox/Choices/Continue")
 LoadButton = NodePath("DialogueBox/Choices/Load")
 ExtrasButton = NodePath("DialogueBox/Choices/Extras")
 SettingsButton = NodePath("DialogueBox/Choices/Settings")
 ExitButton = NodePath("DialogueBox/Choices/Exit")
-State = NodePath("../../StateManager")
 Story = NodePath("../../StoryManager")
 
 [node name="Title" type="RichTextLabel" parent="UserInterface/Menu" unique_id=1263459827]

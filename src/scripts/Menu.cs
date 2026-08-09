@@ -5,6 +5,9 @@ namespace StellaGame;
 public partial class Menu : Control
 {
     [Export]
+    public Game Game { get; set; }
+
+    [Export]
     public Button ContinueButton { get; set; }
 
     [Export]
@@ -20,9 +23,6 @@ public partial class Menu : Control
     public Button ExitButton { get; set; }
 
     [Export]
-    public StateManager State { get; set; }
-
-    [Export]
     public StoryManager Story { get; set; }
 
     public void Open()
@@ -36,9 +36,9 @@ public partial class Menu : Control
         ContinueButton.Pressed += () =>
         {
             Visible = false;
-            if (!State.GameIsLoaded)
+            if (!Game.State.GameIsLoaded)
             {
-                State.LoadGame();
+                Game.State.LoadGame();
             }
             else
             {
@@ -46,7 +46,7 @@ public partial class Menu : Control
             }
         };
         ContinueButton.MouseEntered += ContinueButton.GrabFocus;
-        if (!State.SaveExists())
+        if (!Game.State.SaveExists())
         {
             ContinueButton.Text = "New Game";
         }
