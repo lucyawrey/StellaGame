@@ -79,7 +79,7 @@ color = Color(0, 0, 0, 1)
 position = Vector2(1360, -40)
 amount = 150
 lifetime = 28.0
-preprocess = 2.0
+preprocess = 22.0
 process_material = ExtResource("7_g3j30")
 
 [node name="Content" type="Control" parent="UserInterface" unique_id=220841023]
@@ -300,8 +300,8 @@ offset_bottom = -253.0
 theme_override_fonts/normal_font = ExtResource("11_y2hwx")
 theme_override_font_sizes/normal_font_size = 102
 bbcode_enabled = true
-text = "[color=474aff]Magical Girl
-[color=b54fff]Pastel [color=e3e06f]Starshower"
+text = "[color=474aff]Magical Girl
+[color=b54fff]Pastel [color=e3e06f]Starshower"
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/MenuManager" unique_id=1015915559]
 layout_mode = 0
