@@ -22,9 +22,6 @@ public partial class Menu : Control
     [Export]
     public Button ExitButton { get; set; }
 
-    [Export]
-    public StoryManager Story { get; set; }
-
     public void Open()
     {
         Visible = true;
@@ -42,7 +39,7 @@ public partial class Menu : Control
             }
             else
             {
-                Story.Open();
+                Game.Story.Open();
             }
         };
         ContinueButton.MouseEntered += ContinueButton.GrabFocus;

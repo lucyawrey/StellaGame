@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
 [ext_resource type="Script" uid="uid://c0x6c1ttbob0r" path="res://src/scripts/Game.cs" id="1_a7soy"]
-[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/Story.cs" id="1_cdx1q"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
 [ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://src/resources/audio_streams/audio_stream_polyphonic.tres" id="4_y2hwx"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://src/scripts/AudioPlayer.cs" id="5_qiocs"]
@@ -14,17 +14,17 @@
 [ext_resource type="FontFile" uid="uid://bp1waotd07ga0" path="res://assets/fonts/QuiteMagicalRegular.ttf" id="11_y2hwx"]
 [ext_resource type="Script" uid="uid://c2f0jhkycrq5d" path="res://src/scripts/ProgressStar.cs" id="12_a7soy"]
 
-[node name="Game" type="Node" unique_id=1005478206 node_paths=PackedStringArray("StoryManager", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
+[node name="Game" type="Node" unique_id=1005478206 node_paths=PackedStringArray("Story", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
 script = ExtResource("1_a7soy")
-StoryManager = NodePath("StoryManager")
+Story = NodePath("Story")
 AudioPlayer = NodePath("AudioPlayer")
 SpriteGroup = NodePath("UserInterface/Content/SpriteGroup")
 BackgroundImage = NodePath("UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
 Game = NodePath("..")
-Story = ExtResource("2_4bcji")
+InkStory = ExtResource("2_4bcji")
 UserInterface = NodePath("../UserInterface")
 AudioPlayer = NodePath("../AudioPlayer")
 Menu = NodePath("../UserInterface/Menu")
@@ -261,7 +261,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_g3j30")
 script = ExtResource("12_a7soy")
 
-[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("Game", "ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "Story")]
+[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("Game", "ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -282,7 +282,6 @@ LoadButton = NodePath("DialogueBox/Choices/Load")
 ExtrasButton = NodePath("DialogueBox/Choices/Extras")
 SettingsButton = NodePath("DialogueBox/Choices/Settings")
 ExitButton = NodePath("DialogueBox/Choices/Exit")
-Story = NodePath("../../StoryManager")
 
 [node name="Title" type="RichTextLabel" parent="UserInterface/Menu" unique_id=1263459827]
 layout_mode = 0

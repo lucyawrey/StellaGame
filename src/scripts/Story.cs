@@ -7,19 +7,16 @@ using GodotInk;
 
 namespace StellaGame;
 
-public partial class StoryManager : Node
+public partial class Story : Node
 {
 	[Export]
 	public Game Game { get; set; }
 
 	[Export]
-	public InkStory Story { get; set; }
+	public InkStory InkStory { get; set; }
 
 	[Export]
 	public Control UserInterface { get; set; }
-
-	[Export]
-	public AudioPlayer AudioPlayer { get; set; }
 
 	[Export]
 	public Menu Menu { get; set; }
@@ -101,7 +98,7 @@ public partial class StoryManager : Node
 		ActChoices
 	}
 
-	public StoryManager()
+	public Story()
 	{
 		CharacterManager = new CharacterManager();
 	}
@@ -109,21 +106,21 @@ public partial class StoryManager : Node
 	public override void _Ready()
 	{
 		// Ink external function setup
-		Story.BindExternalFunction("show", new Callable(this, "Show"));
-		Story.BindExternalFunction("hide", new Callable(this, "Hide"));
-		Story.BindExternalFunction("clear", new Callable(this, "Clear"));
-		Story.BindExternalFunction("background", new Callable(this, "Background"));
-		Story.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
-		Story.BindExternalFunction("stop_music", new Callable(this, "StopMusic"));
-		Story.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
-		Story.BindExternalFunction("auto", new Callable(this, "Auto"));
-		Story.BindExternalFunction("delay", new Callable(this, "Delay"));
-		Story.BindExternalFunction("add_item", new Callable(this, "AddItem"));
-		Story.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
+		InkStory.BindExternalFunction("show", new Callable(this, "Show"));
+		InkStory.BindExternalFunction("hide", new Callable(this, "Hide"));
+		InkStory.BindExternalFunction("clear", new Callable(this, "Clear"));
+		InkStory.BindExternalFunction("background", new Callable(this, "Background"));
+		InkStory.BindExternalFunction("play_music", new Callable(this, "PlayMusic"));
+		InkStory.BindExternalFunction("stop_music", new Callable(this, "StopMusic"));
+		InkStory.BindExternalFunction("play_sound", new Callable(this, "PlaySound"));
+		InkStory.BindExternalFunction("auto", new Callable(this, "Auto"));
+		InkStory.BindExternalFunction("delay", new Callable(this, "Delay"));
+		InkStory.BindExternalFunction("add_item", new Callable(this, "AddItem"));
+		InkStory.BindExternalFunction("remove_item", new Callable(this, "RemoveItem"));
 
-		Story.BindExternalFunction("get_date", new Callable(this, "GetDate"));
-		Story.BindExternalFunction("get_debug_mode", new Callable(this, "GetDebugMode"));
-		Story.BindExternalFunction("get_item", new Callable(this, "GetItem"));
+		InkStory.BindExternalFunction("get_date", new Callable(this, "GetDate"));
+		InkStory.BindExternalFunction("get_debug_mode", new Callable(this, "GetDebugMode"));
+		InkStory.BindExternalFunction("get_item", new Callable(this, "GetItem"));
 
 		// Choice button callback set up
 		foreach (var choiceButton in ActChoiceButtons)
@@ -131,7 +128,7 @@ public partial class StoryManager : Node
 			actChoiceButtonMap[choiceButton.Text] = choiceButton;
 			choiceButton.Pressed += delegate
 			{
-				Story.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
+				InkStory.ChooseChoiceIndex(actChoiceIndexMap[choiceButton.Text]);
 				advanceCounter++;
 			};
 			choiceButton.MouseEntered += choiceButton.GrabFocus;
@@ -141,7 +138,7 @@ public partial class StoryManager : Node
 			var choice = i;
 			ChoiceButtons[i].Pressed += delegate
 			{
-				Story.ChooseChoiceIndex(choice);
+				InkStory.ChooseChoiceIndex(choice);
 				advanceCounter++;
 			};
 			ChoiceButtons[i].MouseEntered += ChoiceButtons[i].GrabFocus;
@@ -201,7 +198,7 @@ public partial class StoryManager : Node
 				var spaces = DialogueLabel.GetParsedText().Count(" ", DialogueLabel.VisibleCharacters, Math.Min(DialogueLabel.VisibleCharacters + charactersPerTick, DialogueLabel.GetParsedText().Length));
 				if (textSoundCharacterCounter <= 0)
 				{
-					AudioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+					Game.AudioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
 					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
 				}
 				textSoundCharacterCounter -= charactersPerTick - spaces;
@@ -250,11 +247,11 @@ public partial class StoryManager : Node
 	{
 		if (Game.State.ActiveSlot.InkStory != null)
 		{
-			Story.LoadState(JsonSerializer.Serialize(Game.State.ActiveSlot.InkStory));
+			InkStory.LoadState(JsonSerializer.Serialize(Game.State.ActiveSlot.InkStory));
 		}
 		else
 		{
-			Story.ResetState();
+			InkStory.ResetState();
 		}
 		advanceCounter++;
 	}
@@ -341,7 +338,7 @@ public partial class StoryManager : Node
 	{
 		ProgressStar.Visible = false;
 		Content.Visible = true;
-		if (Story.GetCanContinue())
+		if (InkStory.GetCanContinue())
 		{
 			string rawText;
 			if (delayedContent == null)
@@ -349,7 +346,7 @@ public partial class StoryManager : Node
 				// Autosave
 				Game.State.SaveGame();
 
-				rawText = Story.Continue().Trim();
+				rawText = InkStory.Continue().Trim();
 			}
 			else
 			{
@@ -376,15 +373,15 @@ public partial class StoryManager : Node
 				}
 				else if (action is StoryAction.PlayMusic playMusicAction)
 				{
-					AudioPlayer.PlayMusic(playMusicAction.SongName);
+					Game.AudioPlayer.PlayMusic(playMusicAction.SongName);
 				}
 				else if (action is StoryAction.StopMusic)
 				{
-					AudioPlayer.StopMusic();
+					Game.AudioPlayer.StopMusic();
 				}
 				else if (action is StoryAction.PlaySound playSoundAction)
 				{
-					AudioPlayer.PlaySound(playSoundAction.SoundName);
+					Game.AudioPlayer.PlaySound(playSoundAction.SoundName);
 				}
 				else if (action is StoryAction.Auto auto)
 				{
@@ -470,7 +467,7 @@ public partial class StoryManager : Node
 				FinishTextPrinting();
 			}
 		}
-		else if (Story.CurrentChoices.Count > 0)
+		else if (InkStory.CurrentChoices.Count > 0)
 		{
 			NameBox.Visible = false;
 
@@ -487,7 +484,7 @@ public partial class StoryManager : Node
 				HideControl(true, button);
 			}
 			var focusIsSet = false;
-			foreach (InkChoice choice in Story.CurrentChoices)
+			foreach (InkChoice choice in InkStory.CurrentChoices)
 			{
 				if (choice.Index >= 4)
 				{
@@ -522,6 +519,8 @@ public partial class StoryManager : Node
 		}
 		else
 		{
+			Game.State.LoadGame(deleteSlot: true);
+			Game.State.SaveGame();
 			GetTree().Quit();
 		}
 	}

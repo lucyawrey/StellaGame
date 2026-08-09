@@ -84,7 +84,7 @@ public partial class State : RefCounted
 		}
 
 		// Load everything;
-		Game.StoryManager.Load();
+		Game.Story.Load();
 		Game.AudioPlayer.Load();
 		Game.BackgroundImage.Load();
 		Game.SpriteGroup.Load();
@@ -109,7 +109,7 @@ public partial class State : RefCounted
 		}
 
 		// Active Slot
-		ActiveSlot.InkStory = JsonDocument.Parse(Game.StoryManager.Story.SaveState());
+		ActiveSlot.InkStory = JsonDocument.Parse(Game.Story.InkStory.SaveState());
 
 		string slotJsonString = JsonSerializer.Serialize(ActiveSlot, JSON_OPTIONS);
 		using var slotFile = FileAccess.Open($"{SLOT_PATH}{ActiveSlot.Id}{JSON_EXT}", FileAccess.ModeFlags.Write);
