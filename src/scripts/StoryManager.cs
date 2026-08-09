@@ -25,7 +25,7 @@ public partial class StoryManager : Node
 	public AudioPlayer AudioPlayer { get; set; }
 
 	[Export]
-	public MenuManager Menu { get; set; }
+	public Menu Menu { get; set; }
 
 	[Export]
 	public RichTextLabel FullscreenDialogueLabel { get; set; }

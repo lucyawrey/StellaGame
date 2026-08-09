@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://src/scripts/BackgroundImage.cs" id="8_a7soy"]
 [ext_resource type="Script" uid="uid://dtxrlyau0rsgg" path="res://src/scripts/SpriteGroup.cs" id="9_4bcji"]
 [ext_resource type="Texture2D" uid="uid://ctqxrng2rbf77" path="res://assets/ui/star.svg" id="11_g3j30"]
-[ext_resource type="Script" uid="uid://bawa2dhxa1wh3" path="res://src/scripts/MenuManager.cs" id="11_qiocs"]
+[ext_resource type="Script" uid="uid://bawa2dhxa1wh3" path="res://src/scripts/Menu.cs" id="11_qiocs"]
 [ext_resource type="FontFile" uid="uid://bp1waotd07ga0" path="res://assets/fonts/QuiteMagicalRegular.ttf" id="11_y2hwx"]
 [ext_resource type="Script" uid="uid://c2f0jhkycrq5d" path="res://src/scripts/ProgressStar.cs" id="12_a7soy"]
 
@@ -31,7 +31,7 @@ State = NodePath("../StateManager")
 CharacterManager = NodePath("../CharacterManager")
 UserInterface = NodePath("../UserInterface")
 AudioPlayer = NodePath("../AudioPlayer")
-Menu = NodePath("../UserInterface/MenuManager")
+Menu = NodePath("../UserInterface/Menu")
 FullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
 DialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
 NameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
@@ -268,7 +268,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_g3j30")
 script = ExtResource("12_a7soy")
 
-[node name="MenuManager" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Story")]
+[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton", "State", "Story")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -291,7 +291,7 @@ ExitButton = NodePath("DialogueBox/Choices/Exit")
 State = NodePath("../../StateManager")
 Story = NodePath("../../StoryManager")
 
-[node name="Title" type="RichTextLabel" parent="UserInterface/MenuManager" unique_id=1263459827]
+[node name="Title" type="RichTextLabel" parent="UserInterface/Menu" unique_id=1263459827]
 layout_mode = 0
 offset_left = -874.0
 offset_top = -455.0
@@ -303,7 +303,7 @@ bbcode_enabled = true
 text = "[color=474aff]Magical Girl
 [color=b54fff]Pastel [color=e3e06f]Starshower"
 
-[node name="DialogueBox" type="PanelContainer" parent="UserInterface/MenuManager" unique_id=1015915559]
+[node name="DialogueBox" type="PanelContainer" parent="UserInterface/Menu" unique_id=1015915559]
 layout_mode = 0
 offset_left = -900.0
 offset_top = 50.0
@@ -311,45 +311,45 @@ offset_right = -20.0
 offset_bottom = 520.0
 mouse_filter = 2
 
-[node name="DialogueMargin" type="MarginContainer" parent="UserInterface/MenuManager/DialogueBox" unique_id=67295086]
+[node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Menu/DialogueBox" unique_id=67295086]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 40
 
-[node name="Dialogue" type="RichTextLabel" parent="UserInterface/MenuManager/DialogueBox/DialogueMargin" unique_id=1707397241]
+[node name="Dialogue" type="RichTextLabel" parent="UserInterface/Menu/DialogueBox/DialogueMargin" unique_id=1707397241]
 layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 visible_characters_behavior = 1
 
-[node name="Choices" type="VBoxContainer" parent="UserInterface/MenuManager/DialogueBox" unique_id=1168745467]
+[node name="Choices" type="VBoxContainer" parent="UserInterface/Menu/DialogueBox" unique_id=1168745467]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Continue" type="Button" parent="UserInterface/MenuManager/DialogueBox/Choices" unique_id=1678591012]
+[node name="Continue" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1678591012]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Continue"
 
-[node name="Load" type="Button" parent="UserInterface/MenuManager/DialogueBox/Choices" unique_id=783365402]
+[node name="Load" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=783365402]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Load"
 
-[node name="Extras" type="Button" parent="UserInterface/MenuManager/DialogueBox/Choices" unique_id=828225042]
+[node name="Extras" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=828225042]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Extras"
 
-[node name="Settings" type="Button" parent="UserInterface/MenuManager/DialogueBox/Choices" unique_id=1167981286]
+[node name="Settings" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1167981286]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Settings"
 
-[node name="Exit" type="Button" parent="UserInterface/MenuManager/DialogueBox/Choices" unique_id=119147127]
+[node name="Exit" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=119147127]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Exit"

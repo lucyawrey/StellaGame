@@ -2,7 +2,7 @@ using Godot;
 
 namespace StellaGame;
 
-public partial class MenuManager : Control
+public partial class Menu : Control
 {
     [Export]
     public Button ContinueButton { get; set; }
