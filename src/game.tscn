@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c0x6c1ttbob0r" path="res://src/scripts/Game.cs" id="1_a7soy"]
 [ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
-[ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://src/scripts/CharacterManager.cs" id="3_uktfx"]
 [ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://src/resources/audio_streams/audio_stream_polyphonic.tres" id="4_y2hwx"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://src/scripts/AudioPlayer.cs" id="5_qiocs"]
 [ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://src/resources/themes/base.tres" id="6_xdrfk"]
@@ -22,11 +21,10 @@ AudioPlayer = NodePath("AudioPlayer")
 SpriteGroup = NodePath("UserInterface/Content/SpriteGroup")
 BackgroundImage = NodePath("UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "CharacterManager", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
+[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
 Game = NodePath("..")
 Story = ExtResource("2_4bcji")
-CharacterManager = NodePath("../CharacterManager")
 UserInterface = NodePath("../UserInterface")
 AudioPlayer = NodePath("../AudioPlayer")
 Menu = NodePath("../UserInterface/Menu")
@@ -44,9 +42,6 @@ Content = NodePath("../UserInterface/Content")
 ActChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
 BackgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 ProgressStar = NodePath("../UserInterface/Content/ProgressStar")
-
-[node name="CharacterManager" type="Node" parent="." unique_id=155487932]
-script = ExtResource("3_uktfx")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("Game")]
 stream = ExtResource("4_y2hwx")

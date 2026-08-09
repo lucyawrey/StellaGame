@@ -4,7 +4,7 @@ using Tomlyn;
 
 namespace StellaGame;
 
-public partial class CharacterManager : Node
+public partial class CharacterManager : RefCounted
 {
     private readonly string charactersPath = "res://src/config/characters.toml";
 
@@ -51,7 +51,7 @@ public partial class CharacterManager : Node
         public Theme Theme { get; set; }
     }
 
-    public override void _Ready()
+    public CharacterManager()
     {
         if (!FileAccess.FileExists(charactersPath))
         {

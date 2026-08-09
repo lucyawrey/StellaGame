@@ -16,9 +16,6 @@ public partial class StoryManager : Node
 	public InkStory Story { get; set; }
 
 	[Export]
-	public CharacterManager CharacterManager { get; set; }
-
-	[Export]
 	public Control UserInterface { get; set; }
 
 	[Export]
@@ -69,6 +66,8 @@ public partial class StoryManager : Node
 	[Export]
 	public ProgressStar ProgressStar { get; set; }
 
+	public CharacterManager CharacterManager { get; set; }
+
 	private static readonly Regex REGEX = new Regex(@"^([^\s]+):\s(.*?)$");
 
 	private Queue<StoryAction> actionQueue = new();
@@ -100,6 +99,11 @@ public partial class StoryManager : Node
 		Dialogue,
 		Choices,
 		ActChoices
+	}
+
+	public StoryManager()
+	{
+		CharacterManager = new CharacterManager();
 	}
 
 	public override void _Ready()
