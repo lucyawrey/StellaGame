@@ -35,7 +35,9 @@ public partial class State : RefCounted
 	{
 		public int Id { get; set; } = 0;
 
-		public JsonDocument InkStory { get; set; } = null;
+		public Inventory Inventory { get; set; } = new Inventory();
+
+		public JsonDocument InkStory { get; set; } = null; // Needs to be manually serialized and deserialized on save and load
 
 		public string CurrentSong { get; set; } = null;
 
@@ -109,7 +111,7 @@ public partial class State : RefCounted
 		}
 
 		// Active Slot
-		ActiveSlot.InkStory = JsonDocument.Parse(Game.Story.InkStory.SaveState());
+		ActiveSlot.InkStory = JsonDocument.Parse(Game.Story.InkStory.SaveState()); // Serialize the current ink story state to JSON
 
 		string slotJsonString = JsonSerializer.Serialize(ActiveSlot, JSON_OPTIONS);
 		using var slotFile = FileAccess.Open($"{SLOT_PATH}{ActiveSlot.Id}{JSON_EXT}", FileAccess.ModeFlags.Write);

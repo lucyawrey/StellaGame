@@ -21,12 +21,11 @@ AudioPlayer = NodePath("AudioPlayer")
 SpriteGroup = NodePath("UserInterface/Content/SpriteGroup")
 BackgroundImage = NodePath("UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "AudioPlayer", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
 Game = NodePath("..")
 InkStory = ExtResource("2_4bcji")
 UserInterface = NodePath("../UserInterface")
-AudioPlayer = NodePath("../AudioPlayer")
 Menu = NodePath("../UserInterface/Menu")
 FullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
 DialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")

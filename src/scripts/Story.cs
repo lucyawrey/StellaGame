@@ -396,11 +396,11 @@ public partial class Story : Node
 				}
 				else if (action is StoryAction.AddItem addItemAction)
 				{
-					// TODO add item action
+					Game.State.ActiveSlot.Inventory.AddItem(addItemAction.ItemName, addItemAction.Quantity);
 				}
 				else if (action is StoryAction.RemoveItem removeItemAction)
 				{
-					// TODO remove item aciton
+					Game.State.ActiveSlot.Inventory.RemoveItem(removeItemAction.ItemName, removeItemAction.Quantity);
 				}
 			}
 
@@ -592,6 +592,6 @@ public partial class Story : Node
 
 	private bool GetItem(string itemName, int quantity)
 	{
-		return true;
+		return Game.State.ActiveSlot.Inventory.CheckForItem(itemName, quantity) != -1;
 	}
 }
