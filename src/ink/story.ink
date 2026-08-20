@@ -7,6 +7,9 @@ INCLUDE external.ink
 VAR none = "none"
 //Variables
 VAR day = 1
+VAR dress = "pajamas"
+VAR accessory = "none"
+VAR weapon = "katana"
 
 // Debug
 VAR debug_mode = false

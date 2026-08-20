@@ -185,25 +185,29 @@ public partial class Story : Node
 		}
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
 		// Text printing effect
 		if (IsTextPrinting() && currentCharacter != null)
 		{
-			var charactersPerTick = 1 + currentCharacter.TextSpeed / 60; // Tick rate is 60
-			var textSpeed = currentCharacter.TextSpeed / charactersPerTick;
-
-			if (visibleCharactersTimer >= 1.0 / textSpeed)
+			if (visibleCharactersTimer >= 1.0 / currentCharacter.TextSpeed)
 			{
-				var spaces = DialogueLabel.GetParsedText().Count(" ", DialogueLabel.VisibleCharacters, Math.Min(DialogueLabel.VisibleCharacters + charactersPerTick, DialogueLabel.GetParsedText().Length));
-				if (textSoundCharacterCounter <= 0)
+				var currentChar = DialogueLabel.VisibleCharacters == 0 ? ' ' : DialogueLabel.GetParsedText()[DialogueLabel.VisibleCharacters - 1];
+				if (!char.IsWhiteSpace(currentChar))
 				{
-					Game.AudioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
-					textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+					if (textSoundCharacterCounter <= 0)
+					{
+						Game.AudioPlayer.Playback.PlayStream(currentCharacter.TextSound, 0, -2.0f, currentCharacter.TextSoundPitch);
+						textSoundCharacterCounter = currentCharacter.TextSoundSpacing;
+					}
+					textSoundCharacterCounter -= 1;
 				}
-				textSoundCharacterCounter -= charactersPerTick - spaces;
+				else
+				{
+					textSoundCharacterCounter = 0;
+				}
 
-				DialogueLabel.VisibleCharacters += charactersPerTick;
+				DialogueLabel.VisibleCharacters += 1;
 				visibleCharactersTimer = 0;
 			}
 			else
@@ -453,6 +457,7 @@ public partial class Story : Node
 
 				NameLabel.Text = nameText;
 				DialogueLabel.Text = dialogueText;
+				textSoundCharacterCounter = 0;
 			}
 
 			// Set theme for character

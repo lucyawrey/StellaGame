@@ -6,7 +6,7 @@ Dream: And it is so, so empty.
 Dream: You have been alone out here for so very long.
 Dream: Floating in the vast expanse.
 Dream: But, just now, you notice a small mote of light before you.
-Dream: It feels familiar. It feels warm.
+Dream: It feels familiar. It fxeels warm.
 Dream: You reach out to it.
 Dream: Light.
 Dream: Blinding.
@@ -84,11 +84,11 @@ Stella.Narrator: I definitely need that shower. And I need to check where I'm su
         Stella: Maybe I can sleep for just a bit longer.
         // Play music, background noise
         ~ auto(1)
-        Stella.Slow: . . . . . .
+        Stella.Slow: . . .
         Stella.Narrator: If I stay in bed too long I will fall back asleep.
         Stella.Narrator: Without an alarm this time.
         ~ auto(1)
-        Stella.Slow: . . . . . .
+        Stella.Slow: . . .
         ~ play_music("morning")
         ~ background("bedroom")
         Stella.Narrator: I better get up.
@@ -140,8 +140,17 @@ Stella.Narrator: I really would have rather taken a long bath last night, but I 
         Stella.Narrator: It's just me.
     ** (take_shower) [Take a shower]
         Stella.Narrator: I tiredly strip off my pajamas and step into the shower.
+        ~ hide("stella")
         // Play move SFX, shower SFX.
-        Stella.Narrator: Then, I turn the handle and simply spend a few moments luxuriating in the cold water running over my body.
+        Stella.Narrator: I turn the handle and let the cold water immediately wash over me.
+        Stella.Narrator: For a while I simply enjoy the feeling.
+        Stella: I suppose I should actually clean up.
+        Stella.Slow: . . .
+        Stella: There we go.
+        // Play move SFX, end shower SFX
+        Stella.Narrator: I shut off the shower, step out, towel myself off, and wrap myself in a very comfortable bathrobe.
+        Stella.Narrator: I think it was a gift from Lillie.
+         ~ show("stella", "center")
     ** (brush_teeth) {take_shower} [Brush teeth]
     ** (fix_hair) {brush_teeth} [Fix hair]
     ** (apply_makeup) {fix_hair} [Apply makeup]
@@ -217,6 +226,7 @@ Stella.Narrator: The view of the city past the railing is pretty in the midmorni
 - -> act
 
 = sitting_on_balcony
+~ show("stella", "center")
 + [Jump]
 + [Do not]
 - Balconies r nice :D
