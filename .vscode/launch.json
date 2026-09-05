@@ -6,7 +6,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "/Applications/Godot.app/Contents/MacOS/Godot",
+            // Linux
+            "program": "/usr/bin/godot-mono",
+            // Mac
+            // "program": "/Applications/Godot.app/Contents/MacOS/Godot",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
