@@ -3,20 +3,19 @@
 Dream: You float formless in the space between.
 Dream: It is quiet. It is comfortable. It is vast beyond comprehension.
 Dream: And it is so, so empty.
-Dream: You have been alone out here for so very long.
-Dream: Floating in the vast expanse.
-Dream: But, just now, you notice a small mote of light before you.
-Dream: It feels familiar. It fxeels warm.
-Dream: You reach out to it.
-Dream: Light.
-Dream: Blinding.
-Dream: Suddenly, a woman stands before you.
+Dream: You have been alone here for a very long time.
+Dream: Adrift in the vast expanse.
+Dream: Yet, just now, you notice a tiny mote of light before you.
+Dream: It feels familiar. It feels warm.
+Dream: You reach out to it, and as you do...
+Dream: The light becomes blinding.
+Dream: The emptyness you have always known is gone.
+Dream: In it's place is color, memory, and a woman.
 Dream: She holds a gleaming blade aloft.
-Dream: The void you have always known fills with color and memory.
 // Show glowing light
-Dream: And then the blade of light falls.
 Dream: The concept of death is new to you.
-Dream: Yet, somehow, you know it is coming for you.
+Dream: Yet, you know it is coming for you all the same.
+Dream: The blade of light falls.
 // Show aborted slashing animation
 // Play light fizzling out sound effect
 Stella.Dream: Not like this.
@@ -39,7 +38,7 @@ Stella.Narrator: At least the bright morning sun coming through the window helps
 Stella: I do not want to get up.
 ~ delay(0.5)
 ~ play_music("typhoon_parade")
-Stella.Narrator: My phone's alarm starts blaring mid 2010's J-pop as if in direct rejection of my plea.
+Stella.Narrator: My phone's alarm starts blaring 2010's J-pop as if in direct rejection of my plea.
 Stella: Ughhhh.
 Stella.Narrator: I only set it to go off on days I have work. Which means I actually have to get up.
 Stella.Narrator: I do not even remember where I'm supposed to be working today.
@@ -102,7 +101,7 @@ Stella.Narrator: I definitely need that shower. And I need to check where I'm su
         Ignoring several unread messages, Stella checks the calendar app on her phone.
         Thankfully, it automatically updates when schedules are sent over.
         Stella: Right, I am working at the cafe today. Like almost every other Monday.
-        Stella: {sleep_in: It looks like I am already late. | It looks like I am definately going to be a bit late. }
+        Stella: {sleep_in: It looks like I am already late. | It looks like I am definately going to be a little late. }
     ++ [Do nothing]
 * (talk) [Talk]
     Stella: There is nobody here but me, right?
@@ -139,22 +138,22 @@ Stella.Narrator: I really would have rather taken a long bath last night, but I 
         ~ show("stella", "center")
         Stella.Narrator: It's just me.
     ** (take_shower) [Take a shower]
-        Stella.Narrator: I tiredly strip off my pajamas and step into the shower.
+        Stella.Narrator: I tiredly get out of my pajamas and step into the shower.
         ~ hide("stella")
         // Play move SFX, shower SFX.
+        // Show shower image
         Stella.Narrator: I turn the handle and let the cold water immediately wash over me.
-        Stella.Narrator: For a while I simply enjoy the feeling.
-        Stella: I suppose I should actually clean up.
-        Stella.Slow: . . .
-        Stella: There we go.
-        // Play move SFX, end shower SFX
-        Stella.Narrator: I shut off the shower, step out, towel myself off, and wrap myself in a very comfortable bathrobe.
-        Stella.Narrator: I think it was a gift from Lillie.
+        Stella.Narrator: It wakes me up and relaxes me at the same time.
+        Stella.Narrator: For a while I simply enjoy the simple feeling.
+        Stella: But nothing lasts forever.
+        // End shower SFX
+        Stella.Narrator: I step out of the shower, towel off, and wrap myself in the comfortable bathrobe Lilie made for me.
          ~ show("stella", "center")
     ** (brush_teeth) {take_shower} [Brush teeth]
+        Stella.Narrator: I brush my teeth. The habbit is grounding.
     ** (fix_hair) {brush_teeth} [Fix hair]
     ** (apply_makeup) {fix_hair} [Apply makeup]
-        Stella.Narrator: No time.
+        Stella.Narrator: I do not have enough time.
     ++ [Do nothing]
 + [Move]
     ++ [Bedroom]
