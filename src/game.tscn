@@ -1,42 +1,51 @@
 [gd_scene format=3 uid="uid://bbdm60akwvchh"]
 
-[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/StoryManager.cs" id="1_cdx1q"]
+[ext_resource type="Script" uid="uid://c0x6c1ttbob0r" path="res://src/scripts/Game.cs" id="1_a7soy"]
+[ext_resource type="Script" uid="uid://drbnkqu585gl6" path="res://src/scripts/Story.cs" id="1_cdx1q"]
 [ext_resource type="Resource" uid="uid://dahmdpcxcqx6h" path="res://src/ink/story.ink" id="2_4bcji"]
-[ext_resource type="Script" uid="uid://cdqay302u5j2v" path="res://src/scripts/CharacterManager.cs" id="3_uktfx"]
 [ext_resource type="AudioStream" uid="uid://b7t6h782fg7nw" path="res://src/resources/audio_streams/audio_stream_polyphonic.tres" id="4_y2hwx"]
 [ext_resource type="Script" uid="uid://bpjyea4pjw1cx" path="res://src/scripts/AudioPlayer.cs" id="5_qiocs"]
 [ext_resource type="Theme" uid="uid://di82tmr4nr8fb" path="res://src/resources/themes/base.tres" id="6_xdrfk"]
 [ext_resource type="Material" uid="uid://cvpy2yyg8vmc8" path="res://src/resources/materials/void_particle_process_material.tres" id="7_g3j30"]
 [ext_resource type="Script" uid="uid://bx2ftt7y6pi1" path="res://src/scripts/BackgroundImage.cs" id="8_a7soy"]
 [ext_resource type="Script" uid="uid://dtxrlyau0rsgg" path="res://src/scripts/SpriteGroup.cs" id="9_4bcji"]
+[ext_resource type="Texture2D" uid="uid://ctqxrng2rbf77" path="res://assets/ui/star.svg" id="11_g3j30"]
+[ext_resource type="Script" uid="uid://bawa2dhxa1wh3" path="res://src/scripts/Menu.cs" id="11_qiocs"]
+[ext_resource type="FontFile" uid="uid://bp1waotd07ga0" path="res://assets/fonts/QuiteMagicalRegular.ttf" id="11_y2hwx"]
+[ext_resource type="Script" uid="uid://c2f0jhkycrq5d" path="res://src/scripts/ProgressStar.cs" id="12_a7soy"]
 
-[node name="Game" type="Node" unique_id=1005478206]
+[node name="Game" type="Node" unique_id=1005478206 node_paths=PackedStringArray("Story", "AudioPlayer", "SpriteGroup", "BackgroundImage")]
+script = ExtResource("1_a7soy")
+Story = NodePath("Story")
+AudioPlayer = NodePath("AudioPlayer")
+SpriteGroup = NodePath("UserInterface/Content/SpriteGroup")
+BackgroundImage = NodePath("UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
 
-[node name="StoryManager" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("characterManager", "userInterface", "audioPlayer", "fullscreenDialogueLabel", "dialogueLabel", "nameLabel", "fullscreenBox", "dialogueBox", "spriteGroup", "nameBox", "choiceButtons", "actChoiceButtons", "choicesBox", "actChoicesBox", "backgroundImage")]
+[node name="Story" type="Node" parent="." unique_id=1844500050 node_paths=PackedStringArray("Game", "UserInterface", "Menu", "FullscreenDialogueLabel", "DialogueLabel", "NameLabel", "FullscreenBox", "DialogueBox", "SpriteGroup", "NameBox", "ChoiceButtons", "ActChoiceButtons", "ChoicesBox", "Content", "ActChoicesBox", "BackgroundImage", "ProgressStar")]
 script = ExtResource("1_cdx1q")
-Story = ExtResource("2_4bcji")
-characterManager = NodePath("../CharacterManager")
-userInterface = NodePath("../UserInterface")
-audioPlayer = NodePath("../AudioPlayer")
-fullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
-dialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
-nameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
-fullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
-dialogueBox = NodePath("../UserInterface/Content/DialogueBox")
-spriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
-nameBox = NodePath("../UserInterface/Content/NameBox")
-choiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
-actChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
-choicesBox = NodePath("../UserInterface/Content/DialogueBox/Choices")
-actChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
-backgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
+Game = NodePath("..")
+InkStory = ExtResource("2_4bcji")
+UserInterface = NodePath("../UserInterface")
+Menu = NodePath("../UserInterface/Menu")
+FullscreenDialogueLabel = NodePath("../UserInterface/Content/FullscreenBox/DialogueMargin/Dialogue")
+DialogueLabel = NodePath("../UserInterface/Content/DialogueBox/DialogueMargin/Dialogue")
+NameLabel = NodePath("../UserInterface/Content/NameBox/MarginContainer/Name")
+FullscreenBox = NodePath("../UserInterface/Content/FullscreenBox")
+DialogueBox = NodePath("../UserInterface/Content/DialogueBox")
+SpriteGroup = NodePath("../UserInterface/Content/SpriteGroup")
+NameBox = NodePath("../UserInterface/Content/NameBox")
+ChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/Choices/Choice0"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice1"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice2"), NodePath("../UserInterface/Content/DialogueBox/Choices/Choice3")]
+ActChoiceButtons = [NodePath("../UserInterface/Content/DialogueBox/ActChoices/Act"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Talk"), NodePath("../UserInterface/Content/DialogueBox/ActChoices/Move")]
+ChoicesBox = NodePath("../UserInterface/Content/DialogueBox/Choices")
+Content = NodePath("../UserInterface/Content")
+ActChoicesBox = NodePath("../UserInterface/Content/DialogueBox/ActChoices")
+BackgroundImage = NodePath("../UserInterface/Content/GameBox/MarginContainer/BackgroundImage")
+ProgressStar = NodePath("../UserInterface/Content/ProgressStar")
 
-[node name="CharacterManager" type="Node" parent="." unique_id=155487932]
-script = ExtResource("3_uktfx")
-
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962]
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=396511962 node_paths=PackedStringArray("Game")]
 stream = ExtResource("4_y2hwx")
 script = ExtResource("5_qiocs")
+Game = NodePath("..")
 
 [node name="UserInterface" type="Control" parent="." unique_id=1422957986]
 layout_mode = 3
@@ -62,10 +71,11 @@ color = Color(0, 0, 0, 1)
 position = Vector2(1360, -40)
 amount = 150
 lifetime = 28.0
-preprocess = 2.0
+preprocess = 22.0
 process_material = ExtResource("7_g3j30")
 
 [node name="Content" type="Control" parent="UserInterface" unique_id=220841023]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -99,10 +109,11 @@ theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = -2
 theme_override_constants/margin_bottom = -2
 
-[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/GameBox/MarginContainer" unique_id=1904857836]
+[node name="BackgroundImage" type="TextureRect" parent="UserInterface/Content/GameBox/MarginContainer" unique_id=1904857836 node_paths=PackedStringArray("Game")]
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("8_a7soy")
+Game = NodePath("../../../../..")
 
 [node name="FullscreenBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1262696186]
 visible = false
@@ -124,7 +135,6 @@ theme_override_constants/margin_bottom = -1
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
-script = ExtResource("8_a7soy")
 
 [node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Content/FullscreenBox" unique_id=700704297]
 layout_mode = 2
@@ -140,7 +150,7 @@ mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551]
+[node name="SpriteGroup" type="Control" parent="UserInterface/Content" unique_id=1251687551 node_paths=PackedStringArray("Game")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -154,6 +164,7 @@ offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_4bcji")
+Game = NodePath("../../..")
 
 [node name="DialogueBox" type="PanelContainer" parent="UserInterface/Content" unique_id=1619528995]
 layout_mode = 0
@@ -242,3 +253,94 @@ bbcode_enabled = true
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="ProgressStar" type="Sprite2D" parent="UserInterface/Content" unique_id=1599715921]
+position = Vector2(880, 460)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("11_g3j30")
+script = ExtResource("12_a7soy")
+
+[node name="Menu" type="Control" parent="UserInterface" unique_id=787458635 node_paths=PackedStringArray("Game", "ContinueButton", "LoadButton", "ExtrasButton", "SettingsButton", "ExitButton")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_qiocs")
+Game = NodePath("../..")
+ContinueButton = NodePath("DialogueBox/Choices/Continue")
+LoadButton = NodePath("DialogueBox/Choices/Load")
+ExtrasButton = NodePath("DialogueBox/Choices/Extras")
+SettingsButton = NodePath("DialogueBox/Choices/Settings")
+ExitButton = NodePath("DialogueBox/Choices/Exit")
+
+[node name="Title" type="RichTextLabel" parent="UserInterface/Menu" unique_id=1263459827]
+layout_mode = 0
+offset_left = -874.0
+offset_top = -455.0
+offset_right = -275.0
+offset_bottom = -253.0
+theme_override_fonts/normal_font = ExtResource("11_y2hwx")
+theme_override_font_sizes/normal_font_size = 102
+bbcode_enabled = true
+text = "[color=474aff]Magical Girl
+[color=b54fff]Pastel [color=e3e06f]Starshower"
+
+[node name="DialogueBox" type="PanelContainer" parent="UserInterface/Menu" unique_id=1015915559]
+layout_mode = 0
+offset_left = -900.0
+offset_top = 50.0
+offset_right = -20.0
+offset_bottom = 520.0
+mouse_filter = 2
+
+[node name="DialogueMargin" type="MarginContainer" parent="UserInterface/Menu/DialogueBox" unique_id=67295086]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="Dialogue" type="RichTextLabel" parent="UserInterface/Menu/DialogueBox/DialogueMargin" unique_id=1707397241]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+visible_characters_behavior = 1
+
+[node name="Choices" type="VBoxContainer" parent="UserInterface/Menu/DialogueBox" unique_id=1168745467]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Continue" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1678591012]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Continue"
+
+[node name="Load" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=783365402]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Load"
+
+[node name="Extras" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=828225042]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Extras"
+
+[node name="Settings" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=1167981286]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Settings"
+
+[node name="Exit" type="Button" parent="UserInterface/Menu/DialogueBox/Choices" unique_id=119147127]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit"

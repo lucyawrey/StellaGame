@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx6qu2b3nvvwn"
-path="res://.godot/imported/box_blue.png-f742f76623758c47701d09bd8c236581.ctex"
+uid="uid://ctqxrng2rbf77"
+path="res://.godot/imported/star.svg-d7cc32eb444d309a6a6b3f9735b0426d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/box_blue.png"
-dest_files=["res://.godot/imported/box_blue.png-f742f76623758c47701d09bd8c236581.ctex"]
+source_file="res://assets/ui/star.svg"
+dest_files=["res://.godot/imported/star.svg-d7cc32eb444d309a6a6b3f9735b0426d.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

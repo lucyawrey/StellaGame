@@ -5,16 +5,32 @@ namespace StellaGame;
 
 public partial class SpriteGroup : Control
 {
+    [Export]
+    public Game Game { get; set; }
+
     private Dictionary<string, Vector2> PositionMap = new()
     {
         { "center", new Vector2(0, 0) },
-        { "left", new Vector2(-160, 0) },
-        { "right", new Vector2(160, 0) },
+        { "left", new Vector2(-190, 0) },
+        { "right", new Vector2(190, 0) },
     };
+
+    public void Load()
+    {
+        RemoveAllSprites();
+        foreach (var entry in Game.State.ActiveSlot.CurrentSpriteGroup)
+        {
+            AddSprite(entry.Key, entry.Value, false);
+        }
+    }
 
     private Vector2 PositionToVector(string position)
     {
         var finalVector = new Vector2(0, 0);
+        if (position == null)
+        {
+            return finalVector;
+        }
         foreach (var rawPositionToken in position.Split(","))
         {
             var positionToken = rawPositionToken.Trim();
@@ -46,10 +62,15 @@ public partial class SpriteGroup : Control
         return finalVector;
     }
 
-    public void AddSprite(string imageName, string position)
+    public void AddSprite(string imageName, string position = null, bool save = true)
     {
-        if (AssetManager.GetSprite(imageName, out var image))
+        if (AssetLibrary.GetSprite(imageName, out var image))
         {
+            if (save)
+            {
+                Game.State.ActiveSlot.CurrentSpriteGroup.Add(imageName, position);
+            }
+
             var sprite = new Sprite2D
             {
                 Texture = image,

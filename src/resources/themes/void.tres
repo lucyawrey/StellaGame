@@ -1,9 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://cvja6cqeel77y"]
 
 [ext_resource type="FontFile" uid="uid://cl1gvftbqx5ji" path="res://assets/fonts/PoppinsSemiBold.ttf" id="1_1tkvs"]
-[ext_resource type="StyleBox" uid="uid://kvoy6u5vi1to" path="res://assets/themes/box_blue.tres" id="2_k7p7q"]
-[ext_resource type="StyleBox" uid="uid://cuylga6a0efqw" path="res://assets/themes/box_light.tres" id="3_64f78"]
-[ext_resource type="StyleBox" uid="uid://bm30cv5568rgo" path="res://assets/themes/box_blue_dark.tres" id="4_rgn82"]
+[ext_resource type="StyleBox" uid="uid://kvoy6u5vi1to" path="res://src/resources/themes/box_focus.tres" id="2_k7p7q"]
+[ext_resource type="StyleBox" uid="uid://cuylga6a0efqw" path="res://src/resources/themes/box_secondary.tres" id="3_64f78"]
+[ext_resource type="StyleBox" uid="uid://bm30cv5568rgo" path="res://src/resources/themes/box_select.tres" id="4_rgn82"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8g3k"]
 

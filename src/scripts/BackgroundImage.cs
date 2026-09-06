@@ -4,15 +4,28 @@ namespace StellaGame;
 
 public partial class BackgroundImage : TextureRect
 {
-    public void Set(string imageName)
+    [Export]
+    public Game Game { get; set; }
+
+    public void Load()
     {
-        if (imageName == "none")
+        Set("none", false);
+        Set(Game.State.ActiveSlot.CurrentBackgroundImage, false);
+    }
+
+    public void Set(string imageName, bool save = true)
+    {
+        if (imageName == "none" || imageName == null)
         {
             Texture = null;
         }
-        else if (AssetManager.GetBackground(imageName, out var image))
+        else if (AssetLibrary.GetBackground(imageName, out var image))
         {
             Texture = image;
+            if (save)
+            {
+                Game.State.ActiveSlot.CurrentBackgroundImage = imageName;
+            }
         }
         else
         {

@@ -4,29 +4,51 @@ namespace StellaGame;
 
 public partial class AudioPlayer : AudioStreamPlayer
 {
-    public AudioStreamPlaybackPolyphonic Playback { get; set; }
+    [Export]
+    public Game Game { get; set; }
 
-    private long currentSongStreamId;
-
-    private string currentSongName;
-
-    public override void _Ready()
+    public AudioStreamPlaybackPolyphonic Playback
     {
-        Play();
-        Playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+        get
+        {
+            if (_playback == null)
+            {
+                Play();
+                _playback = GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+            }
+            return _playback;
+        }
     }
 
-    public void PlayMusic(string songName)
+    private long currentSongStreamId = 0;
+
+    private AudioStreamPlaybackPolyphonic _playback = null;
+
+    public void Load()
     {
-        if (currentSongName != null && currentSongName == songName)
+        StopMusic();
+        PlayMusic(Game.State.ActiveSlot.CurrentSong, false);
+    }
+
+    public void PlayMusic(string songName, bool save = true)
+    {
+        if (songName == null)
+        {
+            StopMusic();
+        }
+        if (save && Game.State.ActiveSlot.CurrentSong != null && Game.State.ActiveSlot.CurrentSong == songName)
         {
             return;
         }
-        if (AssetManager.GetMusic(songName, out var song))
+        if (AssetLibrary.GetMusic(songName, out var song))
         {
             StopMusic();
             currentSongStreamId = Playback.PlayStream(song);
-            currentSongName = songName;
+
+            if (save)
+            {
+                Game.State.ActiveSlot.CurrentSong = songName;
+            }
         }
         else
         {
@@ -36,7 +58,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void StopMusic()
     {
-        if (Playback.IsStreamPlaying(currentSongStreamId))
+        if (Playback != null && Playback.IsStreamPlaying(currentSongStreamId))
         {
             Playback.StopStream(currentSongStreamId);
         }
@@ -44,7 +66,7 @@ public partial class AudioPlayer : AudioStreamPlayer
 
     public void PlaySound(string soundName)
     {
-        if (AssetManager.GetSound(soundName, out var sound))
+        if (AssetLibrary.GetSound(soundName, out var sound))
         {
             Playback.PlayStream(sound);
         }
